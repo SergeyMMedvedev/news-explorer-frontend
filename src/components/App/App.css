@@ -1,0 +1,25 @@
+.page {
+  border: 1px solid red;
+  /* background-image: url('../../images/main-theme.jpg');
+  background-size: cover;
+  background-repeat: no-repeat; */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  max-width: 100vw;
+  background-color: #F5F6F7;
+}
+
+.page__backgrount-container {
+  /* max-width: 1440px; */
+  /* margin: 0 auto; */
+  /* TODO max-height */
+  /* height: 700px; */
+  /* padding: 0 104px;
+  border: 1px solid red; */
+  background-image: url('../../images/main-theme.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100vw;
+
+}
+

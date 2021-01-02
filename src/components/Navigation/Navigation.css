@@ -1,0 +1,52 @@
+.navigation__container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.navigation__link {
+  font-family: 'Roboto', Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.33;
+  margin-left: 34px;
+  text-align: center;
+  min-height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.navigation__link:hover {
+  cursor: url('../../images/ponter.svg'), default;
+}
+
+.navigation__link:hover::after {
+  content: '';
+  border-bottom: 3px solid #fff;
+  height: 3px;
+  width: 100%;
+  position: absolute;
+  bottom: -29px;
+  left: 0;
+}
+
+.navigation__button {
+  font-family: 'Roboto', Arial, sans-serif;
+  font-size: 18px;
+  color: inherit;
+  line-height: 1.33;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 12px 18px;
+  border-radius: 24px;
+  min-height: auto;
+  margin-left: 32px;
+  transition: border-color .3s ease-in-out;
+  background-color: transparent;
+}
+
+.navigation__button:hover {
+  cursor: url('../../images/ponter.svg'), default;
+  border: 1px solid #fff;
+}

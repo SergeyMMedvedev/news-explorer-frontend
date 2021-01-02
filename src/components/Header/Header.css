@@ -1,0 +1,25 @@
+.header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1232px;
+  margin: 0 auto;
+  padding: 0 104px;
+}
+
+.header_main-theme {
+  color: #fff;
+}
+
+.header__title {
+  font-family: 'RobotoSlab', Arial, sans-serif;
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.header__navigation-container {
+  min-width: 100px;
+  width: fit-content;
+}

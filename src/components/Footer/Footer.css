@@ -1,0 +1,63 @@
+.footer {
+  max-width: 1232px;
+  margin: 0 auto;
+  padding: 0 104px;
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer__copyright {
+  font-family: 'Roboto', Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.375;
+  color: #b6bcbf;
+}
+
+.footer__navigation {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.footer__navigation-item:first-child {
+  padding: 0 12px;
+}
+
+.footer__navigation-item:nth-child(2) {
+  padding-right: 32px;
+}
+
+
+
+.footer__navigation-link {
+  font-family: 'Roboto', Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.33;
+  text-decoration: none;
+  color: #1a1b22;
+  margin-left: 26px;
+  display: block;
+}
+
+.footer__navigation-link:hover {
+  cursor: url('../../images/ponter.svg'), default;
+}
+
+.footer__github {
+  background-image: url('../../images/github.svg');
+  width: 24px;
+  height: 24px;
+  /* margin-left: 40px; */
+}
+
+.footer__facebook {
+  background-image: url('../../images/fb.svg');
+  width: 24px;
+  height: 24px;
+  /* margin-left: 28px; */
+
+}
