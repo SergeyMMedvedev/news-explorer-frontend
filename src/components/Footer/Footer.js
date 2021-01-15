@@ -2,9 +2,9 @@ import './Footer.css';
 
 function Footer() {
   return (
-    <div className='footer'>
+    <div className='section footer'>
       <p className='footer__copyright'>© 2020 Supersite, Powered by News API</p>
-      <div className='footer__links'>
+      {/* <div className='footer__links'> */}
 
         <ul className='footer__navigation'>
           <li className='footer__navigation-item'>
@@ -24,7 +24,7 @@ function Footer() {
             </a>
           </li>
         </ul>
-      </div>
+      {/* </div> */}
     </div>
   )
 }

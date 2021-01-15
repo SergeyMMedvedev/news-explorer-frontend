@@ -1,42 +1,67 @@
 import './NewsCardList.css';
 import NewsCard from '../NewsCard/NewsCard';
-import cardimage1 from '../../images/image_08.jpg';
-import cardimage2 from '../../images/image_04.jpg';
-import cardimage3 from '../../images/image_07.jpg';
+import { 
+  useState,
+  useRef, 
+  useEffect
+} from 'react';
 
-function NewsCardList() {
+function NewsCardList({ mainPage, cards,}) {
 
-  console.log(cardimage1)
-  console.log(cardimage2)
-  console.log(cardimage3)
+  const [mainPageCards, setMainPageCards] = useState([]);
+  const [savedNewsCards, setSavedNewsCards] = useState(cards);
+  const [savedNewsCardsLength, setSavedNewsCardsLength] = useState(cards.length);
 
+  useEffect(()=> {
+    if (cards.length > 3) {
+      setMainPageCards(cards.slice(0, 3))
+    } else {
+      setMainPageCards(cards)
+    }
+  }, [])
 
+  function showMoreCards() {
+    if ((mainPageCards.length + 3) <= cards.length) {
+      setMainPageCards(cards.slice(0, mainPageCards.length + 3))
+    } else {
+      setMainPageCards(cards)
+    }
+  }
+
+  function handleNewsCardDelete(card) {
+    console.log(savedNewsCards.indexOf(card))
+    console.log('before', savedNewsCards)
+    // savedNewsCards.splice(savedNewsCards.indexOf(card), 1)
+    const delcard = savedNewsCards.splice(savedNewsCards.indexOf(card), 1)
+    console.log('delcard', delcard)
+    const newCards = savedNewsCards
+    console.log('newCards', newCards)
+    setSavedNewsCards(savedNewsCards)
+    setSavedNewsCardsLength(savedNewsCards.length)
+  }
 
   return (
-    <section className='newscardlist'>
-      <h2 className='newscardlist__title'>Результаты поиска</h2>
+    <section className='section newscardlist'>
+      {mainPage && <h2 className='newscardlist__title section-title'>Результаты поиска</h2>}
       <ul className='newscardlist__elements'>
-        <NewsCard
-          image={cardimage1}
-          title='Национальное достояние – парки'
-          text='В 2016 году Америка отмечала важный юбилей: сто лет назад здесь начала складываться система национальных парков – охраняемых территорий, где и сегодня каждый может приобщиться к природе.'
-          source='ЛЕНТА.РУ'
-        />
-        <NewsCard
-          image={cardimage2}
-          title='Лесные огоньки: история одной фотографии'
-          text='Фотограф отвлеклась от освещения суровой политической реальности Мексики, чтобы запечатлеть ускользающую красоту одного 
-          из местных чудес природы.'
-          source='МЕДУЗА'
-        />
-        <NewsCard
-          image={cardimage3}
-          title='«Первозданная тайга»: новый фотопроект Игоря Шпиленка'
-          text='Знаменитый фотограф снимает первозданные леса России, чтобы рассказать о необходимости их сохранения. В этот раз он отправился в Двинско-Пинежскую тайгу, где...'
-          source='РИА'
-        />
+        {(mainPage ? mainPageCards : savedNewsCards).map((card, i) => (
+          <NewsCard
+            key={i}
+            mainPage={mainPage}
+            pubDate={card.publishedAt}
+            image={card.urlToImage}
+            title={card.title}
+            text={card.description}
+            source={card.source.name}
+            url={card.url}
+            keyword={card.tag}
+            onDelete={handleNewsCardDelete}
+            card={card}
+            savedNewsCards={savedNewsCards}
+          />
+        ))}
       </ul>
-      <button className='newscardlist__show-more-button'>Показать еще</button>
+      {mainPage && <button onClick={showMoreCards} className='newscardlist__show-more-button'>Показать еще</button>}
     </section>
 
   )

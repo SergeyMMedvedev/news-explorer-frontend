@@ -1,6 +1,8 @@
-.section {
-    max-width: 1232px;
-    margin: 0 auto;
-    padding: 0 104px;
-    border: 1px solid red;
+.backgrount-container {
+  margin: 0 auto;
+  background-image: url('../../images/main-theme.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
 }

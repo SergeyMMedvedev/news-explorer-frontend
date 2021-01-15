@@ -1,15 +1,29 @@
 import './Main.css';
-// import SearchForm from '../SearchForm/SearchForm';
-import NewCardList from '../NewsCardList/NewsCardList';
+import Header from '../Header/Header';
+import SearchForm from '../SearchForm/SearchForm';
+import NewsCardList from '../NewsCardList/NewsCardList';
 import About from '../About/About';
 
-function Main() {
-  return (
-    <main className='section'>
-      <NewCardList />
-      <About />
 
-    </main>
+function Main({ onLoginClick, cards, }) {
+
+  return (
+    <>
+      <div className='backgrount-container'>
+        <Header
+          onLoginClick={onLoginClick}
+        />
+        <SearchForm />
+      </div>
+
+      <NewsCardList
+        mainPage
+        cards={cards}
+      />
+
+
+      <About />
+    </>
   )
 }
 
