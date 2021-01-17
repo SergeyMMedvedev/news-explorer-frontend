@@ -1,50 +1,94 @@
 import './NewsCardList.css';
 import NewsCard from '../NewsCard/NewsCard';
-import { 
+import {
   useState,
-  useRef, 
-  useEffect
+  useEffect,
+  useRef,
+  useContext,
 } from 'react';
 
-function NewsCardList({ mainPage, cards,}) {
+import cardSwitchAnimation from '../../utils/switchAnimation';
+import { CurrentMaxWidthContext } from '../../context/CurrentMaxWidthContext';
+
+function NewsCardList({ mainPage, cards, onDelete }) {
+
+  const maxWidth = useContext(CurrentMaxWidthContext);
 
   const [mainPageCards, setMainPageCards] = useState([]);
-  const [savedNewsCards, setSavedNewsCards] = useState(cards);
-  const [savedNewsCardsLength, setSavedNewsCardsLength] = useState(cards.length);
+  const [newsCardListHeight, setNewsCardListHeight] = useState('auto');
+  const [minSowCardIndex, setMinSowCardIndex] = useState(0);
+  const [maxSowCardIndex, setMaxSowCardIndex] = useState(3);
 
-  useEffect(()=> {
+  useEffect(() => {
     if (cards.length > 3) {
-      setMainPageCards(cards.slice(0, 3))
+
+      for (let i = 3; i < cards.length; i++) {
+        cards[i].invisible = true
+      }
+
+      setMainPageCards(cards)
     } else {
       setMainPageCards(cards)
     }
   }, [])
 
+  const newsCardListRef = useRef();
+  const newsCardListSectionRef = useRef();
+
   function showMoreCards() {
-    if ((mainPageCards.length + 3) <= cards.length) {
-      setMainPageCards(cards.slice(0, mainPageCards.length + 3))
+    console.log('showMoreCards');
+    console.log(newsCardListRef.current.children);
+    // var arrCards = Array.prototype.slice.call( newsCardListRef.current.children )
+    // arrCards.slice(minSowCardIndex,maxSowCardIndex).forEach((card) => {
+    //   card.classList.add('newscard_show')
+    // });
+
+    if (maxWidth <= 680) {
+      setMinSowCardIndex(minSowCardIndex + 1)
+      setMaxSowCardIndex(maxSowCardIndex + 1)
     } else {
-      setMainPageCards(cards)
+      setMinSowCardIndex(minSowCardIndex + 3)
+      setMaxSowCardIndex(maxSowCardIndex + 3)
     }
+
+
+
+    // newsCardListSectionRef.current.scrollIntoView({
+    //   behavior: "smooth",
+    //   block:   "end",
+    // })
   }
 
-  function handleNewsCardDelete(card) {
-    console.log(savedNewsCards.indexOf(card))
-    console.log('before', savedNewsCards)
-    // savedNewsCards.splice(savedNewsCards.indexOf(card), 1)
-    const delcard = savedNewsCards.splice(savedNewsCards.indexOf(card), 1)
-    console.log('delcard', delcard)
-    const newCards = savedNewsCards
-    console.log('newCards', newCards)
-    setSavedNewsCards(savedNewsCards)
-    setSavedNewsCardsLength(savedNewsCards.length)
-  }
+  useEffect(() => {
+    var arrCards = Array.prototype.slice.call(newsCardListRef.current.children)
+    // arrCards.slice(minSowCardIndex, maxSowCardIndex).forEach((card) => {
+    //   card.classList.add('newscard_show')
+    // });
+
+    const newCards = arrCards.slice(minSowCardIndex, maxSowCardIndex)
+    console.log(newCards)
+    if (newCards.length !== 0) {
+      newCards[0] && newCards[0].classList.add('newscard_show')
+      newCards[1] && newCards[1].classList.add('newscard_show', 'newscard_show-delay1')
+      newCards[2] && newCards[2].classList.add('newscard_show', 'newscard_show-delay2')
+    }
+
+    if (mainPage && minSowCardIndex > 0) {
+      newsCardListSectionRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+      })
+    }
+  }, [minSowCardIndex, maxSowCardIndex])
+
+
+
 
   return (
-    <section className='section newscardlist'>
+    <section ref={newsCardListSectionRef} className='section newscardlist'>
       {mainPage && <h2 className='newscardlist__title section-title'>Результаты поиска</h2>}
-      <ul className='newscardlist__elements'>
-        {(mainPage ? mainPageCards : savedNewsCards).map((card, i) => (
+      <ul ref={newsCardListRef} className={cardSwitchAnimation((mainPage ? mainPageCards : cards), 'newscardlist__elements')}>
+        {(mainPage ? mainPageCards : cards).map((card, i) => (
           <NewsCard
             key={i}
             mainPage={mainPage}
@@ -55,14 +99,16 @@ function NewsCardList({ mainPage, cards,}) {
             source={card.source.name}
             url={card.url}
             keyword={card.tag}
-            onDelete={handleNewsCardDelete}
+            onDelete={onDelete}
             card={card}
-            savedNewsCards={savedNewsCards}
+            cardHiddenClass={card.invisible && mainPage}
+
           />
         ))}
       </ul>
       {mainPage && <button onClick={showMoreCards} className='newscardlist__show-more-button'>Показать еще</button>}
     </section>
+
 
   )
 }

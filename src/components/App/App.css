@@ -1,3 +1,11 @@
+.switchAnimation{
+  animation: switch .5s ease-in-out forwards 1 running;
+}
+
+.switchAnimation2{
+  animation: switch2 .5s ease-in-out forwards 1 running;
+}
+
 .page {
   /* background-image: url('../../images/main-theme.jpg');
   background-size: cover;
@@ -64,6 +72,10 @@
   background-color: #2a65cc;
 }
 
+.svg__path {
+  transition: all 0.3s ease-in-out;
+}
+
 @media (max-width: 1023px) {
   .section-title {
     font-size: 30px;
@@ -80,3 +92,23 @@
     padding: 0 16px;
   }
 }
+
+@keyframes switch {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes switch2 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+

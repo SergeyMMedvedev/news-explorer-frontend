@@ -107,7 +107,7 @@
     font-size: 18px;
     margin-left: 0;
     padding: 16px 0;
-    
+    color: inherit;
   }
 
   .navigation__button {
@@ -120,6 +120,10 @@
     margin-left: 0;
     padding: 15px 18px 17px 15px;
     border-radius: 32px;
+
+    color: inherit;
+    /* border-color: inherit; */
+
     align-self: center;
     width: 100%;
 

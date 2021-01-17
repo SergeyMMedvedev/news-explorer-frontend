@@ -30,10 +30,12 @@ function App() {
       setMaxWidth(1280)
     } else if (1024 <= width && width < 1280) {
       setMaxWidth(1024)
-    } else if (680 <= width && width < 1024) {
+    } else if (768 <= width && width < 1024) {
       setMaxWidth(768)
-    } else if (480 <=width && width < 680) {
+    } else if (680 <= width && width < 768) {
       setMaxWidth(680)
+    } else if (480 <=width && width < 680) {
+      setMaxWidth(480)
     } else if (width < 480) {
       setMaxWidth(320)
     }   
@@ -61,6 +63,7 @@ function App() {
 
 
   function handleLoginClick() {
+    console.log('handleLoginClick')
     setIsOpenPopupLogin(true)
   }
 
@@ -97,13 +100,16 @@ function App() {
             <Main
               onLoginClick={handleLoginClick}
               cards={cards}
+              isPopupOpen={isOpenPopupLogin || isOpenPopupRegister}
             />
           </Route>
 
           <Route path='/saved-news'>
             <SavedNews
-              cards={savedCards}
               savedNewsTheme
+              onLoginClick={handleLoginClick}
+              cards={savedCards}
+              isPopupOpen={isOpenPopupLogin || isOpenPopupRegister}
             />
           </Route>
 

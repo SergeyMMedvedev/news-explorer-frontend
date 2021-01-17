@@ -5,13 +5,14 @@ import NewsCardList from '../NewsCardList/NewsCardList';
 import About from '../About/About';
 
 
-function Main({ onLoginClick, cards, }) {
+function Main({ onLoginClick, cards, isPopupOpen }) {
 
   return (
     <>
       <div className='backgrount-container'>
         <Header
           onLoginClick={onLoginClick}
+          isPopupOpen={isPopupOpen}
         />
         <SearchForm />
       </div>

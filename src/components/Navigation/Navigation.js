@@ -1,9 +1,13 @@
 import './Navigation.css';
 import { NavLink } from 'react-router-dom';
+import { useContext } from 'react';
+import { CurrentMaxWidthContext } from '../../context/CurrentMaxWidthContext';
 
 function Navigation({ savedNewsTheme, onLoginClick }) {
-  const navigationTheme = savedNewsTheme ? ' saved-news-theme' : '';
-  const navigationButtonTheme = savedNewsTheme ? ' saved-news-theme_hover' : '';
+
+  const maxWidth = useContext(CurrentMaxWidthContext)
+  const navigationTheme = (savedNewsTheme && maxWidth > 320) ? ' saved-news-theme' : '';
+  const navigationButtonTheme = (savedNewsTheme && maxWidth > 320) ? ' saved-news-theme_hover' : '';
   
   return (
     <nav className='navigation__container'>

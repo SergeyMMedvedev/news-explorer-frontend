@@ -1,6 +1,6 @@
 function getNumberEnding(number) {
   const stringNumber = number.toString();
-  if (number < 100) {
+  if (1 <= number && number < 100) {
     if (stringNumber.endsWith('1')) {
       return `${number}-у`
     } else if (10 <= number && number <= 20) {
@@ -15,7 +15,20 @@ function getNumberEnding(number) {
   }
 }
 
-export default function getKeyWords(cards) {
+export function getNumberForSavedNews(number) {
+  const stringNumber = number.toString();
+  if (stringNumber.endsWith('1')) {
+    return 'сохраненная статья'
+  } else if (10 <= number && number <= 20) {
+    return 'сохраненных статей'
+  } else if (['2', '3', '4'].includes(stringNumber[stringNumber.length - 1])) {
+    return 'сохраненные статьи'
+  } else {
+    return 'сохраненных статей'
+  }
+}
+
+export function getKeyWords(cards) {
   const keywords = []
   cards.forEach((card) => {
     if (card.tag) {
@@ -24,6 +37,7 @@ export default function getKeyWords(cards) {
       }
     }
   });
+
   if (keywords.length === 1) {
     return (
       <span>

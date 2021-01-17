@@ -7,13 +7,19 @@
   color: #fff;
   position: relative;
   z-index: 3;
-  transition: background-color .2s ease-in-out;
+  transition: background-color .2s ease-in-out,
+              opacity .5s ease-in-out;
+}
+
+.header_popupOpen {
+  opacity: 0;
 }
 
 .header__title {
   font-family: 'RobotoSlab', Arial, sans-serif;
   font-size: 20px;
   line-height: 1.2;
+  transition: color .5s ease-in-out;
 }
 
 .header__navigation-container {
@@ -21,17 +27,23 @@
   width: fit-content;
 }
 
-
-
 .header__navigation-extend-button {
   width: 24px;
   height: 24px;
-  background-image: url('../../images/menu.svg');
+  transition: opacity .3s ease-in-out;
+  /* background-image: url('../../images/menu.svg'); */
+}
+
+.header__navigation-extend-button:hover {
+  opacity: .5;
+  cursor: url('../../images/ponter.svg'), default;
 }
 
 .header__navigation-extend-button_open {
   background-image: url('../../images/close.svg');
 }
+
+
 
 .header__extend-background {
   background-color: rgb(0, 0, 0);
@@ -79,17 +91,24 @@
   .header__navigation-container {
     position: absolute;
     left: 0;
-    top: 0;
-    height: 230px;
+    /* top: 0; */
+    top: 56px;
+    /* height: 230px; */
+    height: 0;
     padding: 16px 0 24px 0;
     width: 100%;
     z-index: -1;
-    transform: translate(0, -174px);
+    color: rgba(255, 255, 255, 0);
+    /* border-color: rgba(255, 255, 255, 0); */
+    /* transform: translate(0, -174px); */
     transition: height .5s ease-in-out, 
                 transform .5s ease-in-out, 
                 background-color .5s ease-in-out, 
                 opacity .5s ease-in-out,
-                visibility .5s ease-in-out;
+                color .5s ease-in-out 0.3s,
+                visibility .5s ease-in-out; 
+                /* 
+                border-color .5s ease-in-out 1s; */
     box-sizing: border-box;
     opacity: 0;
     visibility: hidden;
@@ -98,9 +117,12 @@
   }
 
   .header__navigation-container_mobile-open {
-    transform: translate(0, 56px);
+    /* transform: translate(0, 56px); */
+    color: rgba(255, 255, 255, 1);
+    /* border-color: rgba(255, 255, 255, .5); */
     background-color: #1a1b22;
     opacity: 1;
     visibility: visible;
+    height: 230px;
   }
 }
