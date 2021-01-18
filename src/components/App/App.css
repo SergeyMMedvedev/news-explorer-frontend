@@ -1,10 +1,4 @@
-.switchAnimation{
-  animation: switch .5s ease-in-out forwards 1 running;
-}
 
-.switchAnimation2{
-  animation: switch2 .5s ease-in-out forwards 1 running;
-}
 
 .page {
   /* background-image: url('../../images/main-theme.jpg');
@@ -93,7 +87,7 @@
   }
 }
 
-@keyframes switch {
+@keyframes appear {
   0% {
     opacity: 0;
   }
@@ -102,13 +96,19 @@
   }
 }
 
-@keyframes switch2 {
+.appearAnimation{
+  animation: appear .5s ease-out forwards 1 running;
+}
+
+@keyframes disappear {
   0% {
-    opacity: 0;
+    opacity: 1;
   }
   100% {
-    opacity: 1;
+    opacity: 0;
   }
 }
 
-
+.disappearAnimation {
+  animation: disappear .3s ease-in forwards 1 running;
+}

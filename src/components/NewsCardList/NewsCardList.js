@@ -10,7 +10,7 @@ import {
 import cardSwitchAnimation from '../../utils/switchAnimation';
 import { CurrentMaxWidthContext } from '../../context/CurrentMaxWidthContext';
 
-function NewsCardList({ mainPage, cards, onDelete }) {
+function NewsCardList({ mainPage, cards, onDelete, disappear }) {
 
   const maxWidth = useContext(CurrentMaxWidthContext);
 
@@ -82,12 +82,28 @@ function NewsCardList({ mainPage, cards, onDelete }) {
   }, [minSowCardIndex, maxSowCardIndex])
 
 
+  useEffect(()=> {
+    // console.log('subtitleRef.current', subtitleRef.current)
+    if (newsCardListRef.current) {
+      if (disappear) {
+        newsCardListRef.current.classList.add('disappearAnimation')
+        newsCardListRef.current.classList.remove('appearAnimation')
+
+      } else {
+        newsCardListRef.current.classList.remove('disappearAnimation')
+        newsCardListRef.current.classList.add('appearAnimation')
+      }
+    }
+  }, [disappear])
+
+
 
 
   return (
     <section ref={newsCardListSectionRef} className='section newscardlist'>
       {mainPage && <h2 className='newscardlist__title section-title'>Результаты поиска</h2>}
-      <ul ref={newsCardListRef} className={cardSwitchAnimation((mainPage ? mainPageCards : cards), 'newscardlist__elements')}>
+      {/* <ul ref={newsCardListRef} className={cardSwitchAnimation((mainPage ? mainPageCards : cards), 'newscardlist__elements')}> */}
+      <ul ref={newsCardListRef} className='newscardlist__elements appearAnimation'>
         {(mainPage ? mainPageCards : cards).map((card, i) => (
           <NewsCard
             key={i}
@@ -102,7 +118,6 @@ function NewsCardList({ mainPage, cards, onDelete }) {
             onDelete={onDelete}
             card={card}
             cardHiddenClass={card.invisible && mainPage}
-
           />
         ))}
       </ul>

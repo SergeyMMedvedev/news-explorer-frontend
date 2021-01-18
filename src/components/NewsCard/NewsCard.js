@@ -106,7 +106,9 @@ function NewsCard({
 
   }, [maxWidth])
 
-  function handleDelete() {
+  function handleDelete(evt) {
+    evt.currentTarget.disabled = 'true'
+    console.log(evt.currentTarget)
     onDelete(card)
   }
 
@@ -131,7 +133,7 @@ function NewsCard({
           <div className='newscard__button-hint-container'>
             <p className={hintClassName}>Войдите, чтобы сохранять статьи</p>
           </div>
-          <button onMouseLeave={handleMouseLeave} onMouseOver={handleMouseOver} className='newscard__button'>
+          <button onMouseLeave={handleMouseLeave} onMouseOver={handleMouseOver} className='newscard__button' >
             <SaveIcon />
           </button>
         </div>

@@ -12,6 +12,10 @@
   margin: 0 0 28px 0;
 }
 
+.saved-news-header__subtitle {
+  transition: opacity .2s ease-in-out;
+}
+
 .saved-news-header__keywords {
   font-family: 'Roboto', Arial, sans-serif;
   font-weight: 400;
