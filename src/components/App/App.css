@@ -1,4 +1,28 @@
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 
+.appearAnimation {
+  animation: appear .5s ease-out forwards 1 running;
+}
+
+@keyframes disappear {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.disappearAnimation {
+  animation: disappear .3s ease-in forwards 1 running;
+}
 
 .page {
   /* background-image: url('../../images/main-theme.jpg');
@@ -70,6 +94,12 @@
   transition: all 0.3s ease-in-out;
 }
 
+@media (max-width: 1280px) {
+  .section {
+    padding: 0 80px;
+  }
+}
+
 @media (max-width: 1023px) {
   .section-title {
     font-size: 30px;
@@ -87,28 +117,4 @@
   }
 }
 
-@keyframes appear {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
 
-.appearAnimation{
-  animation: appear .5s ease-out forwards 1 running;
-}
-
-@keyframes disappear {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-.disappearAnimation {
-  animation: disappear .3s ease-in forwards 1 running;
-}

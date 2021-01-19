@@ -57,54 +57,47 @@ function NewsCard({
   const [newsCardText, setNewsCardText] = useState(text)
   const [newsCardTitle, setNewsCardTitle] = useState(title)
 
-  useEffect(() => {
+  // useEffect(() => {
 
+  //   let numOfTextLetters;
+  //   let numOfTitleLetters;
 
-    let numOfTextLetters;
-    let numOfTitleLetters;
-    // console.log('1440 < width', 1440 < maxWidth)
-    // console.log('1280 < width && width <= 1440', 1280 < maxWidth && maxWidth <= 1440)
-    // console.log('1024 < width && width <= 1280', 1024 < maxWidth && maxWidth <= 1280)
-    // console.log('680 < width && width <= 1024', 680 < maxWidth && maxWidth <= 1024)
-    // console.log('480 <width && width <= 680', 480 < maxWidth && maxWidth <= 680)
-    // console.log('width < 480', maxWidth < 480)
+  //   if (maxWidth === 1440) {
+  //     numOfTitleLetters = 60
+  //     numOfTextLetters = 150
+  //   } else if (maxWidth === 1280) {
+  //     numOfTitleLetters = 60
+  //     numOfTextLetters = 150
+  //   } else if (maxWidth === 1024) {
+  //     numOfTitleLetters = 45
+  //     numOfTextLetters = 130
+  //   } else if (maxWidth === 768) {
+  //     numOfTitleLetters = 30
+  //     numOfTextLetters = 60
+  //   } else if (maxWidth === 680) {
+  //     numOfTitleLetters = 33
+  //     numOfTextLetters = 90
+  //   } else if (maxWidth === 480) {
+  //     numOfTitleLetters = 33
+  //     numOfTextLetters = 90
+  //   } else if (maxWidth === 320) {
+  //     numOfTitleLetters = 33
+  //     numOfTextLetters = 90
+  //   }
 
-    if (maxWidth === 1440) {
-      numOfTitleLetters = 60
-      numOfTextLetters = 150
-    } else if (maxWidth === 1280) {
-      numOfTitleLetters = 60
-      numOfTextLetters = 150
-    } else if (maxWidth === 1024) {
-      numOfTitleLetters = 45
-      numOfTextLetters = 130
-    } else if (maxWidth === 768) {
-      numOfTitleLetters = 30
-      numOfTextLetters = 60
-    } else if (maxWidth === 680) {
-      numOfTitleLetters = 33
-      numOfTextLetters = 90
-    } else if (maxWidth === 480) {
-      numOfTitleLetters = 33
-      numOfTextLetters = 90
-    } else if (maxWidth === 320) {
-      numOfTitleLetters = 33
-      numOfTextLetters = 90
-    }
+  //   if (numOfTextLetters < text.length) {
+  //     setNewsCardText(`${text.slice(0, numOfTextLetters)}...`)
+  //   } else {
+  //     setNewsCardText(text)
+  //   }
 
-    if (numOfTextLetters < text.length) {
-      setNewsCardText(`${text.slice(0, numOfTextLetters)}...`)
-    } else {
-      setNewsCardText(text)
-    }
+  //   if (numOfTitleLetters < title.length) {
+  //     setNewsCardTitle(`${title.slice(0, numOfTitleLetters)}...`)
+  //   } else {
+  //     setNewsCardTitle(title)
+  //   }
 
-    if (numOfTitleLetters < title.length) {
-      setNewsCardTitle(`${title.slice(0, numOfTitleLetters)}...`)
-    } else {
-      setNewsCardTitle(title)
-    }
-
-  }, [maxWidth])
+  // }, [maxWidth])
 
   function handleDelete(evt) {
     evt.currentTarget.disabled = 'true'
