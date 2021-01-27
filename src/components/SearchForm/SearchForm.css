@@ -1,7 +1,6 @@
 .searchform {
   color: #fff;
   margin: 0 auto;
-  /* width: 42%; */
   max-width: 608px;
   padding: 80px 0;
   position: relative;
@@ -45,13 +44,16 @@
 .searchform__input::-webkit-input-placeholder {
   color: #b6bcbf;
 }
+
 .searchform__input:-ms-input-placeholder {
   color: #b6bcbf;
 }
+
 .searchform__input::-moz-placeholder {
   color: #b6bcbf;
   opacity: 1;
 }
+
 .searchform__input:-moz-placeholder { 
   color: #b6bcbf;
   opacity: 1;
@@ -67,7 +69,6 @@
 }
 
 @media (max-width: 1023px) {
-  
   .searchform {
     max-width: 448px;
     padding: 38px 0 48px 0;
@@ -101,9 +102,6 @@
   
   .searchform__form {
     background-color: transparent;
-    height: 64px;
-    border-radius: 32px;
-    display: flex;
     flex-direction: column;
     align-items: center;
     height: auto;
@@ -120,7 +118,5 @@
     width: 100%;
     padding: 15px 0 17px 0;
     margin-top: 16px;
-    /* position: relative; */
   }
-
 }

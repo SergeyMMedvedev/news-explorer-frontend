@@ -47,6 +47,32 @@
   outline: none;
 }
 
+.newscardlist__not-found-picture {
+  background-image: url('../../images/not-found_v1.svg');
+  width: 96px;
+  height: 96px;
+  margin: 0 auto;
+}
+
+.newscardlist__not-found-title {
+  font-family: 'RobotoSlab', Arial, sans-serif;
+  font-size: 26px;
+  line-height: 1.15;
+  color: #1a1b22;
+  margin: 30px auto 0 auto;
+  width: fit-content;
+}
+
+.newscardlist__not-found-text {
+  font-family: 'Roboto', Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.33;
+  color: #b6bcbf;
+  margin: 16px auto 0 auto;
+  max-width: 356px;
+  text-align: center;
+}
+
 @media (max-width: 1439px) {
   .newscardlist__elements {
     grid-template-columns: repeat(3, 1fr);

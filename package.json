@@ -17,15 +17,36 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "deploy": "npm run build && scp -r ./build/* praktikum@84.201.136.155:/home/praktikum/news-explorer-frontend", 
+    "deploy": "npm run build && scp -r ./build/* praktikum@84.201.136.155:/home/praktikum/news-explorer-frontend",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
-    ]
+      "react-app/jest",
+      "airbnb"
+    ],
+    "rules": {
+      "react/jsx-filename-extension": [
+        1,
+        {
+          "extensions": [
+            ".js",
+            "jsx"
+          ]
+        }
+      ],
+      "no-underscore-dangle": ["error", { "allow": ["_id"]}],
+      "react/forbid-prop-types": ["error", { "allow": ["object", "array"]}],
+      "jsx-a11y/click-events-have-key-events": "off",
+      "jsx-a11y/no-static-element-interactions": "off",
+      "jsx-a11y/no-noninteractive-tabindex": "off",
+      "jsx-a11y/control-has-associated-label": "off",
+      "react/prop-types": "off",
+      "no-param-reassign": "off"
+      
+    }
   },
   "browserslist": {
     "production": [
@@ -38,5 +59,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint-config-airbnb": "^18.2.1"
   }
 }

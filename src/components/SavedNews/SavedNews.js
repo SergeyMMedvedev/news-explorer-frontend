@@ -1,50 +1,34 @@
+import React, { useState } from 'react';
 import './SavedNews.css';
 import Header from '../Header/Header';
 import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader';
 import NewsCardList from '../NewsCardList/NewsCardList';
-import {
-  useState,
-  useEffect
-} from 'react';
 
-function SavedNews({ savedNewsTheme, onLoginClick, cards, isPopupOpen }) {
-
-
+function SavedNews({
+  savedNewsTheme,
+  onLoginClick,
+  cards,
+  isPopupOpen,
+  onLogoutClick,
+}) {
   const [savedNewsCards, setSavedNewsCards] = useState(cards);
-  const [savedNewsCardsLength, setSavedNewsCardsLength] = useState(cards.length);
   const [startDisappear, setStartDisappear] = useState(false);
 
-  function handleNewsCardDelete(evt, card) {
-
-
-    setStartDisappear(true)
-    // let promise = new Promise(function (resolve, reject) {
-    //   setTimeout(() => {
-    //     resolve('done')
-    //   }, 500)
-    // })
-    // promise.then(() => {
-    //   savedNewsCards.splice(savedNewsCards.indexOf(card), 1)
-    //   setSavedNewsCards(savedNewsCards)
-    //   setSavedNewsCardsLength(savedNewsCards.length)
-    //   setStartFading(false)
-    // })
-
+  function handleNewsCardDelete(card) {
+    setStartDisappear(true);
     setTimeout(() => {
-      savedNewsCards.splice(savedNewsCards.indexOf(card), 1)
-      setSavedNewsCards(savedNewsCards)
-      setSavedNewsCardsLength(savedNewsCards.length)
-      setStartDisappear(false)
-    }, 400)
-
+      savedNewsCards.splice(savedNewsCards.indexOf(card), 1);
+      setSavedNewsCards(savedNewsCards);
+      setStartDisappear(false);
+    }, 400);
   }
-
 
   return (
     <>
       <Header
         savedNewsTheme={savedNewsTheme}
         onLoginClick={onLoginClick}
+        onLogoutClick={onLogoutClick}
         isPopupOpen={isPopupOpen}
       />
       <SavedNewsHeader
@@ -56,9 +40,8 @@ function SavedNews({ savedNewsTheme, onLoginClick, cards, isPopupOpen }) {
         onDelete={handleNewsCardDelete}
         disappear={startDisappear}
       />
-
     </>
-  )
+  );
 }
 
 export default SavedNews;

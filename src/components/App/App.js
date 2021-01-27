@@ -1,146 +1,116 @@
+import React, { useState, useEffect } from 'react';
 import './App.css';
-import { Route, Switch } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-
-import { CurrentMaxWidthContext } from '../../context/CurrentMaxWidthContext';
+import { Route, Switch, useHistory } from 'react-router-dom';
+import CurrentMaxWidthContext from '../../context/CurrentMaxWidthContext';
+import CurrentUserContext from '../../context/CurrentUserContext';
 import Main from '../Main/Main';
 import SavedNews from '../SavedNews/SavedNews';
 import Footer from '../Footer/Footer';
 import PopupLogin from '../PopupLogin/PopupLogin';
 import PopupRegister from '../PopupRegister/PopupRegister';
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
-
+import setMediaQuery from '../../utils/setMediaQuery';
 import { cards, savedCards } from '../../db/cards';
 
 function App() {
-
   const [isOpenPopupLogin, setIsOpenPopupLogin] = useState(false);
   const [isOpenPopupRegister, setIsOpenPopupRegister] = useState(false);
-  const [isOpenInfoTooltip, setIsOpenInfoTooltip] = useState(true);
+  const [isOpenInfoTooltip, setIsOpenInfoTooltip] = useState(false);
+  const [currentUser, setCurrentUser] = useState({});
   const [maxWidth, setMaxWidth] = useState();
+  const history = useHistory();
 
+  window.onresize = () => {
+    setMediaQuery(window.innerWidth, setMaxWidth);
+  };
 
-  window.onresize = (evt) => {
-    // let width = window.visualViewport.width
-    // console.log(window.visualViewport.width)
-    let width = window.innerWidth
-    if (1440 <= width) {
-      setMaxWidth(1440)
-    } else if (1280 <= width && width < 1440 ) {
-      setMaxWidth(1280)
-    } else if (1024 <= width && width < 1280) {
-      setMaxWidth(1024)
-    } else if (768 <= width && width < 1024) {
-      setMaxWidth(768)
-    } else if (680 <= width && width < 768) {
-      setMaxWidth(680)
-    } else if (480 <=width && width < 680) {
-      setMaxWidth(480)
-    } else if (width < 480) {
-      setMaxWidth(320)
-    }   
-  }
-
-  useEffect(()=> {
-    // let width = window.visualViewport.width
-    let width = window.innerWidth
-    if (1440 <= width) {
-      setMaxWidth(1440)
-    } else if (1280 <= width && width < 1440 ) {
-      setMaxWidth(1280)
-    } else if (1024 <= width && width < 1280) {
-      setMaxWidth(1024)
-    } else if (680 <= width && width < 1024) {
-      setMaxWidth(768)
-    } else if (480 <=width && width < 680) {
-      setMaxWidth(680)
-    } else if (width < 480) {
-      setMaxWidth(320)
-    }    
-  }, [])
-
-
-
+  useEffect(() => {
+    setMediaQuery(window.innerWidth, setMaxWidth);
+  }, []);
 
   function handleLoginClick() {
-    console.log('handleLoginClick')
-    setIsOpenPopupLogin(true)
+    setIsOpenPopupLogin(true);
+  }
+
+  function handleLogoutClick() {
+    setCurrentUser({});
+    history.push('/');
   }
 
   function handleRegistrationClick() {
-    setIsOpenPopupRegister(true)
+    setIsOpenPopupRegister(true);
   }
 
   function closeAllPopups() {
-    setIsOpenPopupLogin(false)
-    setIsOpenPopupRegister(false)
-    setIsOpenInfoTooltip(false)
+    setIsOpenPopupLogin(false);
+    setIsOpenPopupRegister(false);
+    setIsOpenInfoTooltip(false);
   }
 
   useEffect(() => {
     function handleEscClose(evt) {
       if (evt.key === 'Escape') {
-        closeAllPopups()
+        closeAllPopups();
       }
     }
     document.addEventListener('keydown', handleEscClose);
 
     return () => {
       document.removeEventListener('keydown', handleEscClose);
-    }
-
-  }, [])
+    };
+  }, []);
 
   return (
-    <div className='page'>
-      <CurrentMaxWidthContext.Provider value={maxWidth}>
-        <Switch>
+    <div className="page">
+      <CurrentUserContext.Provider value={currentUser}>
+        <CurrentMaxWidthContext.Provider value={maxWidth}>
+          <Switch>
 
-          <Route exact path='/'>
-            <Main
-              onLoginClick={handleLoginClick}
-              cards={cards}
-              isPopupOpen={isOpenPopupLogin || isOpenPopupRegister}
-            />
-          </Route>
+            <Route exact path="/">
+              <Main
+                onLoginClick={handleLoginClick}
+                onLogoutClick={handleLogoutClick}
+                cards={cards}
+                isPopupOpen={isOpenPopupLogin || isOpenPopupRegister || isOpenInfoTooltip}
+              />
+            </Route>
 
-          <Route path='/saved-news'>
-            <SavedNews
-              savedNewsTheme
-              onLoginClick={handleLoginClick}
-              cards={savedCards}
-              isPopupOpen={isOpenPopupLogin || isOpenPopupRegister}
-            />
-          </Route>
+            <Route path="/saved-news">
+              <SavedNews
+                savedNewsTheme
+                onLoginClick={handleLoginClick}
+                onLogoutClick={handleLogoutClick}
+                cards={savedCards}
+                isPopupOpen={isOpenPopupLogin || isOpenPopupRegister || isOpenInfoTooltip}
+              />
+            </Route>
 
-        </Switch>
+          </Switch>
 
-        <PopupLogin
-          isOpen={isOpenPopupLogin}
-          onClose={closeAllPopups}
-          onSwitchPopupClick={handleRegistrationClick}
-        />
+          <PopupLogin
+            isOpen={isOpenPopupLogin}
+            onClose={closeAllPopups}
+            onSwitchPopupClick={handleRegistrationClick}
+            onUpdateUser={setCurrentUser}
+          />
 
-        <PopupRegister
-          isOpen={isOpenPopupRegister}
-          onClose={closeAllPopups}
-          onSwitchPopupClick={handleLoginClick}
-        />
+          <PopupRegister
+            isOpen={isOpenPopupRegister}
+            onClose={closeAllPopups}
+            onSwitchPopupClick={handleLoginClick}
+          />
 
-        <InfoTooltip
-          isOpen={isOpenInfoTooltip}
-          onClose={closeAllPopups}
-          onSwitchPopupClick={handleLoginClick}
-        />
+          <InfoTooltip
+            isOpen={isOpenInfoTooltip}
+            onClose={closeAllPopups}
+            onSwitchPopupClick={handleLoginClick}
+          />
 
-
-
-
-        <Footer />
-      </CurrentMaxWidthContext.Provider>
-
+          <Footer />
+        </CurrentMaxWidthContext.Provider>
+      </CurrentUserContext.Provider>
     </div>
-  )
+  );
 }
 
 export default App;

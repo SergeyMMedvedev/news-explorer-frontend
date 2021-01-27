@@ -1,56 +1,7 @@
-@keyframes appear {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-.appearAnimation {
-  animation: appear .5s ease-out forwards 1 running;
-}
-
-@keyframes disappear {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-.disappearAnimation {
-  animation: disappear .3s ease-in forwards 1 running;
-}
-
 .page {
-  /* background-image: url('../../images/main-theme.jpg');
-  background-size: cover;
-  background-repeat: no-repeat; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* max-width: 100%; */
-  
 }
-
-/* .page__backgrount-container { */ 
-  /* max-width: 1440px; */
-  /* margin: 0 auto; */
-  /* TODO max-height */
-  /* height: 700px; */
-  /* padding: 0 104px;
-  border: 1px solid red; */
-  /* background-image: url('../../images/main-theme.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  width: 100%; */
-  /* height: 100vh;
-  position: absolute;
-  z-index: 0;
-  top: 0px;
-  left: 0;
-/* } */
 
 .section {
   max-width: 1440px;
@@ -94,7 +45,7 @@
   transition: all 0.3s ease-in-out;
 }
 
-@media (max-width: 1280px) {
+@media (max-width: 1279px) {
   .section {
     padding: 0 80px;
   }
@@ -116,5 +67,3 @@
     padding: 0 16px;
   }
 }
-
-

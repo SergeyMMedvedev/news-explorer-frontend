@@ -1,151 +1,106 @@
 import './NewsCard.css';
-import {
+import React, {
   useState,
   useRef,
-  useEffect,
   useContext,
 } from 'react';
 
-import { CurrentMaxWidthContext } from '../../context/CurrentMaxWidthContext';
-import { cards } from '../../db/cards';
 import SaveIcon from '../svg/SaveIcon';
 import DeleteIcon from '../svg/DeleteIcon';
+import returnNewsPubDate from '../../utils/returnNewsPubDate';
+import CurrentUserContext from '../../context/CurrentUserContext';
 
 function NewsCard({
   mainPage,
   image,
-  title,
-  text,
   source,
   pubDate,
   url,
   keyword,
   onDelete,
   card,
-  cardHiddenClass
+  cardHiddenClass,
 }) {
-  const monthNames = ["января", "февраля", "марта", "апреля", "мая", "июня",
-    "июля", "авгута", "сентября", "октября", "ноября", "декабря"
-  ];
-
-  const maxWidth = useContext(CurrentMaxWidthContext);
-
-
-  const date = new Date(pubDate)
-  const newsPubDate = `${date.getDay()} ${monthNames[date.getMonth()]}, ${date.getFullYear()}`;
-  // console.log(mainPage)
-
-  function handleNewsCardClick(evt) {
-    if (!evt.target.classList.contains('newscard__button') &&
-      !evt.target.classList.contains('svg') &&
-      !evt.target.classList.contains('svg__path')) {
-      window.open(url, "_blank")
-    }
-  }
-
-  const [hintClassName, setHintClassName] = useState('newscard__button-hint')
+  const date = new Date(pubDate);
+  const currentUser = useContext(CurrentUserContext);
+  const [hintClassName, setHintClassName] = useState('newscard__button-hint');
 
   function handleMouseOver() {
-    setHintClassName('newscard__button-hint newscard__button-hint_active')
+    setHintClassName('newscard__button-hint newscard__button-hint_active');
   }
 
   function handleMouseLeave() {
-    setHintClassName('newscard__button-hint')
+    setHintClassName('newscard__button-hint');
   }
 
-
-  const [newsCardText, setNewsCardText] = useState(text)
-  const [newsCardTitle, setNewsCardTitle] = useState(title)
-
-  // useEffect(() => {
-
-  //   let numOfTextLetters;
-  //   let numOfTitleLetters;
-
-  //   if (maxWidth === 1440) {
-  //     numOfTitleLetters = 60
-  //     numOfTextLetters = 150
-  //   } else if (maxWidth === 1280) {
-  //     numOfTitleLetters = 60
-  //     numOfTextLetters = 150
-  //   } else if (maxWidth === 1024) {
-  //     numOfTitleLetters = 45
-  //     numOfTextLetters = 130
-  //   } else if (maxWidth === 768) {
-  //     numOfTitleLetters = 30
-  //     numOfTextLetters = 60
-  //   } else if (maxWidth === 680) {
-  //     numOfTitleLetters = 33
-  //     numOfTextLetters = 90
-  //   } else if (maxWidth === 480) {
-  //     numOfTitleLetters = 33
-  //     numOfTextLetters = 90
-  //   } else if (maxWidth === 320) {
-  //     numOfTitleLetters = 33
-  //     numOfTextLetters = 90
-  //   }
-
-  //   if (numOfTextLetters < text.length) {
-  //     setNewsCardText(`${text.slice(0, numOfTextLetters)}...`)
-  //   } else {
-  //     setNewsCardText(text)
-  //   }
-
-  //   if (numOfTitleLetters < title.length) {
-  //     setNewsCardTitle(`${title.slice(0, numOfTitleLetters)}...`)
-  //   } else {
-  //     setNewsCardTitle(title)
-  //   }
-
-  // }, [maxWidth])
+  const [saveIconClassName, setSaveIconClassName] = useState('');
 
   function handleDelete(evt) {
-    evt.currentTarget.disabled = 'true'
-    console.log(evt.currentTarget)
-    onDelete(card)
+    evt.currentTarget.disabled = 'true';
+    onDelete(card);
   }
-
 
   const newscardRef = useRef();
 
+  function handleSaveClick() {
+    if (saveIconClassName === 'button__pressed') {
+      setSaveIconClassName('');
+    } else {
+      setSaveIconClassName('button__pressed');
+    }
+  }
+
+  function getSaveHint() {
+    if (saveIconClassName === 'button__pressed') {
+      return 'Убрать из сохраненных';
+    }
+    return 'Сохранить статью';
+  }
+
   return (
-    <li ref={newscardRef} className={`newscard ${cardHiddenClass ? 'newscard_hidden' : 'newscard_show'}`} onClick={handleNewsCardClick}>
-      <img src={image} className='newscard__picture' alt='' />
-      <div className='newscard__info'>
-        <p className='newscard__date'>{newsPubDate}</p>
-        <p className='newscard__title'>{newsCardTitle}</p>
-        <p className='newscard__text'>{newsCardText}</p>
-        <a href={url} rel='noreferrer' className='newscard__source-link' target='_blank'>{source}</a>
+    <li ref={newscardRef} className={`newscard ${cardHiddenClass ? 'newscard_hidden' : 'newscard_show'}`}>
+      <img src={image} className="newscard__picture" alt="" />
+      <div className="newscard__info">
+        <p className="newscard__date">{returnNewsPubDate(date)}</p>
+        <p className="newscard__title">{card.title}</p>
+        <p className="newscard__text">{card.description}</p>
+        <a href={url} rel="noreferrer" className="newscard__source-link" target="_blank">{source}</a>
       </div>
 
       {mainPage
-
-        ?
-        //TODO иконки
-        <div className='newscard__button-container'>
-          <div className='newscard__button-hint-container'>
-            <p className={hintClassName}>Войдите, чтобы сохранять статьи</p>
+        ? (
+          <div className="newscard__button-container">
+            <div className="newscard__button-hint-container">
+              <p className={hintClassName}>
+                {currentUser.name ? (
+                  getSaveHint()
+                ) : (
+                  'Войдите, чтобы сохранять статьи'
+                )}
+              </p>
+            </div>
+            <button type="button" onClick={currentUser.name && handleSaveClick} onMouseLeave={handleMouseLeave} onFocus={handleMouseOver} onMouseOver={handleMouseOver} className="newscard__button">
+              <SaveIcon
+                saveIconClassName={saveIconClassName}
+              />
+            </button>
           </div>
-          <button onMouseLeave={handleMouseLeave} onMouseOver={handleMouseOver} className='newscard__button' >
-            <SaveIcon />
-          </button>
-        </div>
-
-        :
-        <div className='newscard__button-container'>
-          <div className='newscard__keyword'>{keyword}</div>
-          <div className='newscard__button-hint-container'>
-            <p className={hintClassName + ' newscard__button-hint_delete'}>Убрать из сохраненных</p>
+        )
+        : (
+          <div className="newscard__button-container">
+            <div className="newscard__keyword">{keyword}</div>
+            <div className="newscard__button-hint-container">
+              <p className={`${hintClassName} newscard__button-hint_delete`}>Убрать из сохраненных</p>
+            </div>
+            <button type="button" onClick={handleDelete} onFocus={handleMouseOver} onMouseLeave={handleMouseLeave} onMouseOver={handleMouseOver} className="newscard__button newscard__button_delete">
+              <DeleteIcon />
+            </button>
           </div>
-          <button onClick={handleDelete} onMouseLeave={handleMouseLeave} onMouseOver={handleMouseOver} className='newscard__button newscard__button_delete'>
-            <DeleteIcon />
-          </button>
-        </div>
 
-      }
+        )}
 
     </li>
-  )
+  );
 }
 
 export default NewsCard;

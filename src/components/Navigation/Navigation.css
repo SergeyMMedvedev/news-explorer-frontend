@@ -46,11 +46,20 @@
   margin-left: 32px;
   transition: border-color .3s ease-in-out;
   background-color: transparent;
+  display: flex;
 }
 
 .navigation__button:hover {
   cursor: url('../../images/ponter.svg'), default;
   border: 1px solid #fff;
+}
+
+.navigation__button:focus {
+  outline: none;
+}
+
+.navigation__button-icon {
+  margin-left: 10px;
 }
 
 .saved-news-theme {
@@ -113,25 +122,15 @@
   .navigation__button {
     font-size: 18px;
     margin-top: 22px;
-
-
-
-    /* width: calc(100% - 32px); */
     margin-left: 0;
     padding: 15px 18px 17px 15px;
     border-radius: 32px;
-
     color: inherit;
-    /* border-color: inherit; */
-
     align-self: center;
     width: 100%;
-
   }
 
   .navigation__link_active::after {
     content: none;
   }
-  
-
 }

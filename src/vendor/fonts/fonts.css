@@ -20,19 +20,22 @@
 }
 
 @font-face {
-  src: url(./Roboto/Roboto-Regular.ttf) format('truetype');
+  src: url(./Roboto/Roboto-Regular.ttf) format('truetype'),
+       url(./Roboto/Roboto-Regular.woff) format('woff');
   font-family: 'Roboto';
   font-weight: 400;
 }
 
 @font-face {
-  src: url(./Roboto/Roboto-Medium.ttf) format('truetype');
+  src: url(./Roboto/Roboto-Medium.ttf) format('truetype'),
+       url(./Roboto/Roboto-Medium.woff) format('woff');
   font-family: 'Roboto';
   font-weight: 500;
 }
 
 @font-face {
-  src: url(./Roboto/Roboto-Black.ttf) format('truetype');
+  src: url(./Roboto/Roboto-Black.ttf) format('truetype'),
+       url(./Roboto/Roboto-Black.woff) format('woff');
   font-family: 'Roboto';
   font-weight: 900;
 }
@@ -50,7 +53,8 @@
 }
 
 @font-face {
-  src: url(./SourceSansPro/SourceSansPro-Regular.ttf) format('truetype');
+  src: url(./SourceSansPro/SourceSansPro-Regular.ttf) format('truetype'),
+       url(./SourceSansPro/SourceSansPro-Regular.woff) format('woff');
   font-family: 'SourceSansPro';
   font-weight: 400;
 }
