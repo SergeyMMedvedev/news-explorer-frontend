@@ -24,7 +24,7 @@
   width: 430px;
   min-width: 240px;
   background-color: #FFFFFF;
-  padding: 34px 36px 28px 36px ;
+  padding: 34px 36px 32px 36px ;
   border-radius: 16px;
   box-sizing: border-box;
   position: relative;
@@ -109,6 +109,7 @@
   padding: 0;
   margin-top: 2px;
   margin-bottom: 0;
+  background-color: transparent;
 }
 
 .popup__input::placeholder {
@@ -143,7 +144,7 @@
   font-family: 'Inter', Arial, sans-serif;
   font-weight: 500;
   font-size: 14px;
-  margin: 16px auto 0 auto;
+  margin: 18px auto 0 auto;
   width: fit-content;
 }
 

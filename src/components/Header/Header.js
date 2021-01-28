@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import './Header.css';
 import Navigation from '../Navigation/Navigation';
 import CurrentMaxWidthContext from '../../context/CurrentMaxWidthContext';
@@ -24,6 +24,10 @@ function Header({
   function handleExtend() {
     setIsExtend(!isExtend);
   }
+
+  useEffect(() => {
+    setIsExtend(false);
+  }, [maxWidth]);
 
   return (
     <>

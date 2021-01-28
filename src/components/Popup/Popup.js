@@ -11,6 +11,7 @@ function PopupWithForm({
   onSwitchPopupClick,
   popupWithForm,
   onSubmit,
+  submitText,
   submitButtonDisabled,
 }) {
   function handleSwitchPopupClick() {
@@ -35,6 +36,7 @@ function PopupWithForm({
           <PopupForm
             onSubmit={onSubmit}
             submitButtonDisabled={submitButtonDisabled}
+            submitText={submitText}
           >
             {children}
           </PopupForm>

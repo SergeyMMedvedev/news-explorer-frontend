@@ -4,6 +4,11 @@
   background-color: #f5f6f7;
 }
 
+.newscardlist_saved {
+  padding-top: 46px;
+  padding-bottom: 62px;
+}
+
 .newscardlist__title {
   margin: 0 0 48px 0;
 }

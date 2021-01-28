@@ -20,6 +20,10 @@
   animation: appear .5s ease-out forwards 1 running;
 }
 
+.appearAnimationDelay {
+  animation: appear .5s .4s ease-out forwards 1 running;
+}
+
 .disappearAnimation {
   animation: disappear .3s ease-in forwards 1 running;
 }

@@ -88,7 +88,7 @@ function NewsCardList({
   }, [disappear]);
 
   return (
-    <section ref={newsCardListSectionRef} className="section newscardlist">
+    <section ref={newsCardListSectionRef} className={`section newscardlist ${!mainPage ? 'newscardlist_saved' : ''}`}>
       {startLoading && (
         <Preloader />
       )}

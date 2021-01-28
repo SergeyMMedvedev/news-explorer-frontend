@@ -8,10 +8,10 @@ function PopupLogin({
   onSwitchPopupClick,
   onSubmit,
 }) {
-  const [email, setEmail] = useState();
-  const [emailError, setEmailError] = useState();
-  const [password, setPassword] = useState();
-  const [passwordError, setPasswordError] = useState();
+  const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
   function handleEmailChange(e) {
     setEmail(e.target.value);
@@ -46,6 +46,7 @@ function PopupLogin({
       onClose={handleClose}
       onSwitchPopupClick={onSwitchPopupClick}
       onSubmit={handleSubmit}
+      submitText="Войти"
       submitButtonDisabled={emailError || passwordError || (!email && !password)}
     >
       <label htmlFor="login-email" className="popup__label">
@@ -58,6 +59,7 @@ function PopupLogin({
           placeholder="Введите почту"
           name="email"
           onChange={handleEmailChange}
+          maxLength="30"
           required
         />
       </label>

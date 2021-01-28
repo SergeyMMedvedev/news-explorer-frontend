@@ -94,18 +94,33 @@
   .navigation__button {
     font-size: 16px;
     margin-left: 16px;
-    padding: 8px 18px;
+    padding: 8px 12px;
   }
 
   .navigation__button-text {
     font-size: 16px;
-    max-width: 120px;
   }
 
   .navigation__link_active::after {
     bottom: -22px;
   }
 }
+
+@media (max-width: 767px) {
+  .navigation__button { 
+    padding: 10px 10px;
+  }
+
+  .navigation__button-icon {
+    margin-left: 2px;
+  }
+
+  .navigation__button-text {
+    max-width: 128px;
+  }
+}
+
+
 
 @media (max-width: 680px) {
   .navigation__link {
@@ -144,9 +159,10 @@
     margin-left: 0;
     padding: 15px 18px 17px 15px;
     border-radius: 32px;
-    color: inherit;
+    color: #fff;
     align-self: center;
     width: 100%;
+    opacity: 0;
   }
 
   .navigation__button-text {

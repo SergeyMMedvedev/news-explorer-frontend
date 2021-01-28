@@ -8,12 +8,12 @@ function PopupRegister({
   onSwitchPopupClick,
   onSubmit,
 }) {
-  const [email, setEmail] = useState();
-  const [emailError, setEmailError] = useState();
-  const [password, setPassword] = useState();
-  const [passwordError, setPasswordError] = useState();
-  const [name, setName] = useState();
-  const [nameError, setNameError] = useState();
+  const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [name, setName] = useState('');
+  const [nameError, setNameError] = useState('');
 
   function handleEmailChange(e) {
     setEmail(e.target.value);
@@ -55,6 +55,7 @@ function PopupRegister({
       onClose={handleClose}
       onSwitchPopupClick={onSwitchPopupClick}
       onSubmit={handleSubmit}
+      submitText="Зарегистрироваться"
       submitButtonDisabled={
         emailError || passwordError || nameError || (!email && !password && !name)
       }
@@ -69,6 +70,7 @@ function PopupRegister({
           placeholder="Введите почту"
           name="email"
           onChange={handleEmailChange}
+          maxLength="30"
           required
         />
       </label>
