@@ -11,6 +11,7 @@ function PopupWithForm({
   onSwitchPopupClick,
   popupWithForm,
   onSubmit,
+  submitButtonDisabled,
 }) {
   function handleSwitchPopupClick() {
     onClose();
@@ -33,6 +34,7 @@ function PopupWithForm({
         {popupWithForm && (
           <PopupForm
             onSubmit={onSubmit}
+            submitButtonDisabled={submitButtonDisabled}
           >
             {children}
           </PopupForm>
@@ -42,12 +44,16 @@ function PopupWithForm({
           ? (
             <p className="popup__switch-container_with-form">
               или
-              <span onClick={handleSwitchPopupClick} className="popup__switcher">{popupSwitcher}</span>
+              <span onClick={handleSwitchPopupClick} className="popup__switcher">
+                {popupSwitcher}
+              </span>
             </p>
           )
           : (
             <p className="popup__switch-container">
-              <span onClick={handleSwitchPopupClick} className="popup__switcher">{popupSwitcher}</span>
+              <span onClick={handleSwitchPopupClick} className="popup__switcher">
+                {popupSwitcher}
+              </span>
             </p>
           )}
       </div>

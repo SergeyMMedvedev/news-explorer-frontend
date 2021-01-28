@@ -15,19 +15,26 @@ function Navigation({ savedNewsTheme, onLoginClick, onLogoutClick }) {
     <nav className="navigation__container">
       <NavLink exact to="/" activeClassName="navigation__link_active" className={`navigation__link ${navigationTheme}`}>Главная</NavLink>
       { currenUser.name && <NavLink to="/saved-news" activeClassName="navigation__link_active" className={`navigation__link ${navigationTheme}`}>Сохраненные статьи</NavLink>}
-      <button type="button" onClick={currenUser.name ? onLogoutClick : onLoginClick} className={`navigation__button ${navigationTheme} ${navigationButtonTheme}`}>
-        {currenUser.name
-          ? (
+
+      {currenUser.name
+        ? (
+          <button type="button" onClick={currenUser.name ? onLogoutClick : onLoginClick} className={`navigation__button ${navigationTheme} ${navigationButtonTheme}`}>
             <>
-              {currenUser.name}
+              <span className="navigation__button-text">{currenUser.name}</span>
               <Logout
                 className="navigation__button-icon"
                 savedNewsTheme={savedNewsTheme}
               />
             </>
-          )
-          : 'Авторизоваться'}
-      </button>
+          </button>
+        )
+        : (
+          <button type="button" onClick={currenUser.name ? onLogoutClick : onLoginClick} className={`navigation__button ${navigationTheme} ${navigationButtonTheme}`}>
+            <span className="navigation__button-text">
+              Авторизоваться
+            </span>
+          </button>
+        )}
     </nav>
   );
 }

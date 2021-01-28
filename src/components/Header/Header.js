@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import './Header.css';
 import Navigation from '../Navigation/Navigation';
 import CurrentMaxWidthContext from '../../context/CurrentMaxWidthContext';
+import CurrentUserContext from '../../context/CurrentUserContext';
 import ExtendButton from '../svg/ExtendButton';
 import ExtendButtonClose from '../svg/ExtendButtonClose';
 
@@ -12,6 +13,7 @@ function Header({
   onLogoutClick,
 }) {
   const maxWidth = useContext(CurrentMaxWidthContext);
+  const currenUser = useContext(CurrentUserContext);
 
   const headerPopupOpenStyle = (isPopupOpen && maxWidth <= 480) ? ' header_popupOpen' : '';
 
@@ -50,7 +52,12 @@ function Header({
                     />
                   )}
               </button>
-              <div className={`header__navigation-container${isExtend ? ' header__navigation-container_mobile-open' : ''}`}>
+              <div
+                className={`
+                  header__navigation-container 
+                  ${isExtend && (!currenUser.name ? 'header__navigation-container_mobile-open-not-auth' : 'header__navigation-container_mobile-open')}  
+                `}
+              >
                 {isExtend && (
                   <Navigation
                     onLoginClick={onLoginClick}

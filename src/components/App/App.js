@@ -60,6 +60,20 @@ function App() {
     };
   }, []);
 
+  function handleLoginSubmit(email) {
+    setCurrentUser({
+      email,
+      name: email,
+    });
+    closeAllPopups();
+  }
+
+  function handleRegistrationSubmit(email, password, name) {
+    console.log(email, password, name);
+    closeAllPopups();
+    setIsOpenInfoTooltip(true);
+  }
+
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
@@ -91,13 +105,14 @@ function App() {
             isOpen={isOpenPopupLogin}
             onClose={closeAllPopups}
             onSwitchPopupClick={handleRegistrationClick}
-            onUpdateUser={setCurrentUser}
+            onSubmit={handleLoginSubmit}
           />
 
           <PopupRegister
             isOpen={isOpenPopupRegister}
             onClose={closeAllPopups}
             onSwitchPopupClick={handleLoginClick}
+            onSubmit={handleRegistrationSubmit}
           />
 
           <InfoTooltip

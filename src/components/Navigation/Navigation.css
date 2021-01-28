@@ -35,10 +35,7 @@
 }
 
 .navigation__button {
-  font-family: 'Roboto', Arial, sans-serif;
-  font-size: 18px;
   color: inherit;
-  line-height: 1.33;
   border: 1px solid rgba(255, 255, 255, 0.2);
   padding: 12px 18px;
   border-radius: 24px;
@@ -47,6 +44,7 @@
   transition: border-color .3s ease-in-out;
   background-color: transparent;
   display: flex;
+  justify-content: center;
 }
 
 .navigation__button:hover {
@@ -56,6 +54,18 @@
 
 .navigation__button:focus {
   outline: none;
+}
+
+.navigation__button-text {
+  font-family: 'Roboto', Arial, sans-serif;
+  font-size: 18px;
+  color: inherit;
+  line-height: 24px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 160px;
+  text-align: center;
 }
 
 .navigation__button-icon {
@@ -84,6 +94,12 @@
   .navigation__button {
     font-size: 16px;
     margin-left: 16px;
+    padding: 8px 18px;
+  }
+
+  .navigation__button-text {
+    font-size: 16px;
+    max-width: 120px;
   }
 
   .navigation__link_active::after {
@@ -97,10 +113,14 @@
     margin-left: 12px;
   }
 
-  .navigation__button {
-    font-size: 12px;
+  .navigation__button { 
     margin-left: 12px;
     padding: 10px 12px;
+  }
+
+  .navigation__button-text {
+    font-size: 12px;
+    max-width: 62px;
   }
 
 }
@@ -120,7 +140,6 @@
   }
 
   .navigation__button {
-    font-size: 18px;
     margin-top: 22px;
     margin-left: 0;
     padding: 15px 18px 17px 15px;
@@ -128,6 +147,11 @@
     color: inherit;
     align-self: center;
     width: 100%;
+  }
+
+  .navigation__button-text {
+    font-size: 18px;
+    max-width: calc(100% - 32px);
   }
 
   .navigation__link_active::after {

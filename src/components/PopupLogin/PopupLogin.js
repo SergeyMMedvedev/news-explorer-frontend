@@ -6,21 +6,35 @@ function PopupLogin({
   isOpen,
   onClose,
   onSwitchPopupClick,
-  onUpdateUser,
+  onSubmit,
 }) {
   const [email, setEmail] = useState();
-  // const [emailError, setEmailError] = useState();
+  const [emailError, setEmailError] = useState();
+  const [password, setPassword] = useState();
+  const [passwordError, setPasswordError] = useState();
 
-  function handleChangeEmail(e) {
+  function handleEmailChange(e) {
     setEmail(e.target.value);
+    setEmailError(e.target.validationMessage);
+  }
+
+  function handlePasswordChange(e) {
+    setPassword(e.target.value);
+    setPasswordError(e.target.validationMessage);
   }
 
   function handleSubmit() {
-    onUpdateUser({
-      email,
-      name: 'Сергей',
-    });
+    onSubmit(email, password);
+  }
+
+  function handleClose() {
     onClose();
+    setTimeout(() => {
+      setEmail('');
+      setEmailError('');
+      setPassword('');
+      setPasswordError('');
+    }, 400);
   }
 
   return (
@@ -28,32 +42,41 @@ function PopupLogin({
       popupWithForm
       isOpen={isOpen}
       title="Вход"
-      popupSwitcher="Зарегистрироваться"
-      onClose={onClose}
+      popupSwitcher=" Зарегистрироваться"
+      onClose={handleClose}
       onSwitchPopupClick={onSwitchPopupClick}
       onSubmit={handleSubmit}
+      submitButtonDisabled={emailError || passwordError || (!email && !password)}
     >
       <label htmlFor="login-email" className="popup__label">
         Email
         <input
           id="login-email"
-          type="text"
+          type="email"
+          value={email}
           className="popup__input"
           placeholder="Введите почту"
           name="email"
-          onChange={handleChangeEmail}
+          onChange={handleEmailChange}
+          required
         />
       </label>
+      <span id="login-email-error" className={`popup__input-error ${isOpen && 'popup__input-error_active'}`}>{emailError}</span>
       <label htmlFor="login-password" className="popup__label">
         Пароль
         <input
           id="login-password"
-          type="text"
+          type="password"
+          value={password}
           className="popup__input"
           placeholder="Введите пароль"
           name="password"
+          onChange={handlePasswordChange}
+          minLength="8"
+          required
         />
       </label>
+      <span id="login-password-error" className={`popup__input-error ${isOpen && 'popup__input-error_active'}`}>{passwordError}</span>
     </Popup>
   );
 }

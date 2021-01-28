@@ -31,6 +31,14 @@
   width: 24px;
   height: 24px;
   transition: opacity .3s ease-in-out;
+  display: block;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+}
+
+.header__navigation-extend-button:focus {
+  outline: none;
 }
 
 .header__navigation-extend-button:hover {
@@ -109,5 +117,13 @@
     opacity: 1;
     visibility: visible;
     height: 230px;
+  }
+
+  .header__navigation-container_mobile-open-not-auth {
+    color: rgba(255, 255, 255, 1);
+    background-color: #1a1b22;
+    opacity: 1;
+    visibility: visible;
+    height: 174px;
   }
 }
