@@ -68,8 +68,7 @@ function App() {
     closeAllPopups();
   }
 
-  function handleRegistrationSubmit(email, password, name) {
-    console.log(email, password, name);
+  function handleRegistrationSubmit() {
     closeAllPopups();
     setIsOpenInfoTooltip(true);
   }

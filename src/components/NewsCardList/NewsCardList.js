@@ -17,6 +17,7 @@ function NewsCardList({
   onDelete,
   startLoading,
   isCardsLoaded,
+  emptyQuery,
 }) {
   const maxWidth = useContext(CurrentMaxWidthContext);
 
@@ -123,7 +124,7 @@ function NewsCardList({
             <>
               <div className="newscardlist__not-found-picture" />
               <p className="newscardlist__not-found-title">Ничего не найдено</p>
-              <p className="newscardlist__not-found-text">К сожалению по вашему запросу ничего не найдено.</p>
+              <p className="newscardlist__not-found-text">{emptyQuery ? 'Задан пустой поисковый запрос' : 'К сожалению по вашему запросу ничего не найдено.'}</p>
             </>
           )
 

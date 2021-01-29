@@ -25,7 +25,6 @@
 }
 
 @media (max-width: 1023px) {
-
   .saved-news-header {
     padding-top: 24px;
     padding-bottom: 32px;
@@ -44,7 +43,6 @@
 }
 
 @media (max-width: 480px) {
-
   .saved-news-header {
     padding-top: 8px;
   }

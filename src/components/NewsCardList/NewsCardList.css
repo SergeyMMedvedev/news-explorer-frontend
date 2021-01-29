@@ -39,7 +39,6 @@
   background-color: #fff;
   transition: opacity .2s ease-in-out,
               box-shadow .2s ease-in-out;
-  
 }
 
 .newscardlist__show-more-button:hover {
@@ -85,7 +84,6 @@
 }
 
 @media (max-width: 1023px) {
-
   .newscardlist {
     padding-top: 40px;
     padding-bottom: 40px;
@@ -109,8 +107,6 @@
     width: 240px;
   }
 }
-
-
 
 @media (max-width: 767px) {
   .newscardlist__elements {
@@ -141,5 +137,4 @@
     margin-top: 15px;
     width: 100%;
   }
-
 }

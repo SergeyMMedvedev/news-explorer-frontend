@@ -80,7 +80,6 @@
   }
 
   .footer__navigation {
-    
     display: grid;
     grid-template-columns: auto  24px 50px;
     grid-template-rows: auto;
@@ -93,8 +92,6 @@
   .footer__navigation-link {
     margin: 0;
   }
-
-
 
   .footer__navigation-item:first-child {
     grid-area: main;
@@ -131,6 +128,4 @@
   .footer__facebook {
     margin-left: 26px;
   } 
-
-
 }

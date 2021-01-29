@@ -2,7 +2,7 @@ import React from 'react';
 import './Popup.css';
 import PopupForm from '../PopupForm/PopupForm';
 
-function PopupWithForm({
+function Popup({
   children,
   isOpen,
   title,
@@ -63,4 +63,4 @@ function PopupWithForm({
   );
 }
 
-export default PopupWithForm;
+export default Popup;

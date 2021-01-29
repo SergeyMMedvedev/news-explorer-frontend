@@ -14,12 +14,16 @@ function Main({
   const [loadedCards, setLoadedCards] = useState([]);
   const [startLoading, setStartLoading] = useState(false);
   const [isCardsLoaded, setIsCardsLoaded] = useState(false);
+  const [emptyQuery, setEmptyQuery] = useState(false);
 
-  function handleSearchSubmit(e) {
-    e.preventDefault();
+  function handleSearchSubmit(keyword) {
     setStartLoading(true);
     setIsCardsLoaded(false);
-    setLoadedCards([]);
+    if (!keyword) {
+      setEmptyQuery(true);
+    } else {
+      setEmptyQuery(false);
+    }
   }
 
   useEffect(() => {
@@ -32,8 +36,10 @@ function Main({
   }, [startLoading]);
 
   useEffect(() => {
-    if (isCardsLoaded) {
+    if (isCardsLoaded && !emptyQuery) {
       setLoadedCards(cards);
+    } else {
+      setLoadedCards([]);
     }
   }, [isCardsLoaded]);
 
@@ -55,6 +61,7 @@ function Main({
           cards={loadedCards}
           startLoading={startLoading}
           isCardsLoaded={isCardsLoaded}
+          emptyQuery={emptyQuery}
         />
       )}
       <About />

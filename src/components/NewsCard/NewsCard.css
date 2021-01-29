@@ -5,7 +5,6 @@
   position: relative;
   transition: box-shadow .2s ease-in-out;
   justify-self: center;
-  
 }
 
 .newscard_hidden {
@@ -134,7 +133,6 @@
   background-position: center center;
   background-color: #fff;
   margin-left: 5px;
-  /* transition: stroke 0.3s ease-in-out; */
 }
 
 .newscard__button:hover {
@@ -310,7 +308,6 @@
   }
 
   .newscard__button-hint {
-    /* padding: 0 12px; */
     font-size: 8px;
     width: fit-content;
   }
@@ -332,7 +329,6 @@
   .newscard {
     height: 440px;
     min-width: 288px;
-    /* width: 100%; */
   }
 
   .newscard_hidden {
@@ -373,9 +369,4 @@
   .newscard_show {
     margin-top: 10px;
   }
-
-  /* .newscard__button-hint_delete {
-    font-size: 10px;
-    width: 80px;
-  } */
 }
