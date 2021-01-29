@@ -28,11 +28,13 @@ function SavedNewsHeader({ cards, disappear }) {
       <h2 className="saved-news-header__title">Сохранненные статьи</h2>
       <h3 ref={subtitleRef} className="section-title saved-news-header__subtitle appearAnimation">
         Сергей, у вас
-        {cards.length || ' нет'}
+        {` ${cards.length}` || ' нет'}
         <br />
         {getNumberForSavedNews(cards.length)}
       </h3>
-      <p ref={keywordsRef} className="saved-news-header__keywords appearAnimation">{getKeyWords(cards)}</p>
+      <p ref={keywordsRef} className="saved-news-header__keywords appearAnimation">
+        {getKeyWords(cards)}
+      </p>
     </div>
   );
 }

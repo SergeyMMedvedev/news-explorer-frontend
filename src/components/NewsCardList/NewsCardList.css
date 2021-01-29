@@ -91,16 +91,22 @@
     padding-bottom: 40px;
   }
 
+  .newscardlist_saved {
+    padding-top: 28px;
+  }
+
   .newscardlist__elements {
     grid-column-gap: 8px;
   }
 
   .newscardlist__title {
-    margin-bottom: 32px;
+    margin-bottom: 24px;
   }
 
   .newscardlist__show-more-button {
-    margin-top: 22px;
+    margin-top: 32px;
+    height: 56px;
+    width: 240px;
   }
 }
 
@@ -118,8 +124,17 @@
     padding-bottom: 32px;
   }
 
+  .newscardlist_saved {
+    padding-top: 14px;
+    padding-bottom: 24px;
+  }
+
   .newscardlist__title {
-    margin-bottom: 24px;
+    margin-bottom: 14px;
+  }
+
+  .newscardlist__elements {
+    grid-column-gap: 10px;
   }
 
   .newscardlist__show-more-button {

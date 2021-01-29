@@ -70,7 +70,8 @@
 
 @media (max-width: 767px) {
   .footer {
-    
+    padding-top: 10px;
+    padding-bottom: 10px;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-areas: 

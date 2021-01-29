@@ -35,14 +35,22 @@
     padding-left: 11px;
   }
 
+  .about__title {
+    margin-top: 4px;
+  }
+
+  .about__text {
+    margin-top: 14px;
+    margin-bottom: 26px;
+  }
+
   .about__image {
-    padding: 21px;
+    padding: 0;
+    margin: 21px 21px 21px 0;
     width: 232px;
     height: 232px;
   }
 }
-
-
 
 @media (max-width: 480px) {
   .about {
