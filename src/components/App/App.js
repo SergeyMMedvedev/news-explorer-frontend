@@ -11,6 +11,7 @@ import PopupRegister from '../PopupRegister/PopupRegister';
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
 import setMediaQuery from '../../utils/setMediaQuery';
 import { cards, savedCards } from '../../db/cards';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
   const [isOpenPopupLogin, setIsOpenPopupLogin] = useState(false);
@@ -88,7 +89,7 @@ function App() {
               />
             </Route>
 
-            <Route path="/saved-news">
+            {/* <Route path="/saved-news">
               <SavedNews
                 savedNewsTheme
                 onLoginClick={handleLoginClick}
@@ -96,8 +97,16 @@ function App() {
                 cards={savedCards}
                 isPopupOpen={isOpenPopupLogin || isOpenPopupRegister || isOpenInfoTooltip}
               />
-            </Route>
-
+            </Route> */}
+            <ProtectedRoute
+              path="/saved-news"
+              component={SavedNews}
+              savedNewsTheme
+              onLoginClick={handleLoginClick}
+              onLogoutClick={handleLogoutClick}
+              cards={savedCards}
+              isPopupOpen={isOpenPopupLogin || isOpenPopupRegister || isOpenInfoTooltip}
+            />
           </Switch>
 
           <PopupLogin

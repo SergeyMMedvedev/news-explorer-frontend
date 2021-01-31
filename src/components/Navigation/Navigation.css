@@ -24,6 +24,16 @@
   cursor: url('../../images/ponter.svg'), default;
 }
 
+.navigation__link:hover::after {
+  content: '';
+  border-bottom: 3px solid;
+  height: 3px;
+  width: 100%;
+  position: absolute;
+  bottom: -28px;
+  left: 0;
+}
+
 .navigation__link_active::after {
   content: '';
   border-bottom: 3px solid #fff;
@@ -101,6 +111,10 @@
     font-size: 16px;
   }
 
+  .navigation__link:hover::after {
+    bottom: -22px;
+  }
+
   .navigation__link_active::after {
     bottom: -22px;
   }
@@ -167,6 +181,10 @@
   .navigation__button-text {
     font-size: 18px;
     max-width: calc(100% - 32px);
+  }
+
+  .navigation__link:hover::after {
+    content: none;
   }
 
   .navigation__link_active::after {

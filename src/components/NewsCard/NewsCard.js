@@ -60,12 +60,12 @@ function NewsCard({
   return (
     <li ref={newscardRef} className={`newscard ${cardHiddenClass ? 'newscard_hidden' : 'newscard_show'}`}>
       <img src={image} className="newscard__picture" alt={card.title} />
-      <div className="newscard__info">
+      <a href={url} rel="noreferrer" className="newscard__info" target="_blank">
         <p className="newscard__date">{returnNewsPubDate(date)}</p>
         <p className="newscard__title">{card.title}</p>
         <p className="newscard__text">{card.description}</p>
-        <a href={url} rel="noreferrer" className="newscard__source-link" target="_blank">{source}</a>
-      </div>
+      </a>
+      <a href={url} rel="noreferrer" className="newscard__source-link" target="_blank">{source}</a>
 
       {mainPage
         ? (

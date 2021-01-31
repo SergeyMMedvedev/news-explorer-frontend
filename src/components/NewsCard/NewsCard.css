@@ -59,6 +59,10 @@
 
 .newscard__info {
   padding: 0 24px;
+  text-decoration: none;
+  display: block;
+  color: #1a1b22;
+  cursor: url('../../images/ponter.svg'), default;
 }
 
 .newscard__date {
