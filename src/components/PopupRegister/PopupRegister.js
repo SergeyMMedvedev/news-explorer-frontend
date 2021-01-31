@@ -57,7 +57,7 @@ function PopupRegister({
       onSubmit={handleSubmit}
       submitText="Зарегистрироваться"
       submitButtonDisabled={
-        emailError || passwordError || nameError || (!email && !password && !name)
+        emailError || passwordError || nameError || (!email || !password || !name)
       }
     >
       <label htmlFor="register-email" className="popup__label">

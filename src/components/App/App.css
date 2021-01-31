@@ -18,29 +18,6 @@
   margin: 0;
 }
 
-.form-button {
-  font-family: 'Roboto', Arial, sans-serif;
-  color: #fff;
-  font-size: 18px;
-  line-height: 1.33;
-  background-color: #2f71e5;
-  border: none;
-  border-radius: 32px;
-  transition: background-color .2s ease-in-out,
-              box-shadow .2s ease-in-out;
-}
-
-.form-button:hover {
-  cursor: url('../../images/ponter.svg'), default;
-  background-color: #347eff;
-  box-shadow: 0px 5px 15px rgba(14, 26, 57, 0.2);
-}
-
-.form-button:active, .form-button:focus {
-  outline: none;
-  background-color: #2a65cc;
-}
-
 .svg__path {
   transition: all 0.3s ease-in-out;
 }

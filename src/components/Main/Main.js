@@ -55,6 +55,7 @@ function Main({
           onSubmit={handleSearchSubmit}
         />
       </div>
+
       {(startLoading || isCardsLoaded) && (
         <NewsCardList
           mainPage
@@ -64,6 +65,7 @@ function Main({
           emptyQuery={emptyQuery}
         />
       )}
+
       <About />
     </>
   );

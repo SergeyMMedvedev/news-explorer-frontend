@@ -1,5 +1,6 @@
 import React from 'react';
 import './PopupForm.css';
+import FormButton from '../ui/FormButton/FormButton';
 
 function PopupForm({
   children,
@@ -15,7 +16,11 @@ function PopupForm({
   return (
     <form onSubmit={handleSubmit} className="popup__form">
       {children}
-      <input type="submit" className={`popup__submit form-button ${submitButtonDisabled && 'popup__submit_disabled'}`} disabled={submitButtonDisabled} value={submitText} />
+      <FormButton
+        className="popup__submit"
+        value={submitText}
+        disabled={submitButtonDisabled}
+      />
     </form>
   );
 }

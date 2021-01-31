@@ -47,7 +47,7 @@ function PopupLogin({
       onSwitchPopupClick={onSwitchPopupClick}
       onSubmit={handleSubmit}
       submitText="Войти"
-      submitButtonDisabled={emailError || passwordError || (!email && !password)}
+      submitButtonDisabled={emailError || passwordError || (!email || !password)}
     >
       <label htmlFor="login-email" className="popup__label">
         Email

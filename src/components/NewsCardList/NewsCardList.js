@@ -22,8 +22,8 @@ function NewsCardList({
   const maxWidth = useContext(CurrentMaxWidthContext);
 
   const [mainPageCards, setMainPageCards] = useState([]);
-  const [minSowCardIndex, setMinSowCardIndex] = useState(0);
-  const [maxSowCardIndex, setMaxSowCardIndex] = useState(3);
+  const [minShowCardIndex, setMinShowCardIndex] = useState(0);
+  const [maxShowCardIndex, setMaxShowCardIndex] = useState(3);
 
   useEffect(() => {
     if (cards.length > 3) {
@@ -31,10 +31,8 @@ function NewsCardList({
         cards[i].invisible = true;
       }
       setMainPageCards(cards);
-      // setMainPageCards([]);
     } else {
       setMainPageCards(cards);
-      // setMainPageCards([]);
     }
   }, [cards]);
 
@@ -43,18 +41,18 @@ function NewsCardList({
 
   function showMoreCards() {
     if (maxWidth <= 680) {
-      setMinSowCardIndex(minSowCardIndex + 1);
-      setMaxSowCardIndex(maxSowCardIndex + 1);
+      setMinShowCardIndex(minShowCardIndex + 1);
+      setMaxShowCardIndex(maxShowCardIndex + 1);
     } else {
-      setMinSowCardIndex(minSowCardIndex + 3);
-      setMaxSowCardIndex(maxSowCardIndex + 3);
+      setMinShowCardIndex(minShowCardIndex + 3);
+      setMaxShowCardIndex(maxShowCardIndex + 3);
     }
   }
 
   useEffect(() => {
     if (newsCardListRef.current) {
       const arrCards = Array.prototype.slice.call(newsCardListRef.current.children);
-      const newCards = arrCards.slice(minSowCardIndex, maxSowCardIndex);
+      const newCards = arrCards.slice(minShowCardIndex, maxShowCardIndex);
       if (newCards.length !== 0) {
         if (newCards[0]) {
           newCards[0].classList.add('newscard_show');
@@ -68,13 +66,13 @@ function NewsCardList({
       }
     }
 
-    if (mainPage && minSowCardIndex > 0) {
+    if (mainPage && minShowCardIndex > 0) {
       newsCardListSectionRef.current.scrollIntoView({
         behavior: 'smooth',
         block: 'end',
       });
     }
-  }, [minSowCardIndex, maxSowCardIndex]);
+  }, [minShowCardIndex, maxShowCardIndex]);
 
   useEffect(() => {
     if (newsCardListRef.current) {
@@ -121,11 +119,11 @@ function NewsCardList({
             </>
           )
           : (
-            <>
+            <div className="appearAnimation">
               <div className="newscardlist__not-found-picture" />
               <p className="newscardlist__not-found-title">Ничего не найдено</p>
               <p className="newscardlist__not-found-text">{emptyQuery ? 'Задан пустой поисковый запрос' : 'К сожалению по вашему запросу ничего не найдено.'}</p>
-            </>
+            </div>
           )
 
       )}

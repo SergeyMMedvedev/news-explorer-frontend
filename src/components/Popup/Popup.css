@@ -76,17 +76,6 @@
   margin-top: 24px;
 }
 
-.popup__submit_disabled {
-  background-color: #e6e8eb;
-  color: #b6bcbf;
-}
-
-.popup__submit_disabled:hover {
-  background-color: #e6e8eb;
-  color: #b6bcbf;
-  box-shadow: none;
-}
-
 .popup__label {
   display: block;
   font-family: 'Inter', Arial, sans-serif;
