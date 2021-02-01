@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { Route, Switch, useHistory } from 'react-router-dom';
+import {
+  Route,
+  Switch,
+  useHistory,
+  Redirect,
+} from 'react-router-dom';
 import CurrentMaxWidthContext from '../../context/CurrentMaxWidthContext';
 import CurrentUserContext from '../../context/CurrentUserContext';
 import Main from '../Main/Main';
@@ -86,18 +91,11 @@ function App() {
                 onLogoutClick={handleLogoutClick}
                 cards={cards}
                 isPopupOpen={isOpenPopupLogin || isOpenPopupRegister || isOpenInfoTooltip}
+                classNameImageBackgroun="page__header-searchform-container"
+                classNameColorBackground="page__newscardlist-container"
               />
             </Route>
 
-            {/* <Route path="/saved-news">
-              <SavedNews
-                savedNewsTheme
-                onLoginClick={handleLoginClick}
-                onLogoutClick={handleLogoutClick}
-                cards={savedCards}
-                isPopupOpen={isOpenPopupLogin || isOpenPopupRegister || isOpenInfoTooltip}
-              />
-            </Route> */}
             <ProtectedRoute
               path="/saved-news"
               component={SavedNews}
@@ -106,7 +104,13 @@ function App() {
               onLogoutClick={handleLogoutClick}
               cards={savedCards}
               isPopupOpen={isOpenPopupLogin || isOpenPopupRegister || isOpenInfoTooltip}
+              classNameColorBackground="page__newscardlist-container"
             />
+
+            <Route>
+              <Redirect to="/" />
+            </Route>
+
           </Switch>
 
           <PopupLogin

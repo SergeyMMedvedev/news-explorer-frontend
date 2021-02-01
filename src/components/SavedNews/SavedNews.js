@@ -10,6 +10,7 @@ function SavedNews({
   cards,
   isPopupOpen,
   onLogoutClick,
+  classNameColorBackground,
 }) {
   const [savedNewsCards, setSavedNewsCards] = useState(cards);
   const [startDisappear, setStartDisappear] = useState(false);
@@ -35,11 +36,13 @@ function SavedNews({
         cards={savedNewsCards}
         disappear={startDisappear}
       />
-      <NewsCardList
-        cards={savedNewsCards}
-        onDelete={handleNewsCardDelete}
-        disappear={startDisappear}
-      />
+      <div className={classNameColorBackground}>
+        <NewsCardList
+          cards={savedNewsCards}
+          onDelete={handleNewsCardDelete}
+          disappear={startDisappear}
+        />
+      </div>
     </>
   );
 }

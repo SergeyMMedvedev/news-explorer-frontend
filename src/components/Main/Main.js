@@ -10,6 +10,8 @@ function Main({
   cards,
   isPopupOpen,
   onLogoutClick,
+  classNameImageBackgroun,
+  classNameColorBackground,
 }) {
   const [loadedCards, setLoadedCards] = useState([]);
   const [startLoading, setStartLoading] = useState(false);
@@ -45,7 +47,7 @@ function Main({
 
   return (
     <>
-      <div className="backgrount-container">
+      <div className={classNameImageBackgroun}>
         <Header
           onLoginClick={onLoginClick}
           onLogoutClick={onLogoutClick}
@@ -55,16 +57,17 @@ function Main({
           onSubmit={handleSearchSubmit}
         />
       </div>
-
-      {(startLoading || isCardsLoaded) && (
-        <NewsCardList
-          mainPage
-          cards={loadedCards}
-          startLoading={startLoading}
-          isCardsLoaded={isCardsLoaded}
-          emptyQuery={emptyQuery}
-        />
-      )}
+      <div className={classNameColorBackground}>
+        {(startLoading || isCardsLoaded) && (
+          <NewsCardList
+            mainPage
+            cards={loadedCards}
+            startLoading={startLoading}
+            isCardsLoaded={isCardsLoaded}
+            emptyQuery={emptyQuery}
+          />
+        )}
+      </div>
 
       <About />
     </>

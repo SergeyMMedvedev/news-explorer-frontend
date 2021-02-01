@@ -3,6 +3,19 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.page__header-searchform-container {
+  margin: 0 auto;
+  background-image: url('../../images/main-theme.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+}
+
+.page__newscardlist-container {
+  background-color: #f5f6f7;
+}
+
 .section {
   max-width: 1440px;
   margin: 0 auto;
