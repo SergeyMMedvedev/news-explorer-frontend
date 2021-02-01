@@ -56,9 +56,9 @@ export function getKeyWords(cards) {
       <span>
         {'По ключевым словам: '}
         <strong>
-          {`${keywords[0]} `}
+          {`${keywords[0]}`}
         </strong>
-        {'и '}
+        {' и '}
         <strong>
           {`${keywords[1]} `}
         </strong>
@@ -71,13 +71,13 @@ export function getKeyWords(cards) {
       <span>
         {'По ключевым словам: '}
         <strong>
-          {`${keywords[0]} `}
+          {`${keywords[0]}`}
         </strong>
         {', '}
         <strong>
-          {`${keywords[1]} `}
+          {`${keywords[1]}`}
         </strong>
-        {'и '}
+        {' и '}
         <strong>
           {keywords[2]}
         </strong>
@@ -89,13 +89,13 @@ export function getKeyWords(cards) {
       <span>
         {'По ключевым словам: '}
         <strong>
-          {`${keywords[0]} `}
+          {`${keywords[0]}`}
         </strong>
         {', '}
         <strong>
-          {`${keywords[1]} `}
+          {`${keywords[1]}`}
         </strong>
-        {'и '}
+        {' и '}
         <strong>
           {getNumberEnding(keywords.length - 2)}
           {' другим'}

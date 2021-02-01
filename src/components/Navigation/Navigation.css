@@ -16,22 +16,35 @@
   align-items: center;
   box-sizing: border-box;
   position: relative;
-  color: #fff;
+  color: #b6bcbf;
   text-decoration: none;
+  transition: color .3s ease-in-out;
 }
 
-.navigation__link:hover {
-  cursor: url('../../images/ponter.svg'), default;
-}
-
-.navigation__link:hover::after {
+.navigation__link::after {
   content: '';
+  color: #fff;
   border-bottom: 3px solid;
   height: 3px;
   width: 100%;
   position: absolute;
   bottom: -28px;
   left: 0;
+  opacity: 0;
+  transition: opacity .3s ease-in-out;
+}
+
+.navigation__link:hover {
+  cursor: url('../../images/ponter.svg'), default;
+  color: #fff;
+}
+
+.navigation__link:hover::after {
+  opacity: 1;
+}
+
+.navigation__link_active {
+  color: #fff;
 }
 
 .navigation__link_active::after {
@@ -42,6 +55,7 @@
   position: absolute;
   bottom: -28px;
   left: 0;
+  opacity: 1;
 }
 
 .navigation__button {
@@ -87,6 +101,14 @@
   border-color: #d1d2d6;
 }
 
+.saved-news-theme:hover {
+  color: #1a1b22;
+}
+
+.saved-news-theme:hover::after {
+  border-bottom: 3px solid #1a1b22;
+}
+
 .saved-news-theme_hover:hover {
   border-color: #1a1b22;
 }
@@ -111,7 +133,7 @@
     font-size: 16px;
   }
 
-  .navigation__link:hover::after {
+  .navigation__link::after {
     bottom: -22px;
   }
 
@@ -133,8 +155,6 @@
     max-width: 128px;
   }
 }
-
-
 
 @media (max-width: 680px) {
   .navigation__link {
@@ -165,6 +185,7 @@
     margin-left: 0;
     padding: 16px 0;
     color: inherit;
+    transition: none;
   }
 
   .navigation__button {

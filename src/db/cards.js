@@ -191,7 +191,7 @@ export const savedCards = [
     urlToImage: image06,
     publishedAt: '2021-01-09T18:10:42Z',
     content: '',
-    tag: 'ПриродаПрирода',
+    tag: 'Природа',
   },
   {
     _id: 14,
@@ -221,7 +221,7 @@ export const savedCards = [
     urlToImage: image05,
     publishedAt: '2021-01-09T18:10:42Z',
     content: '',
-    tag: 'Тайга Тайга Тайга Тайга Тайга',
+    tag: 'Тайга',
   },
   {
     _id: 16,
@@ -236,7 +236,7 @@ export const savedCards = [
     urlToImage: image06,
     publishedAt: '2021-01-09T18:10:42Z',
     content: '',
-    tag: 'Парки',
+    tag: 'Лесотундра',
   },
   {
     _id: 17,
