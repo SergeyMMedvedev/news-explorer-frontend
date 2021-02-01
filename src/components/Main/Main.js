@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Main.css';
+import '../extendAnimation/extendAnimation.css';
 import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
 import NewsCardList from '../NewsCardList/NewsCardList';
@@ -45,6 +46,14 @@ function Main({
     }
   }, [isCardsLoaded]);
 
+  const newscardlistContainerRef = useRef();
+
+  useEffect(() => {
+    if (!newscardlistContainerRef.current.classList.contains('extendContainerAnimation') && startLoading) {
+      newscardlistContainerRef.current.classList.add('extendContainerAnimation');
+    }
+  }, [startLoading]);
+
   return (
     <>
       <div className={classNameImageBackgroun}>
@@ -57,7 +66,7 @@ function Main({
           onSubmit={handleSearchSubmit}
         />
       </div>
-      <div className={classNameColorBackground}>
+      <div ref={newscardlistContainerRef} className={classNameColorBackground}>
         {(startLoading || isCardsLoaded) && (
           <NewsCardList
             mainPage

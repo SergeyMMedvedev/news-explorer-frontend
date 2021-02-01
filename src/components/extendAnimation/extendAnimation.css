@@ -1,0 +1,21 @@
+@keyframes extend {
+  0% {
+    max-height: 0;
+    opacity: 0;
+  }
+  99% {
+    max-height: 282px;
+    opacity: 1;
+  }
+
+  100% {
+    max-height: fit-content;
+    opacity: 1;
+  }
+}
+
+.extendContainerAnimation {
+  opacity: 0;
+  max-height: 0;
+  animation: extend .3s ease-out forwards 1 running;
+}
