@@ -7,7 +7,7 @@ import ExtendButton from '../svg/ExtendButton';
 import ExtendButtonClose from '../svg/ExtendButtonClose';
 
 function Header({
-  savedNewsTheme,
+  savedNewsPage,
   onLoginClick,
   isPopupOpen,
   onLogoutClick,
@@ -19,7 +19,7 @@ function Header({
 
   const [isExtend, setIsExtend] = useState(false);
   const headerExtend = isExtend ? ' header_extend' : '';
-  const headerTheme = (savedNewsTheme && (!isExtend || maxWidth > 320)) ? ' saved-news-theme' : '';
+  const headerTheme = (savedNewsPage && (!isExtend || maxWidth > 320)) ? 'header_darktheme' : '';
 
   function handleExtend() {
     setIsExtend(!isExtend);
@@ -39,7 +39,7 @@ function Header({
               <Navigation
                 onLoginClick={onLoginClick}
                 onLogoutClick={onLogoutClick}
-                savedNewsTheme={savedNewsTheme}
+                savedNewsPage={savedNewsPage}
               />
             </div>
           )
@@ -52,7 +52,7 @@ function Header({
                   )
                   : (
                     <ExtendButton
-                      darkTheme={savedNewsTheme}
+                      darkTheme={savedNewsPage}
                     />
                   )}
               </button>
@@ -66,7 +66,7 @@ function Header({
                   <Navigation
                     onLoginClick={onLoginClick}
                     onLogoutClick={onLogoutClick}
-                    savedNewsTheme={savedNewsTheme}
+                    savedNewsPage={savedNewsPage}
                   />
                 )}
               </div>

@@ -11,6 +11,13 @@
               opacity .5s ease-in-out;
 }
 
+.header_darktheme {
+  color: #1a1b22;
+  border-color: #d1d2d6;
+}
+
+
+
 .header_popupOpen {
   opacity: 0;
 }

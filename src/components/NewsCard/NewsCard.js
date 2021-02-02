@@ -43,15 +43,15 @@ function NewsCard({
   const newscardRef = useRef();
 
   function handleSaveClick() {
-    if (saveIconClassName === 'button__pressed') {
+    if (saveIconClassName === 'newscard__button_pressed') {
       setSaveIconClassName('');
     } else {
-      setSaveIconClassName('button__pressed');
+      setSaveIconClassName('newscard__button_pressed');
     }
   }
 
   function getSaveHint() {
-    if (saveIconClassName === 'button__pressed') {
+    if (saveIconClassName === 'newscard__button_pressed') {
       return 'Убрать из сохраненных';
     }
     return 'Сохранить статью';

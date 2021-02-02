@@ -160,12 +160,12 @@
   fill: #000;
 }
 
-.button__pressed {
+.newscard__button_pressed {
   stroke: #2F71E5;
   fill: #2F71E5;
 }
 
-.newscard__button:hover .button__pressed {
+.newscard__button:hover .newscard__button_pressed {
   stroke: #347EFF;
   fill: #347EFF;
 }

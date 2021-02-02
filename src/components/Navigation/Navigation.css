@@ -59,61 +59,23 @@
 }
 
 .navigation__button {
-  color: inherit;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 12px 18px;
-  border-radius: 24px;
-  min-height: auto;
   margin-left: 32px;
-  transition: border-color .3s ease-in-out;
-  background-color: transparent;
-  display: flex;
-  justify-content: center;
 }
 
-.navigation__button:hover {
-  cursor: url('../../images/ponter.svg'), default;
-  border: 1px solid #fff;
-}
-
-.navigation__button:focus {
-  outline: none;
-}
-
-.navigation__button-text {
-  font-family: 'Roboto', Arial, sans-serif;
-  font-size: 18px;
-  color: inherit;
-  line-height: 24px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  max-width: 160px;
-  text-align: center;
-}
-
-.navigation__button-icon {
-  margin-left: 10px;
-}
-
-.saved-news-theme {
+.navigation__link_darktheme {
   color: #1a1b22;
   border-color: #d1d2d6;
 }
 
-.saved-news-theme:hover {
+.navigation__link_darktheme:hover {
   color: #1a1b22;
 }
 
-.saved-news-theme:hover::after {
+.navigation__link_darktheme::after {
   border-bottom: 3px solid #1a1b22;
 }
 
-.saved-news-theme_hover:hover {
-  border-color: #1a1b22;
-}
-
-.saved-news-theme::after {
+.navigation__link_darktheme:hover::after {
   border-bottom: 3px solid #1a1b22;
 }
 
@@ -124,13 +86,7 @@
   }
 
   .navigation__button {
-    font-size: 16px;
     margin-left: 16px;
-    padding: 8px 14px;
-  }
-
-  .navigation__button-text {
-    font-size: 16px;
   }
 
   .navigation__link::after {
@@ -142,20 +98,6 @@
   }
 }
 
-@media (max-width: 767px) {
-  .navigation__button { 
-    padding: 10px 10px;
-  }
-
-  .navigation__button-icon {
-    margin-left: 2px;
-  }
-
-  .navigation__button-text {
-    max-width: 128px;
-  }
-}
-
 @media (max-width: 680px) {
   .navigation__link {
     font-size: 12px;
@@ -164,12 +106,6 @@
 
   .navigation__button { 
     margin-left: 12px;
-    padding: 10px 12px;
-  }
-
-  .navigation__button-text {
-    font-size: 12px;
-    max-width: 62px;
   }
 }
 
@@ -191,17 +127,6 @@
   .navigation__button {
     margin-top: 22px;
     margin-left: 0;
-    padding: 15px 18px 17px 15px;
-    border-radius: 32px;
-    color: #fff;
-    align-self: center;
-    width: 100%;
-    opacity: 0;
-  }
-
-  .navigation__button-text {
-    font-size: 18px;
-    max-width: calc(100% - 32px);
   }
 
   .navigation__link:hover {

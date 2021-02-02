@@ -5,7 +5,7 @@ import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader';
 import NewsCardList from '../NewsCardList/NewsCardList';
 
 function SavedNews({
-  savedNewsTheme,
+  savedNewsPage,
   onLoginClick,
   cards,
   isPopupOpen,
@@ -27,7 +27,7 @@ function SavedNews({
   return (
     <>
       <Header
-        savedNewsTheme={savedNewsTheme}
+        savedNewsPage={savedNewsPage}
         onLoginClick={onLoginClick}
         onLogoutClick={onLogoutClick}
         isPopupOpen={isPopupOpen}

@@ -99,7 +99,7 @@ function App() {
             <ProtectedRoute
               path="/saved-news"
               component={SavedNews}
-              savedNewsTheme
+              savedNewsPage
               onLoginClick={handleLoginClick}
               onLogoutClick={handleLogoutClick}
               cards={savedCards}

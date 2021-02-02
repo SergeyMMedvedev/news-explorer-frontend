@@ -1,0 +1,98 @@
+.login-button {
+  color: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 12px 18px;
+  border-radius: 24px;
+  min-height: auto;
+  transition: border-color .3s ease-in-out;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+}
+
+.login-button:hover {
+  cursor: url('../../../images/ponter.svg'), default;
+  border: 1px solid #fff;
+}
+
+.login-button:focus {
+  outline: none;
+}
+
+.login-button__text {
+  font-family: 'Roboto', Arial, sans-serif;
+  font-size: 18px;
+  color: inherit;
+  line-height: 24px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 160px;
+  text-align: center;
+}
+
+.login-button__icon {
+  margin-left: 10px;
+}
+
+.darktheme {
+  color: #1a1b22;
+  border-color: #d1d2d6;
+}
+
+.darktheme_hover:hover {
+  border-color: #1a1b22;
+}
+
+@media (max-width: 1023px) {
+  .login-button {
+    font-size: 16px;
+    padding: 8px 14px;
+  }
+
+  .login-button__text {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 767px) {
+  .login-button { 
+    padding: 10px 10px;
+  }
+
+  .login-button__icon {
+    margin-left: 2px;
+  }
+
+  .login-button__text {
+    max-width: 128px;
+  }
+}
+
+@media (max-width: 680px) {
+
+  .login-button { 
+    padding: 10px 12px;
+  }
+
+  .login-button__text {
+    font-size: 12px;
+    max-width: 62px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-button {
+    padding: 15px 18px 17px 15px;
+    border-radius: 32px;
+    color: #fff;
+    align-self: center;
+    width: 100%;
+    opacity: 0;
+  }
+
+  .login-button__text {
+    font-size: 18px;
+    max-width: calc(100% - 32px);
+  }
+}
