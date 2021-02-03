@@ -1,0 +1,139 @@
+.footer {
+  min-height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer__copyright {
+  font-family: 'Roboto', Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.375;
+  color: #b6bcbf;
+}
+
+.footer__navigation {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.footer__navigation-item {
+  transition: opacity .2s ease-in-out;
+}
+
+.footer__navigation-item:first-child {
+  padding: 0 12px;
+}
+
+.footer__navigation-item:nth-child(2) {
+  padding-right: 28px;
+}
+
+.footer__navigation-item:hover {
+  opacity: .7;
+}
+
+.footer__navigation-link {
+  font-family: 'Roboto', Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.33;
+  text-decoration: none;
+  color: #1a1b22;
+  margin-left: 26px;
+  display: block;
+}
+
+.footer__navigation-link:hover {
+  cursor: url('../../images/ponter.svg'), default;
+}
+
+.footer__github {
+  background-image: url('../../images/github.svg');
+  width: 24px;
+  height: 24px;
+}
+
+.footer__facebook {
+  background-image: url('../../images/fb.svg');
+  width: 24px;
+  height: 24px;
+}
+
+@media (max-width: 1023px) {
+  .footer {
+    min-height: 64px;
+  }
+
+  .footer__navigation-item:first-child {
+    padding: 0;
+  }
+
+  .footer__navigation-item:nth-child(2) {
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .footer {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+      'navigation'
+      'copyright ';
+  }
+
+  .footer__navigation {
+    display: grid;
+    grid-template-columns: auto  24px 50px;
+    grid-template-rows: auto;
+    grid-template-areas: 
+      "main git facebook"
+      "praktikum praktikum praktikum";
+    grid-area: navigation;  
+  }
+
+  .footer__navigation-link {
+    margin: 0;
+  }
+
+  .footer__navigation-item:first-child {
+    grid-area: main;
+    min-height: 46px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .footer__navigation-item:nth-child(2) {
+    grid-area: praktikum;
+    min-height: 46px;
+    display: flex;
+    align-items: center;
+  }
+
+  .footer__navigation-item:nth-child(3) {
+    grid-area: git;
+  }
+
+  .footer__navigation-item:nth-child(4) {
+    grid-area: facebook;
+  }
+
+  .footer__copyright {
+    grid-area: copyright;
+    text-align: center;
+    margin: 28px 0 20px 0;
+  }
+
+  .footer__github {
+    width: 24px;
+  }
+  
+  .footer__facebook {
+    margin-left: 26px;
+  } 
+}

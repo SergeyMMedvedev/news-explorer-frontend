@@ -1,0 +1,143 @@
+.navigation__container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.navigation__link {
+  font-family: 'Roboto', Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.33;
+  margin-left: 34px;
+  text-align: center;
+  min-height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  position: relative;
+  color: #b6bcbf;
+  text-decoration: none;
+  transition: color .3s ease-in-out;
+}
+
+.navigation__link::after {
+  content: '';
+  color: #fff;
+  border-bottom: 3px solid;
+  height: 3px;
+  width: 100%;
+  position: absolute;
+  bottom: -28px;
+  left: 0;
+  opacity: 0;
+  transition: opacity .3s ease-in-out;
+}
+
+.navigation__link:hover {
+  cursor: url('../../images/ponter.svg'), default;
+  color: #fff;
+}
+
+.navigation__link:hover::after {
+  opacity: 1;
+}
+
+.navigation__link_active {
+  color: #fff;
+}
+
+.navigation__link_active::after {
+  content: '';
+  border-bottom: 3px solid #fff;
+  height: 3px;
+  width: 100%;
+  position: absolute;
+  bottom: -28px;
+  left: 0;
+  opacity: 1;
+}
+
+.navigation__button {
+  margin-left: 32px;
+}
+
+.navigation__link_darktheme {
+  color: #1a1b22;
+  border-color: #d1d2d6;
+}
+
+.navigation__link_darktheme:hover {
+  color: #1a1b22;
+}
+
+.navigation__link_darktheme::after {
+  border-bottom: 3px solid #1a1b22;
+}
+
+.navigation__link_darktheme:hover::after {
+  border-bottom: 3px solid #1a1b22;
+}
+
+@media (max-width: 1023px) {
+  .navigation__link {
+    font-size: 16px;
+    margin-left: 16px;
+  }
+
+  .navigation__button {
+    margin-left: 16px;
+  }
+
+  .navigation__link::after {
+    bottom: -22px;
+  }
+
+  .navigation__link_active::after {
+    bottom: -22px;
+  }
+}
+
+@media (max-width: 680px) {
+  .navigation__link {
+    font-size: 12px;
+    margin-left: 12px;
+  }
+
+  .navigation__button { 
+    margin-left: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navigation__container {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 16px;
+  }
+
+  .navigation__link {
+    font-size: 18px;
+    margin-left: 0;
+    padding: 16px 0;
+    color: inherit;
+    transition: opacity .2s ease-in-out;
+  }
+
+  .navigation__button {
+    margin-top: 22px;
+    margin-left: 0;
+  }
+
+  .navigation__link:hover {
+    opacity: .7;
+  }
+
+  .navigation__link:hover::after {
+    content: none;
+  }
+
+  .navigation__link_active::after {
+    content: none;
+  }
+}

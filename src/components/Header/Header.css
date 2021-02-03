@@ -1,0 +1,136 @@
+.header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #fff;
+  position: relative;
+  z-index: 3;
+  transition: background-color .2s ease-in-out,
+              opacity .5s ease-in-out;
+}
+
+.header_darktheme {
+  color: #1a1b22;
+  border-color: #d1d2d6;
+}
+
+
+
+.header_popupOpen {
+  opacity: 0;
+}
+
+.header__title {
+  font-family: 'RobotoSlab', Arial, sans-serif;
+  font-size: 20px;
+  line-height: 1.2;
+  transition: color .5s ease-in-out;
+}
+
+.header__navigation-container {
+  min-width: 100px;
+  width: fit-content;
+}
+
+.header__navigation-extend-button {
+  width: 24px;
+  height: 24px;
+  transition: opacity .3s ease-in-out;
+  display: block;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+}
+
+.header__navigation-extend-button:focus {
+  outline: none;
+}
+
+.header__navigation-extend-button:hover {
+  opacity: .5;
+  cursor: url('../../images/ponter.svg'), default;
+}
+
+.header__navigation-extend-button_open {
+  background-image: url('../../images/close.svg');
+}
+
+.header__extend-background {
+  background-color: rgb(0, 0, 0);
+  opacity: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+  visibility: hidden;
+  transition: opacity .3s ease-in-out;
+}
+
+.header__extend-background_active {
+  z-index: 2;
+  visibility: visible;
+  opacity: .5;
+}
+
+@media (max-width: 1023px) {
+  .header {
+    min-height: 66px;
+  }
+}
+
+@media (max-width: 680px) {
+  .header__title {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .header {
+    min-height: 56px;
+  }
+
+  .header_extend {
+    background-color: #1a1b22;
+  }
+
+  .header__navigation-container {
+    position: absolute;
+    left: 0;
+    top: 56px;
+    height: 0;
+    padding: 16px 0 24px 0;
+    width: 100%;
+    z-index: -1;
+    color: rgba(255, 255, 255, 0);
+    box-sizing: border-box;
+    opacity: 0;
+    visibility: hidden;
+    background-color: transparent;
+    transition: height .5s ease-in-out, 
+                background-color .5s ease-in-out, 
+                opacity .5s ease-in-out,
+                color .5s ease-in-out .3s,
+                visibility .5s ease-in-out; 
+  }
+
+  .header__navigation-container_mobile-open {
+    color: rgba(255, 255, 255, 1);
+    background-color: #1a1b22;
+    opacity: 1;
+    visibility: visible;
+    height: 230px;
+  }
+
+  .header__navigation-container_mobile-open-not-auth {
+    color: rgba(255, 255, 255, 1);
+    background-color: #1a1b22;
+    opacity: 1;
+    visibility: visible;
+    height: 174px;
+  }
+}

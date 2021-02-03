@@ -1,0 +1,58 @@
+.page {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.page__header-searchform-container {
+  margin: 0 auto;
+  background-image: url('../../images/main-theme.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+}
+
+.page__newscardlist-container {
+  background-color: #f5f6f7;
+}
+
+.section {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 104px;
+  box-sizing: border-box;
+}
+
+.section-title {
+  font-family: 'RobotoSlab', Arial, sans-serif;
+  font-size: 40px;
+  line-height: 1.15;
+  font-weight: 400;
+  margin: 0;
+}
+
+.svg__path {
+  transition: all 0.3s ease-in-out;
+}
+
+@media (max-width: 1279px) {
+  .section {
+    padding: 0 80px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .section-title {
+    font-size: 30px;
+  }
+
+  .section {
+    padding: 0 40px;
+  }
+}
+
+@media (max-width: 680px) {
+  .section {
+    padding: 0 16px;
+  }
+}
