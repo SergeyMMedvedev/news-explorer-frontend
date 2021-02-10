@@ -28,6 +28,7 @@
       "airbnb"
     ],
     "rules": {
+      "linebreak-style": ["error", "windows"],
       "react/jsx-filename-extension": [
         1,
         {
@@ -44,7 +45,10 @@
       "jsx-a11y/no-noninteractive-tabindex": "off",
       "jsx-a11y/control-has-associated-label": "off",
       "react/prop-types": "off",
-      "no-param-reassign": "off"
+      "no-param-reassign": "off",
+      "prefer-promise-reject-errors": "off",
+      "react/no-danger": "off",
+      "max-len": "off"
     }
   },
   "browserslist": {

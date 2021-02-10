@@ -5,46 +5,55 @@ import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
 import NewsCardList from '../NewsCardList/NewsCardList';
 import About from '../About/About';
+import newsApi from '../../utils/NewsApi';
+import getTimeInterval from '../../utils/getTimeInterval';
 
 function Main({
   onLoginClick,
-  cards,
   isPopupOpen,
   onLogoutClick,
   classNameImageBackgroun,
   classNameColorBackground,
 }) {
-  const [loadedCards, setLoadedCards] = useState([]);
   const [startLoading, setStartLoading] = useState(false);
   const [isCardsLoaded, setIsCardsLoaded] = useState(false);
   const [emptyQuery, setEmptyQuery] = useState(false);
+  const [cards, setCards] = useState((localStorage.getItem('newscards') && JSON.parse(localStorage.getItem('newscards'))) || []);
+  // const [cards, setCards] = useState([]);
+  const [serverError, setServerError] = useState('');
 
-  function handleSearchSubmit(keyword) {
+  // console.log(localStorage.getItem('newscards'));
+
+  function handleSearchSubmit(isKeywordValid, keyword) {
+    setCards([]);
+    localStorage.removeItem('newscards');
+    localStorage.removeItem('minShowCardIndex');
+    localStorage.removeItem('maxShowCardIndex');
     setStartLoading(true);
     setIsCardsLoaded(false);
-    if (!keyword) {
+    if (isKeywordValid === false) {
       setEmptyQuery(true);
+      setStartLoading(false);
+      setIsCardsLoaded(true);
     } else {
       setEmptyQuery(false);
-    }
-  }
+      const timeInterval = getTimeInterval();
 
-  useEffect(() => {
-    if (startLoading) {
-      setTimeout(() => {
+      newsApi.getNews({
+        from: timeInterval.from,
+        to: timeInterval.to,
+        q: keyword,
+        pageSize: 7,
+      }).then((newsCards) => {
         setStartLoading(false);
         setIsCardsLoaded(true);
-      }, 1000);
+        setCards(newsCards.articles);
+        localStorage.setItem('newscards', JSON.stringify(newsCards.articles));
+        console.log(newsCards);
+      })
+        .catch((err) => setServerError(err));
     }
-  }, [startLoading]);
-
-  useEffect(() => {
-    if (isCardsLoaded && !emptyQuery) {
-      setLoadedCards(cards);
-    } else {
-      setLoadedCards([]);
-    }
-  }, [isCardsLoaded]);
+  }
 
   const newscardlistContainerRef = useRef();
 
@@ -53,6 +62,12 @@ function Main({
       newscardlistContainerRef.current.classList.add('extendContainerAnimation');
     }
   }, [startLoading]);
+
+  useEffect(() => {
+    if (cards.length !== 0) {
+      setIsCardsLoaded(true);
+    }
+  }, []);
 
   return (
     <>
@@ -70,10 +85,11 @@ function Main({
         {(startLoading || isCardsLoaded) && (
           <NewsCardList
             mainPage
-            cards={loadedCards}
+            cards={cards}
             startLoading={startLoading}
             isCardsLoaded={isCardsLoaded}
             emptyQuery={emptyQuery}
+            serverError={serverError}
           />
         )}
       </div>

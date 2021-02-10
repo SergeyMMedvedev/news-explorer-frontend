@@ -37,6 +37,7 @@ function Popup({
             onSubmit={onSubmit}
             submitButtonDisabled={submitButtonDisabled}
             submitText={submitText}
+            title={title}
           >
             {children}
           </PopupForm>

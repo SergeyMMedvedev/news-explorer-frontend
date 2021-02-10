@@ -53,8 +53,9 @@
 .newscard__picture {
   height: 272px; 
   width: 400px;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 16px 16px 0 0;
+  background-color: #1A1B22;
 }
 
 .newscard__info {

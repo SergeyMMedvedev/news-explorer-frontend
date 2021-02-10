@@ -18,21 +18,31 @@ function NewsCardList({
   startLoading,
   isCardsLoaded,
   emptyQuery,
+  serverError,
 }) {
   const maxWidth = useContext(CurrentMaxWidthContext);
 
   const [mainPageCards, setMainPageCards] = useState([]);
-  const [minShowCardIndex, setMinShowCardIndex] = useState(0);
-  const [maxShowCardIndex, setMaxShowCardIndex] = useState(3);
+  const [minShowCardIndex, setMinShowCardIndex] = useState(localStorage.getItem('minShowCardIndex') || 0);
+  const [maxShowCardIndex, setMaxShowCardIndex] = useState(localStorage.getItem('maxShowCardIndex') || 3);
+  // const [minShowCardIndex, setMinShowCardIndex] = useState(0);
+  // const [maxShowCardIndex, setMaxShowCardIndex] = useState(3);
+
+  console.log('minShowCardIndex', minShowCardIndex);
+  console.log('maxShowCardIndex', maxShowCardIndex);
 
   useEffect(() => {
-    if (cards.length > 3) {
-      for (let i = 3; i < cards.length; i += 1) {
-        cards[i].invisible = true;
+    if (cards) {
+      if (cards.length > 3) {
+        for (let i = maxShowCardIndex; i < cards.length; i += 1) {
+          if (cards[i]) {
+            cards[i].invisible = true;
+          }
+        }
+        setMainPageCards(cards);
+      } else {
+        setMainPageCards(cards);
       }
-      setMainPageCards(cards);
-    } else {
-      setMainPageCards(cards);
     }
   }, [cards]);
 
@@ -41,18 +51,37 @@ function NewsCardList({
 
   function showMoreCards() {
     if (maxWidth <= 680) {
-      setMinShowCardIndex(minShowCardIndex + 1);
-      setMaxShowCardIndex(maxShowCardIndex + 1);
+      const newMinShowCardIndex = +minShowCardIndex + 1;
+      const newMaxShowCardIndex = +maxShowCardIndex + 1;
+      setMinShowCardIndex(newMinShowCardIndex);
+      localStorage.setItem('minShowCardIndex', newMinShowCardIndex);
+      setMaxShowCardIndex(newMaxShowCardIndex);
+      localStorage.setItem('maxShowCardIndex', newMaxShowCardIndex);
     } else {
-      setMinShowCardIndex(minShowCardIndex + 3);
-      setMaxShowCardIndex(maxShowCardIndex + 3);
+      const newMinShowCardIndex = +minShowCardIndex + 3;
+      const newMaxShowCardIndex = +maxShowCardIndex + 3;
+      setMinShowCardIndex(newMinShowCardIndex);
+      localStorage.setItem('minShowCardIndex', newMinShowCardIndex);
+      setMaxShowCardIndex(newMaxShowCardIndex);
+      localStorage.setItem('maxShowCardIndex', newMaxShowCardIndex);
     }
+  }
+
+  function getBadResult(empty, error) {
+    if (empty) {
+      return 'Нужно ввести ключевое слово';
+    }
+    if (error) {
+      return 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз';
+    }
+    return 'К сожалению по вашему запросу ничего не найдено.';
   }
 
   useEffect(() => {
     if (newsCardListRef.current) {
       const arrCards = Array.prototype.slice.call(newsCardListRef.current.children);
       const newCards = arrCards.slice(minShowCardIndex, maxShowCardIndex);
+      console.log('newCards', newCards);
       if (newCards.length !== 0) {
         if (newCards[0]) {
           newCards[0].classList.add('newscard_show');
@@ -94,14 +123,14 @@ function NewsCardList({
       )}
 
       {(isCardsLoaded || !mainPage) && (
-        (mainPageCards.length > 0 || !mainPage)
+        (cards.length > 0 || !mainPage)
           ? (
             <>
               {mainPage && <h2 className="newscardlist__title section-title">Результаты поиска</h2>}
               <ul ref={newsCardListRef} className="newscardlist__elements appearAnimation">
-                {(mainPage ? mainPageCards : cards).map((card) => (
+                {(mainPage ? mainPageCards : cards).map((card, i) => (
                   <NewsCard
-                    key={card._id}
+                    key={card._id || i}
                     mainPage={mainPage}
                     pubDate={card.publishedAt}
                     image={card.urlToImage}
@@ -116,17 +145,16 @@ function NewsCardList({
                   />
                 ))}
               </ul>
-              {mainPage && <button type="button" onClick={showMoreCards} className="newscardlist__show-more-button">Показать еще</button>}
+              {(mainPage && (maxShowCardIndex) < cards.length) && <button type="button" onClick={showMoreCards} className="newscardlist__show-more-button">Показать еще</button>}
             </>
           )
           : (
             <div className="appearAnimation">
               <div className="newscardlist__not-found-picture" />
               <p className="newscardlist__not-found-title">Ничего не найдено</p>
-              <p className="newscardlist__not-found-text">{emptyQuery ? 'Задан пустой поисковый запрос' : 'К сожалению по вашему запросу ничего не найдено.'}</p>
+              <p className="newscardlist__not-found-text">{getBadResult(emptyQuery, serverError)}</p>
             </div>
           )
-
       )}
 
     </section>

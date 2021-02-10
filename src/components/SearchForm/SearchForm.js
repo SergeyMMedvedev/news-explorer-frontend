@@ -4,14 +4,17 @@ import FormButton from '../ui/FormButton/FormButton';
 
 function SearchForm({ onSubmit }) {
   const [keyword, setKeyword] = useState('');
+  const [isKeywordValid, setIsKeywordValid] = useState(false);
 
   function handleKeywordChange(e) {
-    setKeyword(e.target.value);
+    setKeyword(e.target.value.trimLeft());
+    setIsKeywordValid(e.target.validity.valid);
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    onSubmit(keyword);
+    onSubmit(isKeywordValid, keyword);
+    setIsKeywordValid(false);
     setKeyword('');
   }
 
@@ -19,10 +22,15 @@ function SearchForm({ onSubmit }) {
     <section className="searchform">
       <h2 className="searchform__header">Что творится в мире?</h2>
       <p className="searchform__text">Находите самые свежие статьи на любую тему и сохраняйте в своём личном кабинете.</p>
-      <form onSubmit={handleSubmit} className="searchform__form">
-        <input value={keyword} onChange={handleKeywordChange} type="text" className="searchform__input" placeholder="Введите тему новости" />
-        {/* <input type="submit"
-         className="searchform__submit-button form-button" value="Искать" /> */}
+      <form onSubmit={handleSubmit} className="searchform__form" noValidate>
+        <input
+          value={keyword}
+          onChange={handleKeywordChange}
+          type="text"
+          className="searchform__input"
+          placeholder="Введите тему новости"
+          required
+        />
         <FormButton
           className="searchform__submit-button"
           value="Искать"
