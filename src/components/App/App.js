@@ -17,6 +17,7 @@ import InfoTooltip from '../InfoTooltip/InfoTooltip';
 import setMediaQuery from '../../utils/setMediaQuery';
 import { cards, savedCards } from '../../db/cards';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import auth from '../../utils/Auth';
 
 function App() {
   const [isOpenPopupLogin, setIsOpenPopupLogin] = useState(false);
@@ -24,6 +25,7 @@ function App() {
   const [isOpenInfoTooltip, setIsOpenInfoTooltip] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [maxWidth, setMaxWidth] = useState();
+  // const [loggedIn, setLoggedIn] = useState(null);
   const history = useHistory();
 
   window.onresize = () => {
@@ -40,6 +42,7 @@ function App() {
 
   function handleLogoutClick() {
     setCurrentUser({});
+    localStorage.removeItem('jwt');
     history.push('/');
   }
 
@@ -66,18 +69,67 @@ function App() {
     };
   }, []);
 
-  function handleLoginSubmit(email) {
-    setCurrentUser({
-      email,
-      name: email,
-    });
+  function handleLoginSubmit(email, password) {
+    auth.authorize(email, password)
+      .then((data) => {
+        if (data.token) {
+          const jwt = data.token;
+          console.log(jwt);
+
+          localStorage.setItem('jwt', jwt);
+          // api.headers.authorization = `Bearer ${localStorage.getItem('jwt')}`;
+          // setLoggedIn(true);
+          setCurrentUser({
+            email,
+            name: localStorage.getItem('username'),
+          });
+          console.log(localStorage.getItem('username'));
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
     closeAllPopups();
   }
 
-  function handleRegistrationSubmit() {
-    closeAllPopups();
-    setIsOpenInfoTooltip(true);
+  function handleRegistrationSubmit(email, password, name, clearFields) {
+    auth.register(email, password, name)
+      .then(() => {
+        closeAllPopups();
+        setIsOpenInfoTooltip(true);
+        // localStorage.setItem('email', email);
+        // localStorage.setItem('password', password);
+        localStorage.setItem('username', name);
+        clearFields();
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }
+
+  function tokenCheck() {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      auth.getContent(jwt)
+        .then((res) => {
+          if (res) {
+            setCurrentUser({
+              email: res.email,
+              name: res.name,
+            });
+            // history.push('/');
+          }
+        })
+        .catch((e) => console.log(e));
+    } else {
+      localStorage.removeItem('jwt');
+      setCurrentUser({});
+    }
+  }
+
+  useEffect(() => {
+    tokenCheck();
+  }, []);
 
   return (
     <div className="page">

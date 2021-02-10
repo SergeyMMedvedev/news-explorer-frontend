@@ -31,7 +31,11 @@ function PopupRegister({
   }
 
   function handleSubmit() {
-    onSubmit();
+    onSubmit(email, password, name, () => {
+      setEmail('');
+      setPassword('');
+      setName('');
+    });
   }
 
   function handleClose() {
