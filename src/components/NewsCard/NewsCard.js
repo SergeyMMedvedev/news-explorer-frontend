@@ -9,12 +9,15 @@ import SaveIcon from '../svg/SaveIcon';
 import DeleteIcon from '../svg/DeleteIcon';
 import returnNewsPubDate from '../../utils/returnNewsPubDate';
 import CurrentUserContext from '../../context/CurrentUserContext';
+import mainApi from '../../utils/MainApi';
 
 function NewsCard({
   mainPage,
-  image,
-  source,
   pubDate,
+  image,
+  title,
+  text,
+  source,
   url,
   keyword,
   onDelete,
@@ -47,6 +50,21 @@ function NewsCard({
       setSaveIconClassName('');
     } else {
       setSaveIconClassName('newscard__button_pressed');
+      console.log(localStorage.getItem('jwt'));
+      console.log('card.description', card.description);
+      mainApi.saveArticle({
+        keyword: 'article4',
+        title,
+        text,
+        date,
+        source,
+        image,
+        link: url,
+      }).then((res) => {
+        console.log(res);
+      }).catch((err) => {
+        console.log(err);
+      });
     }
   }
 
@@ -62,8 +80,8 @@ function NewsCard({
       <img src={image} className="newscard__picture" alt={card.title} />
       <a href={url} rel="noreferrer" className="newscard__info" target="_blank">
         <p className="newscard__date">{returnNewsPubDate(date)}</p>
-        <p className="newscard__title">{card.title}</p>
-        <p className="newscard__text" dangerouslySetInnerHTML={{ __html: card.description }} />
+        <p className="newscard__title">{title}</p>
+        <p className="newscard__text" dangerouslySetInnerHTML={{ __html: text }} />
       </a>
       <a href={url} rel="noreferrer" className="newscard__source-link" target="_blank">{source}</a>
 

@@ -132,12 +132,12 @@ function NewsCardList({
                   <NewsCard
                     key={card._id || i}
                     mainPage={mainPage}
-                    pubDate={card.publishedAt}
-                    image={card.urlToImage}
+                    pubDate={card.publishedAt || card.date}
+                    image={card.urlToImage || card.image}
                     title={card.title}
-                    text={card.description}
-                    source={card.source.name}
-                    url={card.url}
+                    text={card.description || card.text}
+                    source={card.source.name || card.source}
+                    url={card.url || card.link}
                     keyword={card.tag}
                     onDelete={onDelete}
                     card={card}

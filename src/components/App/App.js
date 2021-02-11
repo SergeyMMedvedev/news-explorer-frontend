@@ -15,7 +15,7 @@ import PopupLogin from '../PopupLogin/PopupLogin';
 import PopupRegister from '../PopupRegister/PopupRegister';
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
 import setMediaQuery from '../../utils/setMediaQuery';
-import { cards, savedCards } from '../../db/cards';
+// import { cards, savedCards } from '../../db/cards';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import auth from '../../utils/Auth';
 
@@ -141,7 +141,7 @@ function App() {
               <Main
                 onLoginClick={handleLoginClick}
                 onLogoutClick={handleLogoutClick}
-                cards={cards}
+                // cards={cards}
                 isPopupOpen={isOpenPopupLogin || isOpenPopupRegister || isOpenInfoTooltip}
                 classNameImageBackgroun="page__header-searchform-container"
                 classNameColorBackground="page__newscardlist-container"
@@ -154,7 +154,7 @@ function App() {
               savedNewsPage
               onLoginClick={handleLoginClick}
               onLogoutClick={handleLogoutClick}
-              cards={savedCards}
+              // cards={savedCards}
               isPopupOpen={isOpenPopupLogin || isOpenPopupRegister || isOpenInfoTooltip}
               classNameColorBackground="page__newscardlist-container"
             />
