@@ -15,10 +15,12 @@ function NewsCardList({
   cards,
   disappear,
   onDelete,
+  onCardDelete,
   startLoading,
   isCardsLoaded,
   emptyQuery,
   serverError,
+  onCardSave,
 }) {
   const maxWidth = useContext(CurrentMaxWidthContext);
 
@@ -140,8 +142,10 @@ function NewsCardList({
                     url={card.url || card.link}
                     keyword={card.tag}
                     onDelete={onDelete}
+                    onCardDelete={onCardDelete}
                     card={card}
                     cardHiddenClass={card.invisible && mainPage}
+                    onCardSave={onCardSave}
                   />
                 ))}
               </ul>

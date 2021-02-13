@@ -12,6 +12,8 @@ function Main({
   onLoginClick,
   isPopupOpen,
   onLogoutClick,
+  onCardSave,
+  onCardDelete,
   classNameImageBackgroun,
   classNameColorBackground,
 }) {
@@ -90,6 +92,8 @@ function Main({
             isCardsLoaded={isCardsLoaded}
             emptyQuery={emptyQuery}
             serverError={serverError}
+            onCardSave={onCardSave}
+            onCardDelete={onCardDelete}
           />
         )}
       </div>

@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom';
 import CurrentMaxWidthContext from '../../context/CurrentMaxWidthContext';
 import CurrentUserContext from '../../context/CurrentUserContext';
+import CurrentSavedCardsContext from '../../context/CurrentSavedCardsContext';
 import Main from '../Main/Main';
 import SavedNews from '../SavedNews/SavedNews';
 import Footer from '../Footer/Footer';
@@ -18,6 +19,7 @@ import setMediaQuery from '../../utils/setMediaQuery';
 // import { cards, savedCards } from '../../db/cards';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import auth from '../../utils/Auth';
+import mainApi from '../../utils/MainApi';
 
 function App() {
   const [isOpenPopupLogin, setIsOpenPopupLogin] = useState(false);
@@ -25,6 +27,7 @@ function App() {
   const [isOpenInfoTooltip, setIsOpenInfoTooltip] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [maxWidth, setMaxWidth] = useState();
+  const [currentSavedCards, setCurrentSavedCards] = useState([]);
   // const [loggedIn, setLoggedIn] = useState(null);
   const history = useHistory();
 
@@ -68,6 +71,35 @@ function App() {
       document.removeEventListener('keydown', handleEscClose);
     };
   }, []);
+
+  useEffect(() => {
+    mainApi.getArticles().then((articles) => {
+      setCurrentSavedCards(articles);
+    })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  function handleSaveClick() {
+    mainApi.getArticles().then((articles) => {
+      setCurrentSavedCards(articles);
+    })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function handleNewsCardDelete(cardId) {
+    console.log('app js  cardId', cardId);
+    mainApi.deleteArticle(cardId).then((res) => {
+      console.log('карточка удалена', res);
+      handleSaveClick();
+    })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   function handleLoginSubmit(email, password) {
     auth.authorize(email, password)
@@ -135,57 +167,62 @@ function App() {
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
         <CurrentMaxWidthContext.Provider value={maxWidth}>
-          <Switch>
+          <CurrentSavedCardsContext.Provider value={currentSavedCards}>
+            <Switch>
 
-            <Route exact path="/">
-              <Main
+              <Route exact path="/">
+                <Main
+                  onLoginClick={handleLoginClick}
+                  onLogoutClick={handleLogoutClick}
+                  onCardSave={handleSaveClick}
+                  // cards={cards}
+                  isPopupOpen={isOpenPopupLogin || isOpenPopupRegister || isOpenInfoTooltip}
+                  classNameImageBackgroun="page__header-searchform-container"
+                  classNameColorBackground="page__newscardlist-container"
+                  onCardDelete={handleNewsCardDelete}
+                />
+              </Route>
+
+              <ProtectedRoute
+                path="/saved-news"
+                component={SavedNews}
+                savedNewsPage
                 onLoginClick={handleLoginClick}
                 onLogoutClick={handleLogoutClick}
-                // cards={cards}
+                // cards={savedCards}
                 isPopupOpen={isOpenPopupLogin || isOpenPopupRegister || isOpenInfoTooltip}
-                classNameImageBackgroun="page__header-searchform-container"
                 classNameColorBackground="page__newscardlist-container"
+                onCardDelete={handleNewsCardDelete}
               />
-            </Route>
 
-            <ProtectedRoute
-              path="/saved-news"
-              component={SavedNews}
-              savedNewsPage
-              onLoginClick={handleLoginClick}
-              onLogoutClick={handleLogoutClick}
-              // cards={savedCards}
-              isPopupOpen={isOpenPopupLogin || isOpenPopupRegister || isOpenInfoTooltip}
-              classNameColorBackground="page__newscardlist-container"
+              <Route>
+                <Redirect to="/" />
+              </Route>
+
+            </Switch>
+
+            <PopupLogin
+              isOpen={isOpenPopupLogin}
+              onClose={closeAllPopups}
+              onSwitchPopupClick={handleRegistrationClick}
+              onSubmit={handleLoginSubmit}
             />
 
-            <Route>
-              <Redirect to="/" />
-            </Route>
+            <PopupRegister
+              isOpen={isOpenPopupRegister}
+              onClose={closeAllPopups}
+              onSwitchPopupClick={handleLoginClick}
+              onSubmit={handleRegistrationSubmit}
+            />
 
-          </Switch>
+            <InfoTooltip
+              isOpen={isOpenInfoTooltip}
+              onClose={closeAllPopups}
+              onSwitchPopupClick={handleLoginClick}
+            />
 
-          <PopupLogin
-            isOpen={isOpenPopupLogin}
-            onClose={closeAllPopups}
-            onSwitchPopupClick={handleRegistrationClick}
-            onSubmit={handleLoginSubmit}
-          />
-
-          <PopupRegister
-            isOpen={isOpenPopupRegister}
-            onClose={closeAllPopups}
-            onSwitchPopupClick={handleLoginClick}
-            onSubmit={handleRegistrationSubmit}
-          />
-
-          <InfoTooltip
-            isOpen={isOpenInfoTooltip}
-            onClose={closeAllPopups}
-            onSwitchPopupClick={handleLoginClick}
-          />
-
-          <Footer />
+            <Footer />
+          </CurrentSavedCardsContext.Provider>
         </CurrentMaxWidthContext.Provider>
       </CurrentUserContext.Provider>
     </div>

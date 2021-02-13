@@ -33,6 +33,8 @@ class MainApi {
   }
 
   async deleteArticle(id) {
+    console.log('id in deleteArticle', id);
+    console.log('type id in deleteArticle', typeof id);
     const loadingResponse = fetch((`${this.baseUrl}/articles/${id}`), {
       method: 'DELETE',
       headers: this.headers,
