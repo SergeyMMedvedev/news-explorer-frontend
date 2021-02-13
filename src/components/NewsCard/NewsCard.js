@@ -48,10 +48,10 @@ function NewsCard({
   function handleSaveClick() {
     if (saveIconClassName === 'newscard__button_pressed') {
       setSaveIconClassName('');
+      mainApi.deleteArticle();
     } else {
-      setSaveIconClassName('newscard__button_pressed');
-      console.log(localStorage.getItem('jwt'));
-      console.log('card.description', card.description);
+      // console.log(localStorage.getItem('jwt'));
+      // console.log('card.description', card.description);
       mainApi.saveArticle({
         keyword: 'article4',
         title,
@@ -62,6 +62,7 @@ function NewsCard({
         link: url,
       }).then((res) => {
         console.log(res);
+        setSaveIconClassName('newscard__button_pressed');
       }).catch((err) => {
         console.log(err);
       });
@@ -83,7 +84,7 @@ function NewsCard({
         <p className="newscard__title">{title}</p>
         <p className="newscard__text" dangerouslySetInnerHTML={{ __html: text }} />
       </a>
-      <a href={url} rel="noreferrer" className="newscard__source-link" target="_blank">{source}</a>
+      <a href={url} rel="noreferrer" className="newscard__source-link" target="_blank">{source.toUpperCase()}</a>
 
       {mainPage
         ? (

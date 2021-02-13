@@ -31,6 +31,19 @@ class MainApi {
       resolve(responseData);
     });
   }
+
+  async deleteArticle(id) {
+    const loadingResponse = fetch((`${this.baseUrl}/articles/${id}`), {
+      method: 'DELETE',
+      headers: this.headers,
+    });
+    const response = await loadingResponse;
+    if (!response.ok) { return Promise.reject(`Ошибка: ${response.status}`); }
+    const responseData = await response.json();
+    return new Promise((resolve) => {
+      resolve(responseData);
+    });
+  }
 }
 
 const mainApi = new MainApi({

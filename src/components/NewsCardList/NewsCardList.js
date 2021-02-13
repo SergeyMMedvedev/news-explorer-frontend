@@ -128,9 +128,9 @@ function NewsCardList({
             <>
               {mainPage && <h2 className="newscardlist__title section-title">Результаты поиска</h2>}
               <ul ref={newsCardListRef} className="newscardlist__elements appearAnimation">
-                {(mainPage ? mainPageCards : cards).map((card, i) => (
+                {(mainPage ? mainPageCards : cards).map((card) => (
                   <NewsCard
-                    key={card._id || i}
+                    key={card.url || card.link}
                     mainPage={mainPage}
                     pubDate={card.publishedAt || card.date}
                     image={card.urlToImage || card.image}

@@ -43,7 +43,7 @@ function Main({
         from: timeInterval.from,
         to: timeInterval.to,
         q: keyword,
-        pageSize: 7,
+        pageSize: 100,
       }).then((newsCards) => {
         setStartLoading(false);
         setIsCardsLoaded(true);
