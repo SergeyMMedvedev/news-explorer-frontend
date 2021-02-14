@@ -7,6 +7,7 @@ function PopupRegister({
   onClose,
   onSwitchPopupClick,
   onSubmit,
+  registrationError,
 }) {
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -63,6 +64,7 @@ function PopupRegister({
       submitButtonDisabled={
         emailError || passwordError || nameError || (!email || !password || !name)
       }
+      serverResponseError={registrationError}
     >
       <label htmlFor="register-email" className="popup__label">
         Email

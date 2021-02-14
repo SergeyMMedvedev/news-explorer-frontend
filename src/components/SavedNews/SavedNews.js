@@ -19,16 +19,16 @@ function SavedNews({
   isPopupOpen,
   onLogoutClick,
   classNameColorBackground,
-  onCardDelete,
+  onTrashClick,
 }) {
   const savedNewsCards = useContext(CurrentSavedCardsContext);
   const [startDisappear, setStartDisappear] = useState(false);
 
-  function handleNewsCardDelete(card) {
+  function handleTrashCkick(card) {
     setStartDisappear(true);
     setTimeout(() => {
       const cardId = getCardId(savedNewsCards, card);
-      onCardDelete(cardId);
+      onTrashClick(cardId);
       setStartDisappear(false);
     }, 400);
   }
@@ -48,7 +48,7 @@ function SavedNews({
       <div className={classNameColorBackground}>
         <NewsCardList
           cards={savedNewsCards}
-          onDelete={handleNewsCardDelete}
+          onTrashClick={handleTrashCkick}
           disappear={startDisappear}
         />
       </div>

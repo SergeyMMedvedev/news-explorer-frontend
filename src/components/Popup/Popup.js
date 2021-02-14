@@ -13,6 +13,7 @@ function Popup({
   onSubmit,
   submitText,
   submitButtonDisabled,
+  serverResponseError,
 }) {
   function handleSwitchPopupClick() {
     onClose();
@@ -38,6 +39,7 @@ function Popup({
             submitButtonDisabled={submitButtonDisabled}
             submitText={submitText}
             title={title}
+            serverResponseError={serverResponseError}
           >
             {children}
           </PopupForm>

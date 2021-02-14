@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './PopupForm.css';
 import FormButton from '../ui/FormButton/FormButton';
+import '../appearAnimation/appearAnimation.css';
 
 function PopupForm({
   children,
@@ -8,19 +9,17 @@ function PopupForm({
   submitButtonDisabled,
   submitText,
   title,
+  serverResponseError,
 }) {
-  const [serverError, setServerError] = useState(false);
-
   function handleSubmit(e) {
     e.preventDefault();
-    setServerError(true);
     onSubmit();
   }
 
   return (
     <form onSubmit={handleSubmit} className="popup__form">
       {children}
-      <span id={`server-error_${title}`} className={`popup__server-error ${serverError && 'popup__server-error_active'}`}>Такой пользователь уже есть</span>
+      <span id={`server-error_${title}`} className={`popup__server-error ${serverResponseError && 'popup__server-error_active appearAnimation'}`}>Такой пользователь уже есть</span>
       <FormButton
         className="popup__submit"
         value={submitText}

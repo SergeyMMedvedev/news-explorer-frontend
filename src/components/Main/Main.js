@@ -10,10 +10,10 @@ import getTimeInterval from '../../utils/getTimeInterval';
 
 function Main({
   onLoginClick,
-  isPopupOpen,
   onLogoutClick,
-  onCardSave,
-  onCardDelete,
+  isPopupOpen,
+  onBookmarkClikToSave,
+  onBookmarkClikToDelete,
   classNameImageBackgroun,
   classNameColorBackground,
 }) {
@@ -21,16 +21,17 @@ function Main({
   const [isCardsLoaded, setIsCardsLoaded] = useState(false);
   const [emptyQuery, setEmptyQuery] = useState(false);
   const [cards, setCards] = useState((localStorage.getItem('newscards') && JSON.parse(localStorage.getItem('newscards'))) || []);
-  // const [cards, setCards] = useState([]);
   const [serverError, setServerError] = useState('');
 
-  // console.log(localStorage.getItem('newscards'));
-
-  function handleSearchSubmit(isKeywordValid, keyword) {
-    setCards([]);
+  function clearNewscardsFromLocalStorage() {
     localStorage.removeItem('newscards');
     localStorage.removeItem('minShowCardIndex');
     localStorage.removeItem('maxShowCardIndex');
+  }
+
+  function handleSearchSubmit(isKeywordValid, keyword) {
+    setCards([]);
+    clearNewscardsFromLocalStorage();
     setStartLoading(true);
     setIsCardsLoaded(false);
     if (isKeywordValid === false) {
@@ -45,13 +46,12 @@ function Main({
         from: timeInterval.from,
         to: timeInterval.to,
         q: keyword,
-        pageSize: 100,
+        pageSize: 13,
       }).then((newsCards) => {
         setStartLoading(false);
         setIsCardsLoaded(true);
         setCards(newsCards.articles);
         localStorage.setItem('newscards', JSON.stringify(newsCards.articles));
-        console.log(newsCards);
       })
         .catch((err) => setServerError(err));
     }
@@ -92,8 +92,8 @@ function Main({
             isCardsLoaded={isCardsLoaded}
             emptyQuery={emptyQuery}
             serverError={serverError}
-            onCardSave={onCardSave}
-            onCardDelete={onCardDelete}
+            onBookmarkClikToSave={onBookmarkClikToSave}
+            onBookmarkClikToDelete={onBookmarkClikToDelete}
           />
         )}
       </div>

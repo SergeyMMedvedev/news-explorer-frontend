@@ -13,30 +13,25 @@ import Preloader from '../Preloader/Preloader';
 function NewsCardList({
   mainPage,
   cards,
-  disappear,
-  onDelete,
-  onCardDelete,
   startLoading,
   isCardsLoaded,
   emptyQuery,
   serverError,
-  onCardSave,
+  onBookmarkClikToSave,
+  onBookmarkClikToDelete,
+  onTrashClick,
+  disappear,
 }) {
   const maxWidth = useContext(CurrentMaxWidthContext);
 
   const [mainPageCards, setMainPageCards] = useState([]);
   const [minShowCardIndex, setMinShowCardIndex] = useState(localStorage.getItem('minShowCardIndex') || 0);
   const [maxShowCardIndex, setMaxShowCardIndex] = useState(localStorage.getItem('maxShowCardIndex') || 3);
-  // const [minShowCardIndex, setMinShowCardIndex] = useState(0);
-  // const [maxShowCardIndex, setMaxShowCardIndex] = useState(3);
-
-  console.log('minShowCardIndex', minShowCardIndex);
-  console.log('maxShowCardIndex', maxShowCardIndex);
 
   useEffect(() => {
     if (cards) {
       if (cards.length > 3) {
-        for (let i = maxShowCardIndex; i < cards.length; i += 1) {
+        for (let i = +maxShowCardIndex; i < cards.length; i += 1) {
           if (cards[i]) {
             cards[i].invisible = true;
           }
@@ -53,19 +48,15 @@ function NewsCardList({
 
   function showMoreCards() {
     if (maxWidth <= 680) {
-      const newMinShowCardIndex = +minShowCardIndex + 1;
-      const newMaxShowCardIndex = +maxShowCardIndex + 1;
-      setMinShowCardIndex(newMinShowCardIndex);
-      localStorage.setItem('minShowCardIndex', newMinShowCardIndex);
-      setMaxShowCardIndex(newMaxShowCardIndex);
-      localStorage.setItem('maxShowCardIndex', newMaxShowCardIndex);
+      setMinShowCardIndex(+minShowCardIndex + 1);
+      setMaxShowCardIndex(+maxShowCardIndex + 1);
+      localStorage.setItem('minShowCardIndex', +minShowCardIndex + 1);
+      localStorage.setItem('maxShowCardIndex', +maxShowCardIndex + 1);
     } else {
-      const newMinShowCardIndex = +minShowCardIndex + 3;
-      const newMaxShowCardIndex = +maxShowCardIndex + 3;
-      setMinShowCardIndex(newMinShowCardIndex);
-      localStorage.setItem('minShowCardIndex', newMinShowCardIndex);
-      setMaxShowCardIndex(newMaxShowCardIndex);
-      localStorage.setItem('maxShowCardIndex', newMaxShowCardIndex);
+      setMinShowCardIndex(+minShowCardIndex + 3);
+      setMaxShowCardIndex(+maxShowCardIndex + 3);
+      localStorage.setItem('minShowCardIndex', +minShowCardIndex + 3);
+      localStorage.setItem('maxShowCardIndex', +maxShowCardIndex + 3);
     }
   }
 
@@ -83,18 +74,9 @@ function NewsCardList({
     if (newsCardListRef.current) {
       const arrCards = Array.prototype.slice.call(newsCardListRef.current.children);
       const newCards = arrCards.slice(minShowCardIndex, maxShowCardIndex);
-      console.log('newCards', newCards);
-      if (newCards.length !== 0) {
-        if (newCards[0]) {
-          newCards[0].classList.add('newscard_show');
-        }
-        if (newCards[1]) {
-          newCards[1].classList.add('newscard_show', 'newscard_show-delay1');
-        }
-        if (newCards[2]) {
-          newCards[2].classList.add('newscard_show', 'newscard_show-delay2');
-        }
-      }
+      newCards.forEach((nawsCard) => {
+        nawsCard.classList.add('newscard_show');
+      });
     }
 
     if (mainPage && minShowCardIndex > 0) {
@@ -117,50 +99,69 @@ function NewsCardList({
     }
   }, [disappear]);
 
+  function renderNewsCardListElements() {
+    if (startLoading) {
+      return <Preloader />;
+    }
+    if (!mainPage) {
+      return (
+        <ul ref={newsCardListRef} className="newscardlist__elements appearAnimation">
+          {cards.map((card) => (
+            <NewsCard
+              key={card.link}
+              mainPage={mainPage}
+              pubDate={card.date}
+              image={card.image}
+              title={card.title}
+              text={card.text}
+              source={card.source}
+              url={card.link}
+              keyword={card.keyword}
+              card={card}
+              onTrashClick={onTrashClick}
+            />
+          ))}
+        </ul>
+      );
+    }
+    if (isCardsLoaded && cards.length > 0) {
+      return (
+        <>
+          <h2 className="newscardlist__title section-title">Результаты поиска</h2>
+          <ul ref={newsCardListRef} className="newscardlist__elements appearAnimation">
+            {mainPageCards.map((card) => (
+              <NewsCard
+                key={card.url}
+                mainPage={mainPage}
+                pubDate={card.publishedAt}
+                image={card.urlToImage}
+                title={card.title}
+                text={card.description}
+                source={card.source.name}
+                url={card.url}
+                card={card}
+                onBookmarkClikToSave={onBookmarkClikToSave}
+                onBookmarkClikToDelete={onBookmarkClikToDelete}
+              />
+            ))}
+          </ul>
+          {(maxShowCardIndex < cards.length) && <button type="button" onClick={showMoreCards} className="newscardlist__show-more-button">Показать еще</button>}
+        </>
+      );
+    }
+    return (
+      <div className="appearAnimation">
+        <div className="newscardlist__not-found-picture" />
+        <p className="newscardlist__not-found-title">Ничего не найдено</p>
+        <p className="newscardlist__not-found-text">{getBadResult(emptyQuery, serverError)}</p>
+      </div>
+    );
+  }
+
   return (
+
     <section ref={newsCardListSectionRef} className={`section newscardlist ${!mainPage ? 'newscardlist_saved' : ''}`}>
-
-      {startLoading && (
-        <Preloader />
-      )}
-
-      {(isCardsLoaded || !mainPage) && (
-        (cards.length > 0 || !mainPage)
-          ? (
-            <>
-              {mainPage && <h2 className="newscardlist__title section-title">Результаты поиска</h2>}
-              <ul ref={newsCardListRef} className="newscardlist__elements appearAnimation">
-                {(mainPage ? mainPageCards : cards).map((card) => (
-                  <NewsCard
-                    key={card.url || card.link}
-                    mainPage={mainPage}
-                    pubDate={card.publishedAt || card.date}
-                    image={card.urlToImage || card.image}
-                    title={card.title}
-                    text={card.description || card.text}
-                    source={card.source.name || card.source}
-                    url={card.url || card.link}
-                    keyword={card.tag}
-                    onDelete={onDelete}
-                    onCardDelete={onCardDelete}
-                    card={card}
-                    cardHiddenClass={card.invisible && mainPage}
-                    onCardSave={onCardSave}
-                  />
-                ))}
-              </ul>
-              {(mainPage && (maxShowCardIndex) < cards.length) && <button type="button" onClick={showMoreCards} className="newscardlist__show-more-button">Показать еще</button>}
-            </>
-          )
-          : (
-            <div className="appearAnimation">
-              <div className="newscardlist__not-found-picture" />
-              <p className="newscardlist__not-found-title">Ничего не найдено</p>
-              <p className="newscardlist__not-found-text">{getBadResult(emptyQuery, serverError)}</p>
-            </div>
-          )
-      )}
-
+      {renderNewsCardListElements()}
     </section>
   );
 }

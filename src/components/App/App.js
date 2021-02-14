@@ -28,6 +28,9 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [maxWidth, setMaxWidth] = useState();
   const [currentSavedCards, setCurrentSavedCards] = useState([]);
+
+  const [logginError, setLogginError] = useState('');
+  const [registrationError, setRegistrationError] = useState('');
   // const [loggedIn, setLoggedIn] = useState(null);
   const history = useHistory();
 
@@ -46,7 +49,12 @@ function App() {
   function handleLogoutClick() {
     setCurrentUser({});
     localStorage.removeItem('jwt');
-    history.push('/');
+    history.push(({
+      pathname: '/',
+      state: {
+        update: true,
+      },
+    }));
   }
 
   function handleRegistrationClick() {
@@ -57,6 +65,8 @@ function App() {
     setIsOpenPopupLogin(false);
     setIsOpenPopupRegister(false);
     setIsOpenInfoTooltip(false);
+    setLogginError('');
+    setRegistrationError('');
   }
 
   useEffect(() => {
@@ -73,69 +83,47 @@ function App() {
   }, []);
 
   useEffect(() => {
-    mainApi.getArticles().then((articles) => {
-      setCurrentSavedCards(articles);
-    })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (currentUser.name) {
+      mainApi.getArticles().then((articles) => {
+        setCurrentSavedCards(articles);
+      })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }, []);
 
-  function handleSaveClick() {
+  function getSavedCards(setSaveIconClassName, className) {
     mainApi.getArticles().then((articles) => {
       setCurrentSavedCards(articles);
+      setSaveIconClassName(className);
     })
       .catch((err) => {
         console.log(err);
       });
   }
 
-  function handleNewsCardDelete(cardId) {
-    console.log('app js  cardId', cardId);
-    mainApi.deleteArticle(cardId).then((res) => {
-      console.log('карточка удалена', res);
-      handleSaveClick();
+  function handleNewsCardDelete(cardId, setSaveIconClassName, className) {
+    mainApi.deleteArticle(cardId).then(() => {
+      getSavedCards(setSaveIconClassName, className);
     })
       .catch((err) => {
         console.log(err);
       });
-  }
-
-  function handleLoginSubmit(email, password) {
-    auth.authorize(email, password)
-      .then((data) => {
-        if (data.token) {
-          const jwt = data.token;
-          console.log(jwt);
-
-          localStorage.setItem('jwt', jwt);
-          // api.headers.authorization = `Bearer ${localStorage.getItem('jwt')}`;
-          // setLoggedIn(true);
-          setCurrentUser({
-            email,
-            name: localStorage.getItem('username'),
-          });
-          console.log(localStorage.getItem('username'));
-        }
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-    closeAllPopups();
   }
 
   function handleRegistrationSubmit(email, password, name, clearFields) {
     auth.register(email, password, name)
       .then(() => {
-        closeAllPopups();
         setIsOpenInfoTooltip(true);
         // localStorage.setItem('email', email);
         // localStorage.setItem('password', password);
         localStorage.setItem('username', name);
         clearFields();
+        closeAllPopups();
       })
       .catch((e) => {
-        console.log(e);
+        setRegistrationError(e);
       });
   }
 
@@ -159,6 +147,30 @@ function App() {
     }
   }
 
+  function handleLoginSubmit(email, password) {
+    auth.authorize(email, password)
+      .then((data) => {
+        if (data.token) {
+          const jwt = data.token;
+          console.log(jwt);
+
+          localStorage.setItem('jwt', jwt);
+          mainApi.headers.Authorization = `Bearer ${localStorage.getItem('jwt')}`;
+          // setLoggedIn(true);
+          // tokenCheck();
+          setCurrentUser({
+            email,
+            name: localStorage.getItem('username'),
+          });
+          console.log(localStorage.getItem('username'));
+          closeAllPopups();
+        }
+      })
+      .catch((e) => {
+        setLogginError(e);
+      });
+  }
+
   useEffect(() => {
     tokenCheck();
   }, []);
@@ -174,12 +186,11 @@ function App() {
                 <Main
                   onLoginClick={handleLoginClick}
                   onLogoutClick={handleLogoutClick}
-                  onCardSave={handleSaveClick}
-                  // cards={cards}
                   isPopupOpen={isOpenPopupLogin || isOpenPopupRegister || isOpenInfoTooltip}
+                  onBookmarkClikToSave={getSavedCards}
+                  onBookmarkClikToDelete={handleNewsCardDelete}
                   classNameImageBackgroun="page__header-searchform-container"
                   classNameColorBackground="page__newscardlist-container"
-                  onCardDelete={handleNewsCardDelete}
                 />
               </Route>
 
@@ -192,7 +203,7 @@ function App() {
                 // cards={savedCards}
                 isPopupOpen={isOpenPopupLogin || isOpenPopupRegister || isOpenInfoTooltip}
                 classNameColorBackground="page__newscardlist-container"
-                onCardDelete={handleNewsCardDelete}
+                onTrashClick={handleNewsCardDelete}
               />
 
               <Route>
@@ -206,6 +217,7 @@ function App() {
               onClose={closeAllPopups}
               onSwitchPopupClick={handleRegistrationClick}
               onSubmit={handleLoginSubmit}
+              logginError={logginError}
             />
 
             <PopupRegister
@@ -213,6 +225,7 @@ function App() {
               onClose={closeAllPopups}
               onSwitchPopupClick={handleLoginClick}
               onSubmit={handleRegistrationSubmit}
+              registrationError={registrationError}
             />
 
             <InfoTooltip

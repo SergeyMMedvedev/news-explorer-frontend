@@ -24,11 +24,10 @@ function NewsCard({
   source,
   url,
   keyword,
-  onDelete,
-  onCardDelete,
   card,
-  cardHiddenClass,
-  onCardSave,
+  onBookmarkClikToSave,
+  onBookmarkClikToDelete,
+  onTrashClick,
 }) {
   const date = new Date(pubDate);
   const currentUser = useContext(CurrentUserContext);
@@ -47,23 +46,20 @@ function NewsCard({
 
   function handleDelete(evt) {
     evt.currentTarget.disabled = 'true';
-    onDelete(card);
+    onTrashClick(card);
   }
 
   const newscardRef = useRef();
 
   function handleSaveClick() {
-    console.log('сработало нажатие на букмарк');
     if (saveIconClassName === 'newscard__button_pressed') {
-      setSaveIconClassName('');
+      const className = '';
       const cardId = getCardId(savedNewsCards, card);
-      console.log('cardId', cardId);
       if (cardId) {
-        onCardDelete(cardId);
+        console.log('handleSaveClick setSaveIconClassName', setSaveIconClassName);
+        onBookmarkClikToDelete(cardId, setSaveIconClassName, className);
       }
     } else {
-      // console.log(localStorage.getItem('jwt'));
-      // console.log('card.description', card.description);
       mainApi.saveArticle({
         keyword: 'article4',
         title,
@@ -72,10 +68,9 @@ function NewsCard({
         source,
         image,
         link: url,
-      }).then((res) => {
-        console.log(res);
-        setSaveIconClassName('newscard__button_pressed');
-        onCardSave();
+      }).then(() => {
+        const className = 'newscard__button_pressed';
+        onBookmarkClikToSave(setSaveIconClassName, className);
       }).catch((err) => {
         console.log(err);
       });
@@ -95,7 +90,7 @@ function NewsCard({
   }, [card, savedNewsCards]);
 
   return (
-    <li ref={newscardRef} className={`newscard ${cardHiddenClass ? 'newscard_hidden' : 'newscard_show'}`}>
+    <li ref={newscardRef} className={`newscard ${((!card.invisible && mainPage) || !mainPage) ? 'newscard_show' : ''}`}>
       <img src={image} className="newscard__picture" alt={card.title} />
       <a href={url} rel="noreferrer" className="newscard__info" target="_blank">
         <p className="newscard__date">{returnNewsPubDate(date)}</p>
