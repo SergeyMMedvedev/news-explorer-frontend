@@ -79,12 +79,13 @@ function App() {
     auth.register(email, password, name)
       .then(() => {
         setIsOpenInfoTooltip(true);
-        // localStorage.setItem('email', email);
-        // localStorage.setItem('password', password);
+        localStorage.setItem('email', email);
+        localStorage.setItem('password', password);
         localStorage.setItem('username', name);
         clearFields();
         clearNewscardsFromLocalStorage();
         closeAllPopups();
+        setIsOpenInfoTooltip(true);
       })
       .catch((e) => {
         setRegistrationError(e);

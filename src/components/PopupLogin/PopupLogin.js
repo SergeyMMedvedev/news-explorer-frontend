@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './PopupLogin.css';
 import Popup from '../Popup/Popup';
 
@@ -37,6 +37,15 @@ function PopupLogin({
       setPasswordError('');
     }, 400);
   }
+
+  useEffect(() => {
+    const currentEmail = localStorage.getItem('email');
+    const currentPassword = localStorage.getItem('password');
+    if (isOpen && currentEmail && currentPassword) {
+      setEmail(currentEmail);
+      setPassword(currentPassword);
+    }
+  }, [isOpen]);
 
   return (
     <Popup
