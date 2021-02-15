@@ -50,6 +50,8 @@
 
 .newscard__picture {
   height: 272px; 
+  /* height: auto; */
+  /* max-height: 272px; */
   width: 400px;
   /* object-fit: cover; */
   /* object-position: -20px 0; */
@@ -58,6 +60,7 @@
   border-radius: 16px 16px 0 0;
   /* background-color: #1A1B22; */
   background: linear-gradient(0deg, rgb(100, 100, 100) 0%,  rgb(34, 34, 34) 15%, rgb(34, 34, 34) 85%, rgb(99, 99, 99) 100%);
+  /* background: black; */
 }
 
 .newscard__info {

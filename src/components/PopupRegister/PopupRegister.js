@@ -92,6 +92,7 @@ function PopupRegister({
           name="password"
           onChange={handlePasswordChange}
           minLength="8"
+          autoComplete="on"
           required
         />
       </label>

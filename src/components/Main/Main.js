@@ -7,6 +7,7 @@ import NewsCardList from '../NewsCardList/NewsCardList';
 import About from '../About/About';
 import newsApi from '../../utils/NewsApi';
 import getTimeInterval from '../../utils/getTimeInterval';
+import { clearNewscardsFromLocalStorage } from '../../utils/clearLocalStorage';
 
 function Main({
   onLoginClick,
@@ -23,11 +24,11 @@ function Main({
   const [cards, setCards] = useState((localStorage.getItem('newscards') && JSON.parse(localStorage.getItem('newscards'))) || []);
   const [serverError, setServerError] = useState('');
 
-  function clearNewscardsFromLocalStorage() {
-    localStorage.removeItem('newscards');
-    localStorage.removeItem('minShowCardIndex');
-    localStorage.removeItem('maxShowCardIndex');
-  }
+  // function clearNewscardsFromLocalStorage() {
+  //   localStorage.removeItem('newscards');
+  //   localStorage.removeItem('minShowCardIndex');
+  //   localStorage.removeItem('maxShowCardIndex');
+  // }
 
   function handleSearchSubmit(isKeywordValid, keyword) {
     setCards([]);
@@ -50,6 +51,9 @@ function Main({
       }).then((newsCards) => {
         setStartLoading(false);
         setIsCardsLoaded(true);
+        newsCards.articles.forEach((card) => {
+          card.keyword = keyword;
+        });
         setCards(newsCards.articles);
         localStorage.setItem('newscards', JSON.stringify(newsCards.articles));
       })
@@ -94,6 +98,7 @@ function Main({
             serverError={serverError}
             onBookmarkClikToSave={onBookmarkClikToSave}
             onBookmarkClikToDelete={onBookmarkClikToDelete}
+            onLoginClick={onLoginClick}
           />
         )}
       </div>

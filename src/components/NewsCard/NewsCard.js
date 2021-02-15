@@ -28,6 +28,7 @@ function NewsCard({
   onBookmarkClikToSave,
   onBookmarkClikToDelete,
   onTrashClick,
+  onLoginClick,
 }) {
   const date = new Date(pubDate);
   const currentUser = useContext(CurrentUserContext);
@@ -60,8 +61,10 @@ function NewsCard({
         onBookmarkClikToDelete(cardId, setSaveIconClassName, className);
       }
     } else {
+      console.log('card.keyword', card.keyword);
+      console.log('keyword', keyword);
       mainApi.saveArticle({
-        keyword: 'article4',
+        keyword,
         title,
         text,
         date,
@@ -113,7 +116,7 @@ function NewsCard({
             </div>
             <button
               type="button"
-              onClick={currentUser.name && handleSaveClick}
+              onClick={currentUser.name ? handleSaveClick : onLoginClick}
               onMouseLeave={handleMouseLeave}
               onFocus={handleMouseOver}
               onMouseOver={handleMouseOver}

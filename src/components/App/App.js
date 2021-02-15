@@ -3,35 +3,36 @@ import './App.css';
 import {
   Route,
   Switch,
-  useHistory,
   Redirect,
+  useHistory,
 } from 'react-router-dom';
+
 import CurrentMaxWidthContext from '../../context/CurrentMaxWidthContext';
-import CurrentUserContext from '../../context/CurrentUserContext';
 import CurrentSavedCardsContext from '../../context/CurrentSavedCardsContext';
+import CurrentUserContext from '../../context/CurrentUserContext';
+
 import Main from '../Main/Main';
 import SavedNews from '../SavedNews/SavedNews';
 import Footer from '../Footer/Footer';
 import PopupLogin from '../PopupLogin/PopupLogin';
 import PopupRegister from '../PopupRegister/PopupRegister';
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
-import setMediaQuery from '../../utils/setMediaQuery';
-// import { cards, savedCards } from '../../db/cards';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+
+import setMediaQuery from '../../utils/setMediaQuery';
 import auth from '../../utils/Auth';
 import mainApi from '../../utils/MainApi';
+import { clearNewscardsFromLocalStorage, clearUserFromLocalStorage } from '../../utils/clearLocalStorage';
 
 function App() {
   const [isOpenPopupLogin, setIsOpenPopupLogin] = useState(false);
   const [isOpenPopupRegister, setIsOpenPopupRegister] = useState(false);
   const [isOpenInfoTooltip, setIsOpenInfoTooltip] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
-  const [maxWidth, setMaxWidth] = useState();
+  const [maxWidth, setMaxWidth] = useState(null);
   const [currentSavedCards, setCurrentSavedCards] = useState([]);
-
   const [logginError, setLogginError] = useState('');
   const [registrationError, setRegistrationError] = useState('');
-  // const [loggedIn, setLoggedIn] = useState(null);
   const history = useHistory();
 
   window.onresize = () => {
@@ -42,24 +43,13 @@ function App() {
     setMediaQuery(window.innerWidth, setMaxWidth);
   }, []);
 
-  function handleLoginClick() {
-    setIsOpenPopupLogin(true);
-  }
-
-  function handleLogoutClick() {
-    setCurrentUser({});
-    localStorage.removeItem('jwt');
-    history.push(({
-      pathname: '/',
-      state: {
-        update: true,
-      },
-    }));
-  }
-
-  function handleRegistrationClick() {
-    setIsOpenPopupRegister(true);
-  }
+  useEffect(() => {
+    if (history.location.state) {
+      if (history.location.state.noAuthRedirect && !localStorage.getItem('jwt')) {
+        setIsOpenPopupLogin(true);
+      }
+    }
+  }, []);
 
   function closeAllPopups() {
     setIsOpenPopupLogin(false);
@@ -76,40 +66,13 @@ function App() {
       }
     }
     document.addEventListener('keydown', handleEscClose);
-
     return () => {
       document.removeEventListener('keydown', handleEscClose);
     };
   }, []);
 
-  useEffect(() => {
-    if (currentUser.name) {
-      mainApi.getArticles().then((articles) => {
-        setCurrentSavedCards(articles);
-      })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }, []);
-
-  function getSavedCards(setSaveIconClassName, className) {
-    mainApi.getArticles().then((articles) => {
-      setCurrentSavedCards(articles);
-      setSaveIconClassName(className);
-    })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
-  function handleNewsCardDelete(cardId, setSaveIconClassName, className) {
-    mainApi.deleteArticle(cardId).then(() => {
-      getSavedCards(setSaveIconClassName, className);
-    })
-      .catch((err) => {
-        console.log(err);
-      });
+  function handleRegistrationClick() {
+    setIsOpenPopupRegister(true);
   }
 
   function handleRegistrationSubmit(email, password, name, clearFields) {
@@ -120,6 +83,7 @@ function App() {
         // localStorage.setItem('password', password);
         localStorage.setItem('username', name);
         clearFields();
+        clearNewscardsFromLocalStorage();
         closeAllPopups();
       })
       .catch((e) => {
@@ -137,7 +101,6 @@ function App() {
               email: res.email,
               name: res.name,
             });
-            // history.push('/');
           }
         })
         .catch((e) => console.log(e));
@@ -147,23 +110,28 @@ function App() {
     }
   }
 
+  useEffect(() => {
+    tokenCheck();
+  }, []);
+
+  function handleLoginClick() {
+    setIsOpenPopupLogin(true);
+  }
+
   function handleLoginSubmit(email, password) {
     auth.authorize(email, password)
       .then((data) => {
         if (data.token) {
-          const jwt = data.token;
-          console.log(jwt);
-
-          localStorage.setItem('jwt', jwt);
-          mainApi.headers.Authorization = `Bearer ${localStorage.getItem('jwt')}`;
-          // setLoggedIn(true);
-          // tokenCheck();
-          setCurrentUser({
-            email,
-            name: localStorage.getItem('username'),
+          auth.getContent(data.token).then((user) => {
+            const jwt = data.token;
+            localStorage.setItem('jwt', jwt);
+            mainApi.headers.Authorization = `Bearer ${localStorage.getItem('jwt')}`;
+            setCurrentUser({
+              email: user.email,
+              name: user.name,
+            });
+            closeAllPopups();
           });
-          console.log(localStorage.getItem('username'));
-          closeAllPopups();
         }
       })
       .catch((e) => {
@@ -171,9 +139,46 @@ function App() {
       });
   }
 
+  function handleLogoutClick() {
+    setCurrentUser({});
+    clearUserFromLocalStorage();
+    clearNewscardsFromLocalStorage();
+    history.replace('/');
+    window.location.assign('/');
+  }
+
+  function getSavedCards(setSaveIconClassName, className) {
+    mainApi.getArticles()
+      .then((articles) => {
+        setCurrentSavedCards(articles);
+        setSaveIconClassName(className);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function handleNewsCardDelete(cardId, setSaveIconClassName, className) {
+    mainApi.deleteArticle(cardId)
+      .then(() => {
+        getSavedCards(setSaveIconClassName, className);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   useEffect(() => {
-    tokenCheck();
-  }, []);
+    if (currentUser.name) {
+      mainApi.getArticles()
+        .then((articles) => {
+          setCurrentSavedCards(articles);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [currentUser]);
 
   return (
     <div className="page">
@@ -200,7 +205,6 @@ function App() {
                 savedNewsPage
                 onLoginClick={handleLoginClick}
                 onLogoutClick={handleLogoutClick}
-                // cards={savedCards}
                 isPopupOpen={isOpenPopupLogin || isOpenPopupRegister || isOpenInfoTooltip}
                 classNameColorBackground="page__newscardlist-container"
                 onTrashClick={handleNewsCardDelete}

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './SearchForm.css';
 import FormButton from '../ui/FormButton/FormButton';
+import handleSearchPhrase from '../../utils/handleSearchPhrase';
 
 function SearchForm({ onSubmit }) {
   const [keyword, setKeyword] = useState('');
@@ -13,9 +14,9 @@ function SearchForm({ onSubmit }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    onSubmit(isKeywordValid, keyword);
+    const preparedKeyword = handleSearchPhrase(keyword);
+    onSubmit(isKeywordValid, preparedKeyword);
     setIsKeywordValid(false);
-    setKeyword('');
   }
 
   return (

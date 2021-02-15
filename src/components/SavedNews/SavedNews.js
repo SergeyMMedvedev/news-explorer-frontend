@@ -2,7 +2,7 @@
 import React, {
   useState,
   useContext,
-  // useEffect
+  // useEffect,
 } from 'react';
 import './SavedNews.css';
 import Header from '../Header/Header';
@@ -32,6 +32,8 @@ function SavedNews({
       setStartDisappear(false);
     }, 400);
   }
+  console.log(savedNewsCards);
+  console.log(savedNewsCards);
 
   return (
     <>

@@ -21,6 +21,7 @@ function NewsCardList({
   onBookmarkClikToDelete,
   onTrashClick,
   disappear,
+  onLoginClick,
 }) {
   const maxWidth = useContext(CurrentMaxWidthContext);
 
@@ -139,9 +140,11 @@ function NewsCardList({
                 text={card.description}
                 source={card.source.name}
                 url={card.url}
+                keyword={card.keyword}
                 card={card}
                 onBookmarkClikToSave={onBookmarkClikToSave}
                 onBookmarkClikToDelete={onBookmarkClikToDelete}
+                onLoginClick={onLoginClick}
               />
             ))}
           </ul>

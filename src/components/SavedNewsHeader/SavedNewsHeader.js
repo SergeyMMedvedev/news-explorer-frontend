@@ -1,11 +1,13 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useContext } from 'react';
 import './SavedNewsHeader.css';
 import '../appearAnimation/appearAnimation.css';
+import CurrentUserContext from '../../context/CurrentUserContext';
 import { getKeyWords, getNumberForSavedNews } from '../../utils/getEndingsForNumbers';
 
 function SavedNewsHeader({ cards, disappear }) {
   const subtitleRef = useRef();
   const keywordsRef = useRef();
+  const currentUser = useContext(CurrentUserContext);
 
   useEffect(() => {
     if (subtitleRef.current) {
@@ -27,7 +29,7 @@ function SavedNewsHeader({ cards, disappear }) {
     <div className="section saved-news-header">
       <h2 className="saved-news-header__title">Сохранненные статьи</h2>
       <h3 ref={subtitleRef} className="section-title saved-news-header__subtitle appearAnimation">
-        Сергей, у вас
+        {`${currentUser.name}, у вас `}
         {` ${cards.length}` || ' нет'}
         <br />
         {getNumberForSavedNews(cards.length)}
