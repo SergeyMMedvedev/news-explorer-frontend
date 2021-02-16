@@ -30,7 +30,7 @@ function SavedNewsHeader({ cards, disappear }) {
       <h2 className="saved-news-header__title">Сохранненные статьи</h2>
       <h3 ref={subtitleRef} className="section-title saved-news-header__subtitle appearAnimation">
         {`${currentUser.name}, у вас `}
-        {` ${cards.length}` || ' нет'}
+        {`${cards.length === 0 ? ' нет' : cards.length}`}
         <br />
         {getNumberForSavedNews(cards.length)}
       </h3>
@@ -41,4 +41,4 @@ function SavedNewsHeader({ cards, disappear }) {
   );
 }
 
-export default SavedNewsHeader;
+export default React.memo(SavedNewsHeader);

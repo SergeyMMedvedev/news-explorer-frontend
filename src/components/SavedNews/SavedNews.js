@@ -1,21 +1,17 @@
-// import React, { useState, useEffect } from 'react';
 import React, {
   useState,
   useContext,
-  // useEffect,
 } from 'react';
 import './SavedNews.css';
 import Header from '../Header/Header';
 import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader';
-import NewsCardList from '../NewsCardList/NewsCardList';
 import CurrentSavedCardsContext from '../../context/CurrentSavedCardsContext';
 import getCardId from '../../utils/getCardId';
-// import mainApi from '../../utils/MainApi';
+import NewsCardList from '../NewsCardList/NewsCardList';
 
 function SavedNews({
   savedNewsPage,
   onLoginClick,
-  // cards,
   isPopupOpen,
   onLogoutClick,
   classNameColorBackground,
@@ -32,8 +28,6 @@ function SavedNews({
       setStartDisappear(false);
     }, 400);
   }
-  console.log(savedNewsCards);
-  console.log(savedNewsCards);
 
   return (
     <>
@@ -47,7 +41,7 @@ function SavedNews({
         cards={savedNewsCards}
         disappear={startDisappear}
       />
-      <div className={classNameColorBackground}>
+      <div className={`${classNameColorBackground} section savednews`}>
         <NewsCardList
           cards={savedNewsCards}
           onTrashClick={handleTrashCkick}

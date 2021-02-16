@@ -1,0 +1,68 @@
+.main-newscardlist {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+.main-newscardlist__title {
+  margin: 0 0 48px 0;
+}
+
+.main-newscardlist__show-more-button {
+  font-family: 'Roboto', Arial, sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.33;
+  color: #1a1b22;
+  display: block;
+  margin: 64px auto 0 auto;
+  width: 288px;
+  height: 64px;
+  border: none;
+  border-radius: 32px;
+  background-color: #fff;
+  transition: opacity .2s ease-in-out,
+              box-shadow .2s ease-in-out;
+}
+
+.main-newscardlist__show-more-button:hover {
+  opacity: 0.9;
+  cursor: url('../../images/ponter.svg'), default;
+  box-shadow: 0px 5px 15px rgba(14, 26, 57, 0.2);
+}
+
+.main-newscardlist__show-more-button:focus {
+  outline: none;
+}
+
+@media (max-width: 1023px) {
+  .main-newscardlist {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  .main-newscardlist__title {
+    margin-bottom: 24px;
+  }
+
+  .main-newscardlist__show-more-button {
+    margin-top: 32px;
+    height: 56px;
+    width: 240px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-newscardlist {
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+
+  .main-newscardlist__title {
+    margin-bottom: 14px;
+  }
+
+  .main-newscardlist__show-more-button {
+    margin-top: 15px;
+    width: 100%;
+  }
+}

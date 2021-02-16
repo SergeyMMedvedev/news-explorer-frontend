@@ -11,8 +11,10 @@ class MainApi {
       headers: this.headers,
     });
     const response = await loadingArticles;
-    if (!response.ok) { return Promise.reject(`Ошибка: ${response.status}`); }
     const articles = await response.json();
+    if (!response.ok) {
+      return Promise.reject(`Ошибка: ${articles.message}`);
+    }
     return new Promise((resolve) => {
       resolve(articles);
     });
@@ -25,23 +27,25 @@ class MainApi {
       body: JSON.stringify(card),
     });
     const response = await loadingResponse;
-    if (!response.ok) { return Promise.reject(`Ошибка: ${response.status}`); }
     const responseData = await response.json();
+    if (!response.ok) {
+      return Promise.reject(`Ошибка: ${responseData.message}`);
+    }
     return new Promise((resolve) => {
       resolve(responseData);
     });
   }
 
   async deleteArticle(id) {
-    console.log('id in deleteArticle', id);
-    console.log('type id in deleteArticle', typeof id);
     const loadingResponse = fetch((`${this.baseUrl}/articles/${id}`), {
       method: 'DELETE',
       headers: this.headers,
     });
     const response = await loadingResponse;
-    if (!response.ok) { return Promise.reject(`Ошибка: ${response.status}`); }
     const responseData = await response.json();
+    if (!response.ok) {
+      return Promise.reject(`Ошибка: ${responseData.message}`);
+    }
     return new Promise((resolve) => {
       resolve(responseData);
     });

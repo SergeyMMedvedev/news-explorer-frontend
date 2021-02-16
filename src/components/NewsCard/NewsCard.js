@@ -57,12 +57,9 @@ function NewsCard({
       const className = '';
       const cardId = getCardId(savedNewsCards, card);
       if (cardId) {
-        console.log('handleSaveClick setSaveIconClassName', setSaveIconClassName);
         onBookmarkClikToDelete(cardId, setSaveIconClassName, className);
       }
     } else {
-      console.log('card.keyword', card.keyword);
-      console.log('keyword', keyword);
       mainApi.saveArticle({
         keyword,
         title,
@@ -72,10 +69,10 @@ function NewsCard({
         image,
         link: url,
       }).then(() => {
-        const className = 'newscard__button_pressed';
-        onBookmarkClikToSave(setSaveIconClassName, className);
-      }).catch((err) => {
-        console.log(err);
+        onBookmarkClikToSave();
+      }).catch((e) => {
+        console.log(e);
+        onBookmarkClikToSave(e);
       });
     }
   }
@@ -93,7 +90,7 @@ function NewsCard({
   }, [card, savedNewsCards]);
 
   return (
-    <li ref={newscardRef} className={`newscard ${((!card.invisible && mainPage) || !mainPage) ? 'newscard_show' : ''}`}>
+    <li ref={newscardRef} className={`newscard ${((!card.invisible || !mainPage)) ? 'newscard_show' : ''}`}>
       <img src={image} className="newscard__picture" alt={card.title} />
       <a href={url} rel="noreferrer" className="newscard__info" target="_blank">
         <p className="newscard__date">{returnNewsPubDate(date)}</p>

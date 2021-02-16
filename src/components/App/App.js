@@ -31,8 +31,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [maxWidth, setMaxWidth] = useState(null);
   const [currentSavedCards, setCurrentSavedCards] = useState([]);
-  const [logginError, setLogginError] = useState('');
-  const [registrationError, setRegistrationError] = useState('');
+  const [serverError, setServerError] = useState('');
   const history = useHistory();
 
   window.onresize = () => {
@@ -55,8 +54,6 @@ function App() {
     setIsOpenPopupLogin(false);
     setIsOpenPopupRegister(false);
     setIsOpenInfoTooltip(false);
-    setLogginError('');
-    setRegistrationError('');
   }
 
   useEffect(() => {
@@ -88,7 +85,7 @@ function App() {
         setIsOpenInfoTooltip(true);
       })
       .catch((e) => {
-        setRegistrationError(e);
+        setServerError(e);
       });
   }
 
@@ -104,7 +101,13 @@ function App() {
             });
           }
         })
-        .catch((e) => console.log(e));
+        .catch((e) => {
+          localStorage.removeItem('jwt');
+          setCurrentUser({});
+          history.push('/');
+          setServerError(e);
+          setIsOpenInfoTooltip(true);
+        });
     } else {
       localStorage.removeItem('jwt');
       setCurrentUser({});
@@ -136,7 +139,7 @@ function App() {
         }
       })
       .catch((e) => {
-        setLogginError(e);
+        setServerError(e);
       });
   }
 
@@ -148,24 +151,35 @@ function App() {
     window.location.assign('/');
   }
 
-  function getSavedCards(setSaveIconClassName, className) {
-    mainApi.getArticles()
-      .then((articles) => {
-        setCurrentSavedCards(articles);
-        setSaveIconClassName(className);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  function getSavedCards(error) {
+    if (error) {
+      setServerError(error);
+      setIsOpenInfoTooltip(true);
+    } else {
+      mainApi.getArticles()
+        .then((articles) => {
+          setCurrentSavedCards(articles);
+        })
+        .catch((e) => {
+          history.push('/');
+          setServerError(e);
+          setIsOpenInfoTooltip(true);
+        });
+    }
   }
 
   function handleNewsCardDelete(cardId, setSaveIconClassName, className) {
     mainApi.deleteArticle(cardId)
       .then(() => {
-        getSavedCards(setSaveIconClassName, className);
+        getSavedCards();
+        if (setSaveIconClassName) {
+          setSaveIconClassName(className);
+        }
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((e) => {
+        history.push('/');
+        setServerError(e);
+        setIsOpenInfoTooltip(true);
       });
   }
 
@@ -175,8 +189,9 @@ function App() {
         .then((articles) => {
           setCurrentSavedCards(articles);
         })
-        .catch((err) => {
-          console.log(err);
+        .catch((e) => {
+          setServerError(e);
+          setIsOpenInfoTooltip(true);
         });
     }
   }, [currentUser]);
@@ -222,7 +237,8 @@ function App() {
               onClose={closeAllPopups}
               onSwitchPopupClick={handleRegistrationClick}
               onSubmit={handleLoginSubmit}
-              logginError={logginError}
+              serverError={serverError}
+              setServerError={setServerError}
             />
 
             <PopupRegister
@@ -230,13 +246,16 @@ function App() {
               onClose={closeAllPopups}
               onSwitchPopupClick={handleLoginClick}
               onSubmit={handleRegistrationSubmit}
-              registrationError={registrationError}
+              serverError={serverError}
+              setServerError={setServerError}
             />
 
             <InfoTooltip
               isOpen={isOpenInfoTooltip}
               onClose={closeAllPopups}
               onSwitchPopupClick={handleLoginClick}
+              serverError={serverError}
+              setServerError={setServerError}
             />
 
             <Footer />

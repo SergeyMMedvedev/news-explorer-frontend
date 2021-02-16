@@ -13,7 +13,8 @@ function Popup({
   onSubmit,
   submitText,
   submitButtonDisabled,
-  serverResponseError,
+  serverError,
+  isInfoTooltip,
 }) {
   function handleSwitchPopupClick() {
     onClose();
@@ -33,34 +34,38 @@ function Popup({
     <div onMouseDown={overlayClose} className={`popup ${isOpen && 'popup_opened'}`}>
       <div className={`popup__window ${isOpen && 'popup__window_opened'}`}>
         <h3 className="popup__title">{title}</h3>
-        {popupWithForm && (
-          <PopupForm
-            onSubmit={onSubmit}
-            submitButtonDisabled={submitButtonDisabled}
-            submitText={submitText}
-            title={title}
-            serverResponseError={serverResponseError}
-          >
-            {children}
-          </PopupForm>
-        )}
-        <button type="button" onClick={onClose} className="popup__close" />
-        {popupWithForm
-          ? (
+        {(isInfoTooltip && serverError) && <p className="popup__server-error popup__server-error_active">{serverError}</p> }
+        {popupWithForm ? (
+          <>
+            <PopupForm
+              onSubmit={onSubmit}
+              submitButtonDisabled={submitButtonDisabled}
+              submitText={submitText}
+              title={title}
+              serverError={serverError}
+            >
+              {children}
+            </PopupForm>
             <p className="popup__switch-container_with-form">
               или
               <span onClick={handleSwitchPopupClick} className="popup__switcher">
                 {popupSwitcher}
               </span>
             </p>
-          )
-          : (
+          </>
+        ) : (
+          (!serverError
+            && (
             <p className="popup__switch-container">
               <span onClick={handleSwitchPopupClick} className="popup__switcher">
                 {popupSwitcher}
               </span>
             </p>
-          )}
+            )
+          )
+        )}
+
+        <button type="button" onClick={onClose} className="popup__close" />
       </div>
     </div>
   );

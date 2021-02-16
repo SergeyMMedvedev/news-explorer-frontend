@@ -7,7 +7,8 @@ function PopupLogin({
   onClose,
   onSwitchPopupClick,
   onSubmit,
-  logginError,
+  serverError,
+  setServerError,
 }) {
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -35,6 +36,7 @@ function PopupLogin({
       setEmailError('');
       setPassword('');
       setPasswordError('');
+      setServerError('');
     }, 400);
   }
 
@@ -58,7 +60,7 @@ function PopupLogin({
       onSubmit={handleSubmit}
       submitText="Войти"
       submitButtonDisabled={emailError || passwordError || (!email || !password)}
-      serverResponseError={logginError}
+      serverError={serverError}
     >
       <label htmlFor="login-email" className="popup__label">
         Email

@@ -13,11 +13,10 @@ class Auth {
       body: JSON.stringify({ email, password, name }),
     });
     const response = await loadingRegisterInfo;
-    if (!response.ok) {
-      const newUserRegistrationData = await response.json();
-      return Promise.reject(`Ошибка: ${response.status} ${newUserRegistrationData.message}`);
-    }
     const newUserRegistrationData = await response.json();
+    if (!response.ok) {
+      return Promise.reject(`Ошибка: ${newUserRegistrationData.message}`);
+    }
     return new Promise((resolve) => {
       resolve(newUserRegistrationData);
     });
@@ -30,11 +29,10 @@ class Auth {
       body: JSON.stringify({ email, password }),
     });
     const response = await loadingAuthorizeInfo;
-    if (!response.ok) {
-      const authorizeData = await response.json();
-      return Promise.reject(`Ошибка: ${response.status} ${authorizeData.message}`);
-    }
     const authorizeData = await response.json();
+    if (!response.ok) {
+      return Promise.reject(`Ошибка: ${authorizeData.message}`);
+    }
     return new Promise((resolve) => {
       resolve(authorizeData);
     });
@@ -50,8 +48,10 @@ class Auth {
       },
     });
     const response = await contentInfo;
-    if (!response.ok) { return Promise.reject(`Ошибка: ${response.status}`); }
     const selfData = await response.json();
+    if (!response.ok) {
+      return Promise.reject(`Ошибка: ${selfData.message}`);
+    }
     return new Promise((resolve) => {
       resolve(selfData);
     });

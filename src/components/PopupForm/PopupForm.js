@@ -9,7 +9,7 @@ function PopupForm({
   submitButtonDisabled,
   submitText,
   title,
-  serverResponseError,
+  serverError,
 }) {
   function handleSubmit(e) {
     e.preventDefault();
@@ -19,7 +19,7 @@ function PopupForm({
   return (
     <form onSubmit={handleSubmit} className="popup__form">
       {children}
-      <span id={`server-error_${title}`} className={`popup__server-error ${serverResponseError && 'popup__server-error_active appearAnimation'}`}>Такой пользователь уже есть</span>
+      <span id={`server-error_${title}`} className={`popup__server-error ${serverError && 'popup__server-error_active appearAnimation'}`}>{serverError}</span>
       <FormButton
         className="popup__submit"
         value={submitText}

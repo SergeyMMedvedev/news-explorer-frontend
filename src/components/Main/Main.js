@@ -3,7 +3,7 @@ import './Main.css';
 import '../extendAnimation/extendAnimation.css';
 import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
-import NewsCardList from '../NewsCardList/NewsCardList';
+import MainNewsCardList from '../MainNewsCardList/MainNewsCardList';
 import About from '../About/About';
 import newsApi from '../../utils/NewsApi';
 import getTimeInterval from '../../utils/getTimeInterval';
@@ -22,7 +22,7 @@ function Main({
   const [isCardsLoaded, setIsCardsLoaded] = useState(false);
   const [emptyQuery, setEmptyQuery] = useState(false);
   const [cards, setCards] = useState((localStorage.getItem('newscards') && JSON.parse(localStorage.getItem('newscards'))) || []);
-  const [serverError, setServerError] = useState('');
+  const [newsServerError, setNewsServerError] = useState('');
 
   // function clearNewscardsFromLocalStorage() {
   //   localStorage.removeItem('newscards');
@@ -47,7 +47,7 @@ function Main({
         from: timeInterval.from,
         to: timeInterval.to,
         q: keyword,
-        pageSize: 13,
+        pageSize: 100,
       }).then((newsCards) => {
         setStartLoading(false);
         setIsCardsLoaded(true);
@@ -57,7 +57,7 @@ function Main({
         setCards(newsCards.articles);
         localStorage.setItem('newscards', JSON.stringify(newsCards.articles));
       })
-        .catch((err) => setServerError(err));
+        .catch((err) => setNewsServerError(err));
     }
   }
 
@@ -87,15 +87,15 @@ function Main({
           onSubmit={handleSearchSubmit}
         />
       </div>
-      <div ref={newscardlistContainerRef} className={classNameColorBackground}>
+      <div ref={newscardlistContainerRef} className={`${classNameColorBackground}`}>
         {(startLoading || isCardsLoaded) && (
-          <NewsCardList
+          <MainNewsCardList
             mainPage
             cards={cards}
             startLoading={startLoading}
             isCardsLoaded={isCardsLoaded}
             emptyQuery={emptyQuery}
-            serverError={serverError}
+            newsServerError={newsServerError}
             onBookmarkClikToSave={onBookmarkClikToSave}
             onBookmarkClikToDelete={onBookmarkClikToDelete}
             onLoginClick={onLoginClick}

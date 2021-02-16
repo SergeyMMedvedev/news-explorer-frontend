@@ -25,14 +25,6 @@ class NewsApi {
     ), {
       headers: this.headers,
     });
-    console.log((
-      `${this.baseUrl}`
-      + `&q=${q || 'Apple'}`
-      + `&from=${from || new Date()}`
-      + `&sortBy=${sortBy || 'popularity'}`
-      + `&pageSize=${pageSize || '100'}`
-      + `&language=${language || 'ru'}`
-    ));
     const response = await loadingNews;
     if (!response.ok) { return Promise.reject(`Ошибка: ${response.status}`); }
     const news = await response.json();
