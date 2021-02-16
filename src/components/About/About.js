@@ -5,7 +5,7 @@ import myImage from '../../images/DSC01449.jpg';
 
 function About() {
   return (
-    <section className="section about appearAnimation">
+    <section className="section about appearAnimationDelay">
       <img className="about__image" src={myImage} alt="Сергей Медведев" />
       <div className="about__info-container">
         <h2 className="about__title section-title">Сергей</h2>

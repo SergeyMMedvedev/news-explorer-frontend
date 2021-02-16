@@ -22,11 +22,8 @@ function SavedNews({
 
   function handleTrashCkick(card) {
     setStartDisappear(true);
-    setTimeout(() => {
-      const cardId = getCardId(savedNewsCards, card);
-      onTrashClick(cardId);
-      setStartDisappear(false);
-    }, 400);
+    const cardId = getCardId(savedNewsCards, card);
+    onTrashClick({ cardId, setStartDisappear });
   }
 
   return (
@@ -41,7 +38,7 @@ function SavedNews({
         cards={savedNewsCards}
         disappear={startDisappear}
       />
-      <div className={`${classNameColorBackground} section savednews`}>
+      <div className={`${classNameColorBackground} section savednews appearAnimationDelay`}>
         <NewsCardList
           cards={savedNewsCards}
           onTrashClick={handleTrashCkick}

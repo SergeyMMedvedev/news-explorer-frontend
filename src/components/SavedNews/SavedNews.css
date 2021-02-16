@@ -1,6 +1,7 @@
 .savednews {
   padding-top: 46px;
   padding-bottom: 62px;
+  opacity: 0;
 }
 
 @media (max-width: 1023px) {

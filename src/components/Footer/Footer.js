@@ -4,7 +4,7 @@ import './Footer.css';
 
 function Footer() {
   return (
-    <div className="section footer">
+    <div className="section footer appearAnimationDelay">
       <p className="footer__copyright">© 2020 Supersite, Powered by News API</p>
       <ul className="footer__navigation">
         <li className="footer__navigation-item">

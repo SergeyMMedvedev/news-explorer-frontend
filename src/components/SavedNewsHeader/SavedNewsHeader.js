@@ -26,15 +26,15 @@ function SavedNewsHeader({ cards, disappear }) {
   }, [disappear]);
 
   return (
-    <div className="section saved-news-header">
+    <div className="section saved-news-header appearAnimationDelay">
       <h2 className="saved-news-header__title">Сохранненные статьи</h2>
-      <h3 ref={subtitleRef} className="section-title saved-news-header__subtitle appearAnimation">
+      <h3 ref={subtitleRef} className="section-title saved-news-header__subtitle">
         {`${currentUser.name}, у вас `}
         {`${cards.length === 0 ? ' нет' : cards.length}`}
         <br />
         {getNumberForSavedNews(cards.length)}
       </h3>
-      <p ref={keywordsRef} className="saved-news-header__keywords appearAnimation">
+      <p ref={keywordsRef} className="saved-news-header__keywords">
         {getKeyWords(cards)}
       </p>
     </div>

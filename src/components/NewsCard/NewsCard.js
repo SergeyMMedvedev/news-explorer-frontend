@@ -14,6 +14,7 @@ import CurrentSavedCardsContext from '../../context/CurrentSavedCardsContext';
 import mainApi from '../../utils/MainApi';
 import getCardId from '../../utils/getCardId';
 import checkIsCardSaved from '../../utils/checkIsCardSaved';
+import defaultImage from '../../images/defaultImage.jpg';
 
 function NewsCard({
   mainPage,
@@ -57,7 +58,7 @@ function NewsCard({
       const className = '';
       const cardId = getCardId(savedNewsCards, card);
       if (cardId) {
-        onBookmarkClikToDelete(cardId, setSaveIconClassName, className);
+        onBookmarkClikToDelete({ cardId, setSaveIconClassName, className });
       }
     } else {
       mainApi.saveArticle({
@@ -71,7 +72,6 @@ function NewsCard({
       }).then(() => {
         onBookmarkClikToSave();
       }).catch((e) => {
-        console.log(e);
         onBookmarkClikToSave(e);
       });
     }
@@ -91,7 +91,7 @@ function NewsCard({
 
   return (
     <li ref={newscardRef} className={`newscard ${((!card.invisible || !mainPage)) ? 'newscard_show' : ''}`}>
-      <img src={image} className="newscard__picture" alt={card.title} />
+      <img src={image || defaultImage} className="newscard__picture" alt={card.title} />
       <a href={url} rel="noreferrer" className="newscard__info" target="_blank">
         <p className="newscard__date">{returnNewsPubDate(date)}</p>
         <p className="newscard__title">{title}</p>

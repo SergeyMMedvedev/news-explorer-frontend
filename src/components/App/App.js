@@ -168,12 +168,21 @@ function App() {
     }
   }
 
-  function handleNewsCardDelete(cardId, setSaveIconClassName, className) {
+  function handleNewsCardDelete(params) {
+    const {
+      cardId,
+      setSaveIconClassName,
+      className,
+      setStartDisappear,
+    } = params;
     mainApi.deleteArticle(cardId)
       .then(() => {
         getSavedCards();
         if (setSaveIconClassName) {
           setSaveIconClassName(className);
+        }
+        if (setStartDisappear) {
+          setStartDisappear(false);
         }
       })
       .catch((e) => {
