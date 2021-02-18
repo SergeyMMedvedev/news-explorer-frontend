@@ -31,7 +31,7 @@ function Header({
 
   return (
     <>
-      <div className={`section header ${headerTheme} ${headerExtend} ${headerPopupOpenStyle}`}>
+      <header className={`section header ${headerTheme} ${headerExtend} ${headerPopupOpenStyle}`}>
         <h1 className={`header__title ${headerTheme}`}>News Explorer</h1>
         {maxWidth >= 480
           ? (
@@ -72,7 +72,7 @@ function Header({
               </div>
             </>
           )}
-      </div>
+      </header>
       <div className={`header__extend-background ${(isExtend && maxWidth <= 320) ? 'header__extend-background_active' : ''}`} />
     </>
   );

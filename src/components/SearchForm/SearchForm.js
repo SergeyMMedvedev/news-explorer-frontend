@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './SearchForm.css';
 import FormButton from '../ui/FormButton/FormButton';
 import handleSearchPhrase from '../../utils/handleSearchPhrase';
 
-function SearchForm({ onSubmit }) {
+function SearchForm({
+  onSubmit,
+  startLoading,
+  isCardsLoaded,
+}) {
   const [keyword, setKeyword] = useState('');
   const [isKeywordValid, setIsKeywordValid] = useState(false);
+  const [searchFormDisabled, setSearchFormDisabled] = useState(false);
 
   function handleKeywordChange(e) {
     setKeyword(e.target.value.trimLeft());
@@ -16,8 +21,15 @@ function SearchForm({ onSubmit }) {
     e.preventDefault();
     const preparedKeyword = handleSearchPhrase(keyword);
     onSubmit(isKeywordValid, preparedKeyword);
-    setIsKeywordValid(false);
   }
+
+  useEffect(() => {
+    if (startLoading) {
+      setSearchFormDisabled(true);
+    } else if (isCardsLoaded) {
+      setSearchFormDisabled(false);
+    }
+  }, [startLoading, isCardsLoaded]);
 
   return (
     <section className="searchform">
@@ -31,10 +43,12 @@ function SearchForm({ onSubmit }) {
           className="searchform__input"
           placeholder="Введите тему новости"
           required
+          disabled={searchFormDisabled}
         />
         <FormButton
           className="searchform__submit-button"
           value="Искать"
+          disabled={searchFormDisabled}
         />
       </form>
     </section>

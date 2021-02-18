@@ -5,23 +5,27 @@ import '../appearAnimation/appearAnimation.css';
 
 function PopupForm({
   children,
+  isOpen,
   onSubmit,
   submitButtonDisabled,
   submitText,
   title,
   serverError,
+  classNames,
 }) {
   function handleSubmit(e) {
     e.preventDefault();
-    onSubmit();
+    e.currentTarget.lastChild.disabled = true;
+    const disabled = true;
+    onSubmit(!serverError && disabled);
   }
 
   return (
-    <form onSubmit={handleSubmit} className="popup__form">
+    <form onSubmit={handleSubmit} className={classNames.PopupForm}>
       {children}
-      <span id={`server-error_${title}`} className={`popup__server-error ${serverError && 'popup__server-error_active appearAnimation'}`}>{serverError}</span>
+      <span id={`server-error_${title}`} className={`${classNames.popupServerError} ${(serverError && isOpen) && `${classNames.popupServerErrorActive} appearAnimation`}`}>{serverError}</span>
       <FormButton
-        className="popup__submit"
+        className={classNames.popupSubmit}
         value={submitText}
         disabled={submitButtonDisabled}
       />

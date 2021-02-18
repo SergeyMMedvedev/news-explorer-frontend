@@ -25,5 +25,5 @@
 }
 
 .disappearAnimation {
-  animation: disappear .2s ease-in forwards 1 running;
+  animation: disappear .3s ease-in forwards 1 running;
 }

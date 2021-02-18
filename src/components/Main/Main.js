@@ -24,25 +24,20 @@ function Main({
   const [cards, setCards] = useState((localStorage.getItem('newscards') && JSON.parse(localStorage.getItem('newscards'))) || []);
   const [newsServerError, setNewsServerError] = useState('');
 
-  // function clearNewscardsFromLocalStorage() {
-  //   localStorage.removeItem('newscards');
-  //   localStorage.removeItem('minShowCardIndex');
-  //   localStorage.removeItem('maxShowCardIndex');
-  // }
-
   function handleSearchSubmit(isKeywordValid, keyword) {
     setCards([]);
     clearNewscardsFromLocalStorage();
     setStartLoading(true);
     setIsCardsLoaded(false);
     if (isKeywordValid === false) {
-      setEmptyQuery(true);
-      setStartLoading(false);
-      setIsCardsLoaded(true);
+      setTimeout(() => {
+        setEmptyQuery(true);
+        setStartLoading(false);
+        setIsCardsLoaded(true);
+      }, 500);
     } else {
       setEmptyQuery(false);
       const timeInterval = getTimeInterval();
-
       newsApi.getNews({
         from: timeInterval.from,
         to: timeInterval.to,
@@ -85,6 +80,8 @@ function Main({
         />
         <SearchForm
           onSubmit={handleSearchSubmit}
+          startLoading={startLoading}
+          isCardsLoaded={isCardsLoaded}
         />
       </div>
       <div ref={newscardlistContainerRef} className={`${classNameColorBackground}`}>

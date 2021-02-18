@@ -34,15 +34,22 @@ function Popup({
     <div onMouseDown={overlayClose} className={`popup ${isOpen && 'popup_opened'}`}>
       <div className={`popup__window ${isOpen && 'popup__window_opened'}`}>
         <h3 className="popup__title">{title}</h3>
-        {(isInfoTooltip && serverError) && <p className="popup__server-error popup__server-error_active">{serverError}</p> }
+        {(isInfoTooltip && serverError && isOpen) && <p className="popup__server-error popup__server-error_active">{serverError}</p> }
         {popupWithForm ? (
           <>
             <PopupForm
+              isOpen={isOpen}
               onSubmit={onSubmit}
               submitButtonDisabled={submitButtonDisabled}
               submitText={submitText}
               title={title}
               serverError={serverError}
+              classNames={{
+                popupForm: 'popup__form',
+                popupServerError: 'popup__server-error',
+                popupServerErrorActive: 'popup__server-error_active',
+                popupSubmit: 'popup__submit',
+              }}
             >
               {children}
             </PopupForm>

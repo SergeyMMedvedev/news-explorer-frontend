@@ -3,6 +3,7 @@ import React, {
   useContext,
 } from 'react';
 import './SavedNews.css';
+import '../appearAnimation/appearAnimation.css';
 import Header from '../Header/Header';
 import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader';
 import CurrentSavedCardsContext from '../../context/CurrentSavedCardsContext';

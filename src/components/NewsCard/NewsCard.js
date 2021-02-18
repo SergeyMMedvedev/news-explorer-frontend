@@ -14,7 +14,7 @@ import CurrentSavedCardsContext from '../../context/CurrentSavedCardsContext';
 import mainApi from '../../utils/MainApi';
 import getCardId from '../../utils/getCardId';
 import checkIsCardSaved from '../../utils/checkIsCardSaved';
-import defaultImage from '../../images/defaultImage.jpg';
+import { DEFAULT_IMAGE } from '../../utils/constants';
 
 function NewsCard({
   mainPage,
@@ -35,6 +35,7 @@ function NewsCard({
   const currentUser = useContext(CurrentUserContext);
   const savedNewsCards = useContext(CurrentSavedCardsContext);
   const [hintClassName, setHintClassName] = useState('newscard__button-hint');
+  const newscardRef = useRef();
 
   function handleMouseOver() {
     setHintClassName('newscard__button-hint newscard__button-hint_active');
@@ -47,11 +48,11 @@ function NewsCard({
   const [saveIconClassName, setSaveIconClassName] = useState('');
 
   function handleDelete(evt) {
+    if (!evt.currentTarget.disabled) {
+      onTrashClick(card);
+    }
     evt.currentTarget.disabled = 'true';
-    onTrashClick(card);
   }
-
-  const newscardRef = useRef();
 
   function handleSaveClick() {
     if (saveIconClassName === 'newscard__button_pressed') {
@@ -67,12 +68,12 @@ function NewsCard({
         text,
         date,
         source,
-        image,
+        image: image || DEFAULT_IMAGE,
         link: url,
       }).then(() => {
-        onBookmarkClikToSave();
-      }).catch((e) => {
-        onBookmarkClikToSave(e);
+        onBookmarkClikToSave({});
+      }).catch((error) => {
+        onBookmarkClikToSave({ error });
       });
     }
   }
@@ -91,7 +92,9 @@ function NewsCard({
 
   return (
     <li ref={newscardRef} className={`newscard ${((!card.invisible || !mainPage)) ? 'newscard_show' : ''}`}>
-      <img src={image || defaultImage} className="newscard__picture" alt={card.title} />
+      <div className="newscard__picture-container">
+        <img src={image || DEFAULT_IMAGE} className="newscard__picture" alt={`${card.title.slice(0, 16)}...`} />
+      </div>
       <a href={url} rel="noreferrer" className="newscard__info" target="_blank">
         <p className="newscard__date">{returnNewsPubDate(date)}</p>
         <p className="newscard__title">{title}</p>

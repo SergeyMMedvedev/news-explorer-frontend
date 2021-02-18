@@ -151,13 +151,17 @@ function App() {
     window.location.assign('/');
   }
 
-  function getSavedCards(error) {
+  function getSavedCards(params) {
+    const { error, setStartDisappear } = params;
     if (error) {
       setServerError(error);
       setIsOpenInfoTooltip(true);
     } else {
       mainApi.getArticles()
         .then((articles) => {
+          if (setStartDisappear) {
+            setStartDisappear(false);
+          }
           setCurrentSavedCards(articles);
         })
         .catch((e) => {
@@ -177,12 +181,9 @@ function App() {
     } = params;
     mainApi.deleteArticle(cardId)
       .then(() => {
-        getSavedCards();
+        getSavedCards({ setStartDisappear });
         if (setSaveIconClassName) {
           setSaveIconClassName(className);
-        }
-        if (setStartDisappear) {
-          setStartDisappear(false);
         }
       })
       .catch((e) => {
