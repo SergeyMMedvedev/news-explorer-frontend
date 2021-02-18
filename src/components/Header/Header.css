@@ -55,6 +55,19 @@
   background-image: url('../../images/close.svg');
 }
 
+.header__svg-extend-button_closed rect {
+  transition: rotate .3s ease-in-out,
+              transform .3s ease-in-out;
+}
+
+.header__svg-extend-button_opened rect:nth-child(1) {
+  transform: rotate(45deg) translateX(5px) translateY(-9px);
+}
+
+.header__svg-extend-button_opened rect:nth-child(2) {
+  transform: rotate(-45deg) translateX(-12px) translateY(2px);
+}
+
 .header__extend-background {
   background-color: rgb(0, 0, 0);
   opacity: 0;

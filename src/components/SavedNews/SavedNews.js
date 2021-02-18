@@ -39,12 +39,14 @@ function SavedNews({
         cards={savedNewsCards}
         disappear={startDisappear}
       />
-      <div className={`${classNameColorBackground} section savednews appearAnimationDelay`}>
-        <NewsCardList
-          cards={savedNewsCards}
-          onTrashClick={handleTrashCkick}
-          disappear={startDisappear}
-        />
+      <div className={`${classNameColorBackground}`}>
+        <div className="section savednews appearAnimationDelay">
+          <NewsCardList
+            cards={savedNewsCards}
+            onTrashClick={handleTrashCkick}
+            disappear={startDisappear}
+          />
+        </div>
       </div>
     </>
   );
