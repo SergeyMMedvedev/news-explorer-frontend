@@ -4,7 +4,6 @@ import Navigation from '../Navigation/Navigation';
 import CurrentMaxWidthContext from '../../context/CurrentMaxWidthContext';
 import CurrentUserContext from '../../context/CurrentUserContext';
 import ExtendButton from '../svg/ExtendButton';
-import ExtendButtonClose from '../svg/ExtendButtonClose';
 
 function Header({
   savedNewsPage,
@@ -45,16 +44,15 @@ function Header({
           )
           : (
             <>
-              <button type="button" onClick={handleExtend} className={`header__navigation-extend-button ${isExtend ? 'header__navigation-extend-button_open' : ''}`}>
-                {isExtend
-                  ? (
-                    <ExtendButtonClose />
-                  )
-                  : (
-                    <ExtendButton
-                      darkTheme={savedNewsPage}
-                    />
-                  )}
+              <button type="button" onClick={handleExtend} className="header__navigation-extend-button">
+                <ExtendButton
+                  isExtend={isExtend}
+                  darkTheme={savedNewsPage}
+                  classNames={{
+                    openedClass: 'header__svg-extend-button_opened',
+                    closedClass: 'header__svg-extend-button_closed',
+                  }}
+                />
               </button>
               <div
                 className={`

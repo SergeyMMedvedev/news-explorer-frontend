@@ -13,7 +13,7 @@
 }
 
 .page__newscardlist-container {
-  background-color: #f5f6f7;
+  background-color: #f1f2f3;
 }
 
 .section {
@@ -30,6 +30,19 @@
   font-weight: 400;
   margin: 0;
 }
+
+/* .svg rect{
+  transition: rotate .2s ease-in-out,
+              transform .2s ease-in-out;
+}
+
+.svg:hover rect:nth-child(1){
+  transform: rotate(45deg) translateX(5px) translateY(-8px);            
+}
+
+.svg:hover rect:nth-child(2){
+  transform: rotate(-45deg) translateX(-13px) translateY(2px);            
+} */
 
 .svg__path {
   transition: all 0.3s ease-in-out;
