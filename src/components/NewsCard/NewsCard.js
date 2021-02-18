@@ -15,6 +15,7 @@ import mainApi from '../../utils/MainApi';
 import getCardId from '../../utils/getCardId';
 import checkIsCardSaved from '../../utils/checkIsCardSaved';
 import { DEFAULT_IMAGE } from '../../utils/constants';
+import isURL from '../../utils/urlValidation';
 
 function NewsCard({
   mainPage,
@@ -68,7 +69,7 @@ function NewsCard({
         text,
         date,
         source,
-        image: image || DEFAULT_IMAGE,
+        image: (isURL(image) ? image : DEFAULT_IMAGE),
         link: url,
       }).then(() => {
         onBookmarkClikToSave({});
