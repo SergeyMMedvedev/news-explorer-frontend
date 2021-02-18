@@ -1,10 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './Footer.css';
+import '../appearAnimation/appearAnimation.css';
 
 function Footer() {
   return (
-    <div className="section footer">
+    <footer className="section footer appearAnimationDelay">
       <p className="footer__copyright">© 2020 Supersite, Powered by News API</p>
       <ul className="footer__navigation">
         <li className="footer__navigation-item">
@@ -24,7 +25,7 @@ function Footer() {
           </a>
         </li>
       </ul>
-    </div>
+    </footer>
   );
 }
 

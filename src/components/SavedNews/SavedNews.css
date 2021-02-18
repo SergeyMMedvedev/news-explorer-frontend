@@ -1,0 +1,18 @@
+.savednews {
+  padding-top: 46px;
+  padding-bottom: 62px;
+  opacity: 0;
+}
+
+@media (max-width: 1023px) {
+  .savednews {
+    padding-top: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .savednews {
+    padding-top: 14px;
+    padding-bottom: 24px;
+  }
+}

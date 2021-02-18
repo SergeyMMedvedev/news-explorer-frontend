@@ -1,18 +1,4 @@
 .newscardlist {
-  padding-top: 80px;
-  padding-bottom: 80px;
-}
-
-.newscardlist_saved {
-  padding-top: 46px;
-  padding-bottom: 62px;
-}
-
-.newscardlist__title {
-  margin: 0 0 48px 0;
-}
-
-.newscardlist__elements {
   list-style: none;
   padding: 0;
   margin: 0 auto;
@@ -23,117 +9,27 @@
   justify-content: center;
 }
 
-.newscardlist__show-more-button {
-  font-family: 'Roboto', Arial, sans-serif;
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 1.33;
-  color: #1a1b22;
-  display: block;
-  margin: 64px auto 0 auto;
-  width: 288px;
-  height: 64px;
-  border: none;
-  border-radius: 32px;
-  background-color: #fff;
-  transition: opacity .2s ease-in-out,
-              box-shadow .2s ease-in-out;
-}
-
-.newscardlist__show-more-button:hover {
-  opacity: 0.9;
-  cursor: url('../../images/ponter.svg'), default;
-  box-shadow: 0px 5px 15px rgba(14, 26, 57, 0.2);
-}
-
-.newscardlist__show-more-button:focus {
-  outline: none;
-}
-
-.newscardlist__not-found-picture {
-  background-image: url('../../images/not-found_v1.svg');
-  width: 96px;
-  height: 96px;
-  margin: 0 auto;
-}
-
-.newscardlist__not-found-title {
-  font-family: 'RobotoSlab', Arial, sans-serif;
-  font-size: 26px;
-  line-height: 1.15;
-  color: #1a1b22;
-  margin: 30px auto 0 auto;
-  width: fit-content;
-}
-
-.newscardlist__not-found-text {
-  font-family: 'Roboto', Arial, sans-serif;
-  font-size: 18px;
-  line-height: 1.33;
-  color: #b6bcbf;
-  margin: 16px auto 0 auto;
-  max-width: 356px;
-  text-align: center;
-}
 
 @media (max-width: 1439px) {
-  .newscardlist__elements {
+  .newscardlist {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
 @media (max-width: 1023px) {
   .newscardlist {
-    padding-top: 40px;
-    padding-bottom: 40px;
-  }
-
-  .newscardlist_saved {
-    padding-top: 28px;
-  }
-
-  .newscardlist__elements {
     grid-column-gap: 8px;
-  }
-
-  .newscardlist__title {
-    margin-bottom: 24px;
-  }
-
-  .newscardlist__show-more-button {
-    margin-top: 32px;
-    height: 56px;
-    width: 240px;
   }
 }
 
 @media (max-width: 767px) {
-  .newscardlist__elements {
+  .newscardlist {
     grid-template-columns: repeat(auto-fit, 288px);
   }
 }
 
 @media (max-width: 480px) {
   .newscardlist {
-    padding-top: 32px;
-    padding-bottom: 32px;
-  }
-
-  .newscardlist_saved {
-    padding-top: 14px;
-    padding-bottom: 24px;
-  }
-
-  .newscardlist__title {
-    margin-bottom: 14px;
-  }
-
-  .newscardlist__elements {
     grid-column-gap: 10px;
-  }
-
-  .newscardlist__show-more-button {
-    margin-top: 15px;
-    width: 100%;
   }
 }

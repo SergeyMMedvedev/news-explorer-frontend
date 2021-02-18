@@ -21,7 +21,7 @@
 }
 
 .appearAnimationDelay {
-  animation: appear .5s .4s ease-out forwards 1 running;
+  animation: appear .5s .1s ease-out forwards 1 running;
 }
 
 .disappearAnimation {

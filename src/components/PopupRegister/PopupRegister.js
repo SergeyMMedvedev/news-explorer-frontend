@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './PopupRegister.css';
+import '../appearAnimation/appearAnimation.css';
 import Popup from '../Popup/Popup';
 
 function PopupRegister({
@@ -7,7 +8,10 @@ function PopupRegister({
   onClose,
   onSwitchPopupClick,
   onSubmit,
+  serverError,
+  setServerError,
 }) {
+  const [inputDisabled, setInputDisabled] = useState(false);
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
   const [password, setPassword] = useState('');
@@ -18,20 +22,29 @@ function PopupRegister({
   function handleEmailChange(e) {
     setEmail(e.target.value);
     setEmailError(e.target.validationMessage);
+    setServerError('');
   }
 
   function handlePasswordChange(e) {
     setPassword(e.target.value);
     setPasswordError(e.target.validationMessage);
+    setServerError('');
   }
 
   function handleNameChange(e) {
     setName(e.target.value);
     setNameError(e.target.validationMessage);
+    setServerError('');
   }
 
-  function handleSubmit() {
-    onSubmit();
+  function handleSubmit(disabled) {
+    setInputDisabled(disabled);
+    onSubmit(email, password, name, () => {
+      setEmail('');
+      setPassword('');
+      setName('');
+      setServerError('');
+    });
   }
 
   function handleClose() {
@@ -43,8 +56,13 @@ function PopupRegister({
       setPasswordError('');
       setName('');
       setNameError('');
-    }, 400);
+      setServerError('');
+    }, 300);
   }
+
+  useEffect(() => {
+    setInputDisabled(false);
+  }, [isOpen, serverError]);
 
   return (
     <Popup
@@ -56,9 +74,8 @@ function PopupRegister({
       onSwitchPopupClick={onSwitchPopupClick}
       onSubmit={handleSubmit}
       submitText="Зарегистрироваться"
-      submitButtonDisabled={
-        emailError || passwordError || nameError || (!email || !password || !name)
-      }
+      submitButtonDisabled={Boolean(serverError || emailError || passwordError || nameError || (!email || !password || !name))}
+      serverError={serverError}
     >
       <label htmlFor="register-email" className="popup__label">
         Email
@@ -72,9 +89,19 @@ function PopupRegister({
           onChange={handleEmailChange}
           maxLength="30"
           required
+          disabled={inputDisabled}
         />
       </label>
-      <span id="register-email-error" className={`popup__input-error ${isOpen && 'popup__input-error_active'}`}>{emailError}</span>
+      <span
+        id="register-email-error"
+        className={
+          `popup__input-error  
+          ${isOpen ? 'popup__input-error_active' : ''}
+          ${emailError ? 'appearAnimation' : ''}`
+        }
+      >
+        {emailError}
+      </span>
       <label htmlFor="register-password" className="popup__label">
         Пароль
         <input
@@ -86,10 +113,21 @@ function PopupRegister({
           name="password"
           onChange={handlePasswordChange}
           minLength="8"
+          autoComplete="on"
           required
+          disabled={inputDisabled}
         />
       </label>
-      <span id="register-password-error" className={`popup__input-error ${isOpen && 'popup__input-error_active'}`}>{passwordError}</span>
+      <span
+        id="register-password-error"
+        className={
+          `popup__input-error  
+          ${isOpen ? 'popup__input-error_active' : ''}
+          ${passwordError ? 'appearAnimation' : ''}`
+        }
+      >
+        {passwordError}
+      </span>
       <label htmlFor="register-name" className="popup__label">
         Имя
         <input
@@ -103,9 +141,19 @@ function PopupRegister({
           minLength="2"
           maxLength="30"
           required
+          disabled={inputDisabled}
         />
       </label>
-      <span id="register-name-error" className={`popup__input-error ${isOpen && 'popup__input-error_active'}`}>{nameError}</span>
+      <span
+        id="register-name-error"
+        className={
+          `popup__input-error  
+          ${isOpen ? 'popup__input-error_active' : ''}
+          ${nameError ? 'appearAnimation' : ''}`
+          }
+      >
+        {nameError}
+      </span>
     </Popup>
   );
 }

@@ -2,7 +2,7 @@ const monthNames = ['января', 'февраля', 'марта', 'апрел�
   'июля', 'авгута', 'сентября', 'октября', 'ноября', 'декабря'];
 
 function returnNewsPubDate(date) {
-  return `${date.getDay()} ${monthNames[date.getMonth()]}, ${date.getFullYear()}`;
+  return `${date.getDate()} ${monthNames[date.getMonth()]}, ${date.getFullYear()}`;
 }
 
 export default returnNewsPubDate;

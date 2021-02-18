@@ -1,27 +1,30 @@
-import React, { useState } from 'react';
+import React, {
+  useState,
+  useContext,
+} from 'react';
 import './SavedNews.css';
+import '../appearAnimation/appearAnimation.css';
 import Header from '../Header/Header';
 import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader';
+import CurrentSavedCardsContext from '../../context/CurrentSavedCardsContext';
+import getCardId from '../../utils/getCardId';
 import NewsCardList from '../NewsCardList/NewsCardList';
 
 function SavedNews({
   savedNewsPage,
   onLoginClick,
-  cards,
   isPopupOpen,
   onLogoutClick,
   classNameColorBackground,
+  onTrashClick,
 }) {
-  const [savedNewsCards, setSavedNewsCards] = useState(cards);
+  const savedNewsCards = useContext(CurrentSavedCardsContext);
   const [startDisappear, setStartDisappear] = useState(false);
 
-  function handleNewsCardDelete(card) {
+  function handleTrashCkick(card) {
     setStartDisappear(true);
-    setTimeout(() => {
-      savedNewsCards.splice(savedNewsCards.indexOf(card), 1);
-      setSavedNewsCards(savedNewsCards);
-      setStartDisappear(false);
-    }, 400);
+    const cardId = getCardId(savedNewsCards, card);
+    onTrashClick({ cardId, setStartDisappear });
   }
 
   return (
@@ -36,10 +39,10 @@ function SavedNews({
         cards={savedNewsCards}
         disappear={startDisappear}
       />
-      <div className={classNameColorBackground}>
+      <div className={`${classNameColorBackground} section savednews appearAnimationDelay`}>
         <NewsCardList
           cards={savedNewsCards}
-          onDelete={handleNewsCardDelete}
+          onTrashClick={handleTrashCkick}
           disappear={startDisappear}
         />
       </div>
