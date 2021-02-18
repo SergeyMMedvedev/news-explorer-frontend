@@ -8,16 +8,27 @@ function About() {
     <section className="section about appearAnimationDelay">
       <img className="about__image" src={myImage} alt="Сергей Медведев" />
       <div className="about__info-container">
-        <h2 className="about__title section-title">Сергей</h2>
+        <h2 className="about__title section-title">Приветствую!</h2>
         <p className="about__text">
-          Приветствую! Меня зовут Сергей Медведев. Я студент Яндекс.Практикума.
+          Меня зовут Сергей Медведев. Я начинающий разработчкик.
         </p>
         <p className="about__text">
-          В процессе обучения мною были приобретены необходимые навыки для веб-разработки:
-          изучены HTML, CSS и JavaScript,
-          методология БЭМ,
-          библиотека React, система управления версиями Git,
-          основы бэк-енда для настройки сервера с помощью Nginx и Node.js.
+          Я окончил курсы &ldquo;веб-разработчик&ldquo; и &ldquo;python-разработчик&ldquo; от Яндекс.Практикума.
+          В процессе прохождения курса веб-разработки приобрел следующие навыки:
+          <ul>
+            <li>HTML, CSS и JavaScript;</li>
+            <li>методология БЭМ, адаптивная верстка;</li>
+            <li>библиотека React;</li>
+            <li>система управления версиями Git;</li>
+            <li>фреймворк Express для бэк-енда.</li>
+          </ul>
+          В процессе прохождения курса python-разработки изучил:
+          <ul>
+            <li>Django;</li>
+            <li>Django REST framwork, работа с внешними API;</li>
+            <li>Алгоритмы и структуры данных;</li>
+            <li>Инфраструктура бэкенд разработки - Docker, NGINX, Gunicorn, основы DevOps и CI, workflow и Git Actions.</li>
+          </ul>
         </p>
       </div>
     </section>
