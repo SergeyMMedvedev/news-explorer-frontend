@@ -8,7 +8,7 @@
 [![CSS](https://img.shields.io/badge/-CSS-464646??style=flat-square&logo=css3)](https://www.w3.org/Style/CSS/specs.ru.html)
 [![HTML](https://img.shields.io/badge/-HTML-464646??style=flat-square&logo=HTML5)](https://www.w3.org/TR/html52/introduction.html#introduction)
 
-Проект **news-explorer-frontend** предсталяет собой фронтенд проекта [**news-explorer**](https://www.sm2-news-explorer.students.nomoredomains.icu).
+Проект **news-explorer-frontend** предсталяет собой фронтенд проекта [**news-explorer**](https:/sm2-news-explorer.nomoredomains.rocks).
 Фронтенд сделан с использованием библиотеки React. 
 
 
@@ -51,6 +51,6 @@ npm run deploy
 
 **Адреса сайта:**
 * Фронтенд:
-https://sm2-news-explorer.students.nomoredomains.icu
+https://sm2-news-explorer.nomoredomains.rocks
 * Бэкенд:
-https://api.sm2-news-explorer.students.nomoredomains.icu
+https://api.sm2-news-explorer.nomoredomains.rocks
